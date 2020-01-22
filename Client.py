@@ -8,12 +8,11 @@ from pathlib import Path
 from Format import ListFormat, Sorter
 
 __author__ = "Caleb A. Smith"
-__copyrightLine__ = "Copyright (c) 2019, BMI. All Rights Reserved."
-__credits__ = ["Caleb A. Smith"]
-__license__ = "Custom"
+__copyrightLine__ = "Copyright (c) 2019, Caleb A. Smith. All Rights Reserved."
+__credits__ = "Caleb A. Smith
+__license__ = "BSD"
 __version__ = "0.1.0"
-__maintainer__ = "Benefit Management, Inc."
-__email__ = ["calebsmitty777@gmail.com", "caleb@gotobmi.com"]
+__email__ = "calebsmitty777@gmail.com"
 __stage__ = "Alpha"
 __status__ = "In Development"
 
@@ -23,7 +22,7 @@ class MyFrame(wx.Frame):
     # Default Constructor
     def __init__(self):
         super(MyFrame, self).__init__(
-            parent=None, title=f'BMI IT Support Ticket Client',
+            parent=None, title=f'Support Ticket Client',
             size=(670, 540), style=wx.DEFAULT_FRAME_STYLE | wx.RESIZE_BORDER)
 
         # Set up panel and status bar
