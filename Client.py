@@ -361,5 +361,4 @@ class MyFrame(wx.Frame):
 if __name__ == '__main__':
     app = wx.App()
     frame = MyFrame()
-    frame.SetIcon(wx.Icon(rf'{Path.home()}\AppData\Local\BMISupportClient\icon.ico'))
     app.MainLoop()
