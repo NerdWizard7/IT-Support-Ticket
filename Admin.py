@@ -7,12 +7,11 @@ from pathlib import Path
 from Format import ListFormat, Sorter
 
 __author__ = "Caleb A. Smith"
-__copyrightLine__ = "Copyright (c) 2019, BMI. All Rights Reserved."
-__credits__ = ["Caleb A. Smith"]
-__license__ = "Custom"
+__copyrightLine__ = "Copyright (c) 2019, Caleb A. Smith. All Rights Reserved."
+__credits__ = "Caleb A. Smith
+__license__ = "BSD"
 __version__ = "0.1.0"
-__maintainer__ = "Benefit Management, Inc."
-__email__ = ["calebsmitty777@gmail.com", "caleb@gotobmi.com"]
+__email__ = "calebsmitty777@gmail.com"
 __stage__ = "Alpha"
 __status__ = "In Development"
 
@@ -20,7 +19,7 @@ class MyFrame(wx.Frame):
     # Default Constructor
     def __init__(self):
         super(MyFrame, self).__init__(
-            size=(870, 520), parent=None, title=f'BMI IT Support Ticket Administration')
+            size=(870, 520), parent=None, title=f'Support Ticket Administration')
 
         self.sortFlag = False
 
@@ -291,5 +290,4 @@ class MyFrame(wx.Frame):
 if __name__ == '__main__':
     app = wx.App()
     frame = MyFrame()
-    frame.SetIcon(wx.Icon(rf'{Path.home()}\AppData\Local\BMISupportClient\icon.ico'))
     app.MainLoop()
