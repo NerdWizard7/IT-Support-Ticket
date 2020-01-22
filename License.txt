@@ -1,8 +1,8 @@
 Copyright (c) 2019, BMI. All Rights Reserved.
 
-This software was developed by Caleb A. Smith, and is being maintained by Benefit Management, Inc.
+This software was developed by Caleb A. Smith.
 Redistribution of this software or it's source code for use outside of the organization without 
-the written consent of BMI is strictly prohibited.
+the written consent of the author is strictly prohibited.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -17,4 +17,4 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 The views and conclusions contained in the software and documentation are those
 of the authors and should not be interpreted as representing official policies,
-either expressed or implied, of Benefit Management, Inc.
+either expressed or implied, of the project.
