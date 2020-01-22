@@ -8,7 +8,7 @@ from Format import ListFormat, Sorter
 
 __author__ = "Caleb A. Smith"
 __copyrightLine__ = "Copyright (c) 2019, Caleb A. Smith. All Rights Reserved."
-__credits__ = "Caleb A. Smith
+__credits__ = "Caleb A. Smith"
 __license__ = "BSD"
 __version__ = "0.1.0"
 __email__ = "calebsmitty777@gmail.com"
