@@ -2,17 +2,27 @@ import pymysql
 import traceback
 from pathlib import Path
 import os
+import sys
 
-dir = rf'{Path.home()}\AppData\Local\BMISupportClient'
+platform = sys.platform  # Set platform to the string value returned by sys.platform (win32, darwin, linux, cigwin)
+
+# OS detection logic
+if platform == 'win32':  # Computer is a windows machine
+    dir = rf'{Path.home()}\AppData\Local\ITSupportClient'  # Store config files in AppData\Local\...
+    filePath = rf'{dir}\dbconfig.cfg'  # Set the filepath with a \ for windows
+else:  # Computer is a unix or macOS machine
+    dir = rf'{Path.home()}/ITSupportClient'  # Store config files in user's home directory
+    filePath = rf'{dir}/dbconfig.cfg'  # Set the filepath with a / for macOS / Unix
 
 class DBManager():
     # Gets all of the db settings from the dbconfig.cfg file. This is called when the program loads
     @staticmethod
     def load():
         global dir
-        if os.path.isdir(dir) and os.path.isfile(rf'{dir}\dbconfig.cfg'):  # If the directory exists...
-            if os.stat(rf'{dir}\dbconfig.cfg').st_size > 0:
-                with open(rf'{dir}\dbconfig.cfg') as file:  # Open the config file
+        global filePath
+        if os.path.isdir(dir) and os.path.isfile(filePath):  # If the directory exists...
+            if os.stat(filePath).st_size > 0:
+                with open(filePath) as file:  # Open the config file
                     data = []  # Make data list
                     [data.append(line) for line in file]  # Append each line in the file to the list
                     data = [x.strip() for x in data]  # Strip the newline characters
@@ -25,7 +35,7 @@ class DBManager():
                 os.makedirs(dir)  # Make the path
             except:  # Path existed, but file didn't
                 print('Path existed, making file')
-            newfile = open(rf'{dir}\dbconfig.cfg', 'w')  # Create the config file
+            newfile = open(filePath, 'w')  # Create the config file
             newfile.close()
             data = ['','','','']
             return data  # Return the list
@@ -34,8 +44,9 @@ class DBManager():
     @staticmethod
     def save(host, user, passwd, db):
         global dir
-        dir = rf'{Path.home()}\AppData\Local\BMISupportClient'
-        with open(rf'{dir}\dbconfig.cfg', 'w+') as file:  # Open the config file
+        global filePath
+        #dir = rf'{Path.home()}\AppData\Local\BMISupportClient'
+        with open(filePath, 'w+') as file:  # Open the config file
             data = [host, user, passwd, db]  # Create data list full of db settings
             file.truncate()  # Truncate existing file
             for item in data:  # For each item in data list (host, user, passwd, and db)
@@ -128,6 +139,7 @@ class Query:
             return result
         except Exception as err:
             print(traceback.format_exc())
+            print(err)
             return 1
 
     # Static method to update an existing database record
@@ -146,4 +158,5 @@ class Query:
             return 0
         except Exception as err:
             print(traceback.format_exc())
+            print(err)
             return 1
