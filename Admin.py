@@ -15,10 +15,10 @@ __email__ = "calebsmitty777@gmail.com"
 __stage__ = "Alpha"
 __status__ = "In Development"
 
-class MyFrame(wx.Frame):
+class AdminFrame(wx.Frame):
     # Default Constructor
     def __init__(self):
-        super(MyFrame, self).__init__(
+        super(AdminFrame, self).__init__(
             size=(870, 520), parent=None, title=f'Support Ticket Administration')
 
         self.sortFlag = False
@@ -289,5 +289,5 @@ class MyFrame(wx.Frame):
 # Main function. Runs the program loop
 if __name__ == '__main__':
     app = wx.App()
-    frame = MyFrame()
+    frame = AdminFrame()
     app.MainLoop()

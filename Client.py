@@ -18,10 +18,10 @@ __status__ = "In Development"
 
 HIDDEN = False
 
-class MyFrame(wx.Frame):
+class ClientFrame(wx.Frame):
     # Default Constructor
     def __init__(self):
-        super(MyFrame, self).__init__(
+        super(ClientFrame, self).__init__(
             parent=None, title=f'Support Ticket Client',
             size=(670, 540), style=wx.DEFAULT_FRAME_STYLE | wx.RESIZE_BORDER)
 
@@ -360,5 +360,5 @@ class MyFrame(wx.Frame):
 
 if __name__ == '__main__':
     app = wx.App()
-    frame = MyFrame()
+    frame = ClientFrame()
     app.MainLoop()
