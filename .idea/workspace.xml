@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f242de5d-a7ca-47d2-b87d-9abc89c05299" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Menus.py" beforeDir="false" afterPath="$PROJECT_DIR$/Menus.py" afterDir="false" />
-    </list>
+    <list default="true" id="f242de5d-a7ca-47d2-b87d-9abc89c05299" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,6 +35,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -149,12 +143,20 @@
       <option name="project" value="LOCAL" />
       <updated>1581653257759</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Moved Admin and Client to Menus file, and added Main.py">
+      <created>1581717462285</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1581717462285</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added Main.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Main.py" />
+    <MESSAGE value="Moved Admin and Client to Menus file, and added Main.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Moved Admin and Client to Menus file, and added Main.py" />
   </component>
   <component name="WindowStateProjectService">
     <state x="679" y="139" key="#Client" timestamp="1581569191431">
@@ -165,9 +167,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="716" y="327" key="#com.intellij.fileTypes.FileTypeChooser/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1581564234258" />
-    <state x="614" y="119" key="CommitChangelistDialog2" timestamp="1581569856870">
+    <state x="614" y="119" key="CommitChangelistDialog2" timestamp="1581717460460">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
+    <state x="614" y="119" key="CommitChangelistDialog2/0.0.1920.1050/1920.0.1440.870@0.0.1920.1050" timestamp="1581717460460" />
     <state x="614" y="119" key="CommitChangelistDialog2/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1581569856870" />
     <state x="740" y="279" key="FileChooserDialogImpl" timestamp="1581565882152">
       <screen x="0" y="0" width="1920" height="1050" />
@@ -198,6 +201,10 @@
     </state>
     <state x="461" y="167" key="SettingsEditor/0.0.1920.1050/1920.0.1440.870@0.0.1920.1050" timestamp="1581710480606" />
     <state x="461" y="167" key="SettingsEditor/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1581569208458" />
+    <state x="552" y="259" key="Vcs.Push.Dialog.v2" timestamp="1581717643001">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="552" y="259" key="Vcs.Push.Dialog.v2/0.0.1920.1050/1920.0.1440.870@0.0.1920.1050" timestamp="1581717643000" />
     <state x="655" y="348" key="com.intellij.ide.util.TipDialog" timestamp="1581620901700">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
