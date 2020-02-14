@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f242de5d-a7ca-47d2-b87d-9abc89c05299" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/IT-Support-Ticket.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/IT-Support-Ticket.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Admin.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/Admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client.py" beforeDir="false" afterPath="$PROJECT_DIR$/Client.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +18,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="MERGE" />
   </component>
   <component name="ProjectConfigurationFiles">
     <option name="files">
@@ -141,7 +135,19 @@
       <option name="presentableId" value="Default" />
       <updated>1579880781711</updated>
     </task>
+    <task id="LOCAL-00001" summary="Added Main.py">
+      <created>1581653257759</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1581653257759</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added Main.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Main.py" />
   </component>
   <component name="WindowStateProjectService">
     <state x="679" y="139" key="#Client" timestamp="1581569191431">
@@ -160,22 +166,22 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="740" y="279" key="FileChooserDialogImpl/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1581565882152" />
-    <state width="1899" height="285" key="GridCell.Tab.0.bottom" timestamp="1581638589721">
+    <state width="1899" height="285" key="GridCell.Tab.0.bottom" timestamp="1581653417430">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1899" height="285" key="GridCell.Tab.0.bottom/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1581638589721" />
-    <state width="1899" height="285" key="GridCell.Tab.0.center" timestamp="1581638589721">
+    <state width="1899" height="285" key="GridCell.Tab.0.bottom/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1581653417430" />
+    <state width="1899" height="285" key="GridCell.Tab.0.center" timestamp="1581653417429">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1899" height="285" key="GridCell.Tab.0.center/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1581638589721" />
-    <state width="1899" height="285" key="GridCell.Tab.0.left" timestamp="1581638589721">
+    <state width="1899" height="285" key="GridCell.Tab.0.center/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1581653417429" />
+    <state width="1899" height="285" key="GridCell.Tab.0.left" timestamp="1581653417429">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1899" height="285" key="GridCell.Tab.0.left/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1581638589721" />
-    <state width="1899" height="285" key="GridCell.Tab.0.right" timestamp="1581638589721">
+    <state width="1899" height="285" key="GridCell.Tab.0.left/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1581653417429" />
+    <state width="1899" height="285" key="GridCell.Tab.0.right" timestamp="1581653417429">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1899" height="285" key="GridCell.Tab.0.right/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1581638589721" />
+    <state width="1899" height="285" key="GridCell.Tab.0.right/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1581653417429" />
     <state x="461" y="167" key="SettingsEditor" timestamp="1581569208458">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -184,5 +190,9 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="655" y="348" key="com.intellij.ide.util.TipDialog/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1581620901700" />
+    <state x="769" y="441" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1581653408695">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="769" y="441" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1581653408695" />
   </component>
 </project>
