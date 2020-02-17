@@ -19,7 +19,6 @@ class ClientFrame(wx.Frame):
 
         # Set up panel and status bar
         panel = wx.Panel(self, wx.ID_ANY)
-        self.CreateStatusBar()
 
         # Setup menu
         menuBar = wx.MenuBar()
