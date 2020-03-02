@@ -63,6 +63,9 @@ DB = data[3]
 # ---------------------------
 
 class Query:
+
+    # TODO: Restructure all of these methods to fit the new database design
+
     # The following methods are responsible for creating the actual connection to the SQL server.
     # Each one of these methods does a slightly different thing. The genericQuery method can be
     # used for pretty much all of them, but some of them have special return types for error checking,

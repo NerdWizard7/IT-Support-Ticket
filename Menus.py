@@ -9,6 +9,8 @@ from Format import ListFormat, Sorter
 import getpass
 
 HIDDEN = False
+# TODO: Rework the refresh functions in this file to work with the new database design
+
 
 class ClientFrame(wx.Frame):
     # Default Constructor

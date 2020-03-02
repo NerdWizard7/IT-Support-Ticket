@@ -8,7 +8,7 @@ class AdminLogin(wx.Panel):
         sizer = wx.BoxSizer(wx.VERTICAL)
 
         self.userNameTextCtrl = wx.TextCtrl(self, -1, size=(300, 20))
-        self.passwdTxtCtrl = wx.TextCtrl(self, -1, size=(300, 20))
+        self.passwdTxtCtrl = wx.TextCtrl(self, -1, size=(300, 20), style=wx.TE_PASSWORD)
 
         self.loginButton = wx.Button(self, 20, 'Login')
         self.Bind(wx.EVT_BUTTON, parent.button_OnClick, self.loginButton)
@@ -30,7 +30,7 @@ class ClientLogin(wx.Panel):
         sizer = wx.BoxSizer(wx.VERTICAL)
 
         self.userNameTextCtrl = wx.TextCtrl(self, -1, size=(300, 20))
-        self.passwdTxtCtrl = wx.TextCtrl(self, -1, size=(300, 20))
+        self.passwdTxtCtrl = wx.TextCtrl(self, -1, size=(300, 20), style=wx.TE_PASSWORD)
 
         self.loginButton = wx.Button(self, 10, 'Login')
         self.Bind(wx.EVT_BUTTON, parent.button_OnClick, self.loginButton)
