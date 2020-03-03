@@ -178,6 +178,7 @@ class ClientFrame(wx.Frame):
 
     # Called every time the list needs refreshed
     def refreshDB(self):
+        # TODO: This method will need fixed
         query = Query()
         # Make the query, getting only entries from current user
         historyList = query.selectUser(getpass.getuser().upper())
@@ -251,9 +252,10 @@ class ClientFrame(wx.Frame):
         db = DBManager
         schema = db.load()[3]  # Grab schema name from static load method in DBManager
         # Write SQL
-        sql = "SELECT ID, Name, Date, Category, Priority, Status, Hidden " \
-              f"FROM {schema}.requests " \
-              "WHERE Hidden = 0"
+        sql = "SELECT ticketId, User.username, submitDate, category, priority, jobStatus, isHidden " \
+              f"FROM {schema}.Support_Ticket " \
+              "INNER JOIN User ON Support_Ticket.submitterId=User.userId " \
+              "WHERE isHidden = 0"
         # Create a QueueViewer object called win, passing it sql code (QueueViewer handles its own SQL queries)
         win = QueueViewer(self, 'Full Job Queue', sql,
                           pos=wx.DefaultPosition, size=(595, 450),
@@ -266,11 +268,14 @@ class ClientFrame(wx.Frame):
         db = DBManager
         schema = db.load()[3]  # Get schema name from static load method in DBManager
         # Write SQL
-        sql = "SELECT ID, Name, Date, Category, Priority, Status, Hidden " \
-              f"FROM {schema}.requests " \
-              "WHERE Hidden = 0 " \
-              "AND Status = 'Completed' " \
-              f"AND Name = '{getpass.getuser().upper()}'"
+        sql = "SELECT ticketId, User.username, submitDate, category, priority, jobStatus, isHidden " \
+              f"FROM {schema}.Support_Ticket " \
+              "INNER JOIN User ON Support_Ticket.submitterId=User.userId " \
+              "WHERE isHidden = 0 " \
+              "AND isComplete = 1 " \
+              f"AND username = '{getpass.getuser().upper()}'"
+        # TODO: Fix this to work with accounts. Need a way to remember who is logged in.
+
         print(sql)  # Print SQL code to console (for debugging)
         # Create a QueueViewer object, and pass it SQL code
         win = QueueViewer(self, 'Completed Jobs', sql,
@@ -316,6 +321,7 @@ class ClientFrame(wx.Frame):
         schema = db.load()[3]  # Grab the schema name from the static load method in DBManager
         if self.formValidate() == 0:  # If formValidate returns an exit code of 0 (form checks out)...
             # SQL Query to create a new row with ticket data
+            # TODO: Change this to insert into Support_Ticket table and Description Table
             sql = f"INSERT INTO {schema}.requests (Name, Date, Category, Description, Priority, Status, Hidden) " \
                   "VALUES (%s, %s, %s, %s, %s, %s, %s)"
             # Set up values to be added to the database
@@ -488,9 +494,10 @@ class AdminFrame(wx.Frame):
         schema = db.load()[3]  # Call static load method in DBManager, and get the schema name
         query = Query()
         # Write SQL
-        sql = "SELECT ID, Name, Date, Category, Priority, Status, Hidden " \
-              f"FROM {schema}.requests " \
-              "WHERE Status != 'Completed'"
+        sql = "SELECT ticketId, User.username, submitDate, category, priority, jobStatus, isHidden " \
+              f"FROM {schema}.Support_Ticket " \
+              "INNER JOIN User ON Support_Ticket.submitterId=User.userId " \
+              "WHERE isComplete = 0"
         result = query.genericQuery(sql, False)  # Make the query and store the result
         ListFormat.listwriter(self, result)
 
@@ -506,9 +513,10 @@ class AdminFrame(wx.Frame):
         db = DBManager
         schema = db.load()[3]  # Get schema name from static load method in DBManager
         # Write SQL
-        sql = "SELECT ID, Name, Date, Category, Priority, Status, Hidden " \
-              f"FROM {schema}.requests " \
-              "WHERE Status = 'Completed';"
+        sql = "SELECT ticketId, User.username, submitDate, category, priority, jobStatus, isHidden " \
+              f"FROM {schema}.Support_Ticket " \
+              "INNER JOIN User ON Support_Ticket.submitterId=User.userId " \
+              "WHERE isComplete = 1"
         print(sql)  # Print SQL code to console (for debugging)
         # Create a QueueViewer object, and pass it SQL code
         win = QueueViewer(self, 'Completed Jobs', sql,
@@ -551,9 +559,9 @@ class AdminFrame(wx.Frame):
 
         # Set up values for the update method in Query class
         query = Query()
-        dbname = f'{schema}.requests'
-        set = f"Priority = '{priority}', Status = '{status}'"
-        cond = f"ID = {id}"
+        dbname = f'{schema}.Support_Ticket'
+        set = f"priority = '{priority}', jobStatus = '{status}'"
+        cond = f"ticketId = {id}"
 
         if query.updateTable(dbname, set, cond) == 0:  # Make the query and perform logic on return value
             msg = wx.MessageBox('Support request record was updated successfully.', 'Success')
@@ -792,9 +800,9 @@ class NotesEditor(wx.MiniFrame):
         db = DBManager
         schema = db.load()[3]
         query = Query()
-        sql = f"SELECT Notes " \
-              f"FROM {schema}.notes " \
-              f"WHERE ID = {id}"
+        sql = f"SELECT text " \
+              f"FROM {schema}.Note " \
+              f"WHERE ticketId = {id}"
         try:
             result = query.genericQuery(sql, False)
             return json.loads(result[0][0])
@@ -820,7 +828,7 @@ class NotesEditor(wx.MiniFrame):
         # If logic to determine if this is a new note or not
         if self.overwrite == False:  # If it is a new note...
             # SQL
-            sql = f"INSERT INTO {schema}.notes " \
+            sql = f"INSERT INTO {schema}.Note " \
                   f"VALUES (%s, %s)"
             val = (f"{self.id}", f"{json.dumps(text)}")  # Values to be inserted
             if query.insertData(sql, val, False) == 0:  # Make query
@@ -830,9 +838,9 @@ class NotesEditor(wx.MiniFrame):
                                     'Error')
         else:  # Not a new note
             # Set up conditions for the update method in Query class
-            condition = f"ID = {self.id}"
-            set = f"Notes = '{json.dumps(text)}'"
-            dbname = f'{schema}.notes'
+            condition = f"ticketId = {self.id}"
+            set = f"text = '{json.dumps(text)}'"
+            dbname = f'{schema}.Note'
             if query.updateTable(dbname, set, condition) == 0:  # Make the query
                 msg = wx.MessageBox('Notes Updated Successcully!', 'Success!')
             else:

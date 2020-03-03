@@ -126,11 +126,13 @@ class Query:
 
     # Static method to make a generic SQL query. You can pass this any SQL and it will run it
     @staticmethod
+    # TODO: This method can likely stay the same. All others need changed.
     def genericQuery(sql, multi):
         try:
             mydb = pymysql.connect(host=HOSTNAME, user=USER, passwd=PASSWD)
             with mydb:
                 mycursor = mydb.cursor()
+                mycursor.execute('USE group4;')
                 if multi:
                     mycursor.execute(sql, True)
                 else:
@@ -139,6 +141,7 @@ class Query:
                 mydb.commit()
                 mycursor.close()
             mydb.close()
+            print(result)
             return result
         except Exception as err:
             print(traceback.format_exc())
