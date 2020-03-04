@@ -14,13 +14,15 @@ HIDDEN = False
 
 class ClientFrame(wx.Frame):
     # Default Constructor
-    def __init__(self):
+    def __init__(self, userId):
         super(ClientFrame, self).__init__(
             parent=None, title=f'Support Ticket Client',
             size=(670, 540), style=wx.DEFAULT_FRAME_STYLE | wx.RESIZE_BORDER)
 
         # Set up panel and status bar
         panel = wx.Panel(self, wx.ID_ANY)
+
+        self.userId = userId
 
         # Setup menu
         menuBar = wx.MenuBar()
@@ -71,7 +73,7 @@ class ClientFrame(wx.Frame):
 
         # Type choice
         typeBox = wx.BoxSizer(wx.VERTICAL)
-        typeList = ['Hardware', 'Software', 'Access','Other']
+        typeList = ['Hardware', 'Software', 'Access', 'Other']
         typeLabel = wx.StaticText(panel, -1, pos=(150, 10))
         typeLabel.SetLabel('Request Category:')
         self.typeCombo = wx.ComboBox(panel, -1, pos=(150, 30), size=(100, 20))
@@ -364,11 +366,13 @@ if __name__ == '__main__':
 
 class AdminFrame(wx.Frame):
     # Default Constructor
-    def __init__(self):
+    def __init__(self, userId):
         super(AdminFrame, self).__init__(
             size=(870, 520), parent=None, title=f'Support Ticket Administration')
 
         self.sortFlag = False
+
+        self.userId = userId
 
         # Set up panel and status bar
         panel = wx.Panel(self, wx.ID_ANY)

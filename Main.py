@@ -51,12 +51,12 @@ class MainApp(wx.Frame):
         elif btn == 'Login':
             if id == 10:
                 print('Client')
-                win = ClientFrame()
+                win = ClientFrame(self.userId)
                 win.Show()
                 self.Close()
             elif id == 20:
                 print('Admin')
-                win = AdminFrame()
+                win = AdminFrame(self.userId)
                 win.Show()
                 self.Close()
 
