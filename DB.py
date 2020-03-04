@@ -116,7 +116,7 @@ class Query:
         mydb = pymysql.connect(host=HOSTNAME, user=USER, passwd=PASSWD)
         with mydb:
             mycursor = mydb.cursor()
-            sql = f"SELECT Description FROM {schema}.requests WHERE ID = {id}"
+            sql = f"SELECT description FROM {schema}.Description WHERE ID = {id}"
             mycursor.execute(sql)
             description = mycursor.fetchall()
             mydb.commit()
