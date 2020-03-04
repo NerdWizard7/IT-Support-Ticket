@@ -128,11 +128,12 @@ class Query:
     @staticmethod
     # TODO: This method can likely stay the same. All others need changed.
     def genericQuery(sql, multi):
+        schema = db.load()[3]
         try:
             mydb = pymysql.connect(host=HOSTNAME, user=USER, passwd=PASSWD)
             with mydb:
                 mycursor = mydb.cursor()
-                mycursor.execute('USE group4;')
+                mycursor.execute(f'USE {schema};')
                 if multi:
                     mycursor.execute(sql, True)
                 else:

@@ -71,8 +71,7 @@ class ClientFrame(wx.Frame):
 
         # Type choice
         typeBox = wx.BoxSizer(wx.VERTICAL)
-        typeList = ['Code', 'Adjudication', 'Hardware', 'Software', 'Fee Schedule', 'Access',
-                    'Other']
+        typeList = ['Hardware', 'Software', 'Access','Other']
         typeLabel = wx.StaticText(panel, -1, pos=(150, 10))
         typeLabel.SetLabel('Request Category:')
         self.typeCombo = wx.ComboBox(panel, -1, pos=(150, 30), size=(100, 20))
@@ -273,7 +272,7 @@ class ClientFrame(wx.Frame):
               "INNER JOIN User ON Support_Ticket.submitterId=User.userId " \
               "WHERE isHidden = 0 " \
               "AND isComplete = 1 " \
-              f"AND username = '{getpass.getuser().upper()}'"
+              f"AND userId = '{parent.userId}'"
         # TODO: Fix this to work with accounts. Need a way to remember who is logged in.
 
         print(sql)  # Print SQL code to console (for debugging)

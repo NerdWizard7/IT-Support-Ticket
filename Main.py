@@ -3,8 +3,8 @@ import Panels
 
 
 __author__ = "Caleb A. Smith"
-__copyrightLine__ = "Copyright (c) 2019, Caleb A. Smith. All Rights Reserved."
-__credits__ = "Caleb A. Smith"
+__copyrightLine__ = "Copyright (c) 2020, Caleb A. Smith, et al. All Rights Reserved."
+__credits__ = "Caleb Smith, Ryan Hinkley, Kolton Harville, Yaovi Soedjede"
 __license__ = "FreeBSD"
 __version__ = "0.1.0"
 __email__ = "calebsmitty777@gmail.com"
@@ -15,6 +15,10 @@ __status__ = "In Development"
 class MainApp(wx.Frame):
     def __init__(self):
         wx.Frame.__init__(self, None, wx.ID_ANY, title='IT Support System', size=(800, 500))
+
+        # TODO: Make sure to set these variables once the user logs in
+        self.username = ''
+        self.userId = 0
 
         # Set up main panel
         self.mainMenuPanel = Panels.MainMenu(self)
