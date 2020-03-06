@@ -23,6 +23,7 @@ class ClientFrame(wx.Frame):
         panel = wx.Panel(self, wx.ID_ANY)
 
         self.userId = userId
+        self.username = ''
 
         # Setup menu
         menuBar = wx.MenuBar()
@@ -64,7 +65,7 @@ class ClientFrame(wx.Frame):
         nameLabel = wx.StaticText(panel, -1)
         nameLabel.SetLabel('Employee Name:')
         self.nameTxtCtrl = wx.TextCtrl(panel, -1, size=(130, 20))
-        self.nameTxtCtrl.SetValue(getpass.getuser().upper())  # Fill value with username from OS
+        self.nameTxtCtrl.SetValue(self.username)  # Fill value with username from OS
         self.nameTxtCtrl.SetEditable(False)  # Prevent editing
         nameBox.Add(nameLabel)
         nameBox.Add(self.nameTxtCtrl)
@@ -390,7 +391,7 @@ class AdminFrame(wx.Frame):
         menu4 = wx.Menu()
         menu4.Append(170, "C&ustom SQL")
 
-        menu3.AppendMenu(126, "&Repor&ts", menu4)
+        menu3.Append(126, "&Repor&ts", menu4)
 
         menu3.AppendSeparator()
         menu3.Append(130, '&Refresh')
