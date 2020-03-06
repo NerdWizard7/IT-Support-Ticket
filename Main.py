@@ -1,7 +1,6 @@
 from Menus import *
 import Panels
 
-
 __author__ = "Caleb A. Smith"
 __copyrightLine__ = "Copyright (c) 2020, Caleb A. Smith, et al. All Rights Reserved."
 __credits__ = "Caleb Smith, Ryan Hinkley, Kolton Harville, Yaovi Soedjede"
