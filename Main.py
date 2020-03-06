@@ -54,7 +54,6 @@ class MainApp(wx.Frame):
             print('Client')
             valid = Credentials.passwordHasher(u, p)
             if valid == 0 or valid == 1:
-                self.userId = Credentials.getUserId(u)
                 win = ClientFrame(u)
                 win.Show()
                 self.Close()
@@ -65,7 +64,6 @@ class MainApp(wx.Frame):
             print('Admin')
             valid = Credentials.passwordHasher(u, p)
             if valid == 0:
-                self.userId = Credentials.getUserId(u)
                 win = AdminFrame(u)
                 win.Show()
                 self.Close()

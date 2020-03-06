@@ -2,14 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f242de5d-a7ca-47d2-b87d-9abc89c05299" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/IT-Support-Ticket.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/IT-Support-Ticket.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Credentials.py" beforeDir="false" afterPath="$PROJECT_DIR$/Credentials.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DB.py" beforeDir="false" afterPath="$PROJECT_DIR$/DB.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Menus.py" beforeDir="false" afterPath="$PROJECT_DIR$/Menus.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Panels.py" beforeDir="false" afterPath="$PROJECT_DIR$/Panels.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,36 +158,21 @@
       <option name="project" value="LOCAL" />
       <updated>1581717462285</updated>
     </task>
-    <task id="LOCAL-00003" summary="Fixed Username issue in Client mode">
-      <created>1583458125782</created>
+    <task id="LOCAL-00003" summary="Wrote credential validator function">
+      <created>1583463614906</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1583458125782</updated>
+      <updated>1583463614906</updated>
     </task>
-    <task id="LOCAL-00004" summary="Fixed Username issue in Client mode">
-      <created>1583458189005</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1583458189005</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Fixed userId error">
-      <created>1583458285270</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1583458285270</updated>
-    </task>
-    <option name="localTasksCounter" value="6" />
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added Main.py" />
     <MESSAGE value="Moved Admin and Client to Menus file, and added Main.py" />
-    <MESSAGE value="Fixed Username issue in Client mode" />
-    <MESSAGE value="Fixed userId error" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed userId error" />
+    <MESSAGE value="Wrote credential validator function" />
+    <option name="LAST_COMMIT_MESSAGE" value="Wrote credential validator function" />
   </component>
   <component name="WindowStateProjectService">
     <state x="679" y="139" key="#Client" timestamp="1581569191431">
@@ -206,57 +187,68 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="716" y="327" key="#com.intellij.fileTypes.FileTypeChooser/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1581564234258" />
-    <state x="614" y="119" key="CommitChangelistDialog2" timestamp="1583458284669">
+    <state x="614" y="119" key="CommitChangelistDialog2" timestamp="1583181877635">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="614" y="119" key="CommitChangelistDialog2/0.0.1920.1050/1920.0.1440.870@0.0.1920.1050" timestamp="1583181877635" />
-    <state x="614" y="119" key="CommitChangelistDialog2/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1583458284669" />
+    <state x="614" y="119" key="CommitChangelistDialog2/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1581569856870" />
     <state x="740" y="279" key="FileChooserDialogImpl" timestamp="1582061452846">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="740" y="279" key="FileChooserDialogImpl/0.0.1920.1050/1920.0.1440.870@0.0.1920.1050" timestamp="1582061452846" />
     <state x="740" y="279" key="FileChooserDialogImpl/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1581565882152" />
-    <state width="1899" height="285" key="GridCell.Tab.0.bottom" timestamp="1583474888356">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1221" height="197" key="GridCell.Tab.0.bottom" timestamp="1583513301325">
+      <screen x="38" y="23" width="1242" height="777" />
     </state>
     <state width="1899" height="115" key="GridCell.Tab.0.bottom/0.0.1920.1050/1920.0.1440.870@0.0.1920.1050" timestamp="1583271999238" />
-    <state width="1899" height="285" key="GridCell.Tab.0.bottom/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1583474888356" />
-    <state width="1899" height="285" key="GridCell.Tab.0.center" timestamp="1583474888356">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1899" height="285" key="GridCell.Tab.0.bottom/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1581653417430" />
+    <state width="1221" height="197" key="GridCell.Tab.0.bottom/37.23.1243.777@37.23.1243.777" timestamp="1583512465191" />
+    <state width="1221" height="197" key="GridCell.Tab.0.bottom/38.23.1242.777@38.23.1242.777" timestamp="1583513301325" />
+    <state width="1221" height="197" key="GridCell.Tab.0.center" timestamp="1583513301324">
+      <screen x="38" y="23" width="1242" height="777" />
     </state>
     <state width="1899" height="115" key="GridCell.Tab.0.center/0.0.1920.1050/1920.0.1440.870@0.0.1920.1050" timestamp="1583271999238" />
-    <state width="1899" height="285" key="GridCell.Tab.0.center/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1583474888356" />
-    <state width="1899" height="285" key="GridCell.Tab.0.left" timestamp="1583474888355">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1899" height="285" key="GridCell.Tab.0.center/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1581653417429" />
+    <state width="1221" height="197" key="GridCell.Tab.0.center/37.23.1243.777@37.23.1243.777" timestamp="1583512465189" />
+    <state width="1221" height="197" key="GridCell.Tab.0.center/38.23.1242.777@38.23.1242.777" timestamp="1583513301324" />
+    <state width="1221" height="197" key="GridCell.Tab.0.left" timestamp="1583513301324">
+      <screen x="38" y="23" width="1242" height="777" />
     </state>
     <state width="1899" height="115" key="GridCell.Tab.0.left/0.0.1920.1050/1920.0.1440.870@0.0.1920.1050" timestamp="1583271999238" />
-    <state width="1899" height="285" key="GridCell.Tab.0.left/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1583474888355" />
-    <state width="1899" height="285" key="GridCell.Tab.0.right" timestamp="1583474888356">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1899" height="285" key="GridCell.Tab.0.left/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1581653417429" />
+    <state width="1221" height="197" key="GridCell.Tab.0.left/37.23.1243.777@37.23.1243.777" timestamp="1583512465189" />
+    <state width="1221" height="197" key="GridCell.Tab.0.left/38.23.1242.777@38.23.1242.777" timestamp="1583513301324" />
+    <state width="1221" height="197" key="GridCell.Tab.0.right" timestamp="1583513301325">
+      <screen x="38" y="23" width="1242" height="777" />
     </state>
     <state width="1899" height="115" key="GridCell.Tab.0.right/0.0.1920.1050/1920.0.1440.870@0.0.1920.1050" timestamp="1583271999238" />
-    <state width="1899" height="285" key="GridCell.Tab.0.right/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1583474888356" />
-    <state x="672" y="240" key="MultipleFileMergeDialog" timestamp="1583470352120">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1899" height="285" key="GridCell.Tab.0.right/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1581653417429" />
+    <state width="1221" height="197" key="GridCell.Tab.0.right/37.23.1243.777@37.23.1243.777" timestamp="1583512465190" />
+    <state width="1221" height="197" key="GridCell.Tab.0.right/38.23.1242.777@38.23.1242.777" timestamp="1583513301325" />
+    <state x="370" y="134" key="MultipleFileMergeDialog" timestamp="1583508667489">
+      <screen x="38" y="23" width="1242" height="777" />
     </state>
-    <state x="672" y="240" key="MultipleFileMergeDialog/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1583470352120" />
-    <state x="461" y="167" key="SettingsEditor" timestamp="1583470530623">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="370" y="134" key="MultipleFileMergeDialog/38.23.1242.777@38.23.1242.777" timestamp="1583508667488" />
+    <state x="283" y="78" key="SettingsEditor" timestamp="1583465910139">
+      <screen x="38" y="23" width="1242" height="777" />
     </state>
     <state x="461" y="167" key="SettingsEditor/0.0.1920.1050/1920.0.1440.870@0.0.1920.1050" timestamp="1581966916995" />
-    <state x="461" y="167" key="SettingsEditor/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1583470530623" />
-    <state x="552" y="259" key="Vcs.Push.Dialog.v2" timestamp="1583458295746">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="461" y="167" key="SettingsEditor/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1581569208458" />
+    <state x="283" y="78" key="SettingsEditor/38.23.1242.777@38.23.1242.777" timestamp="1583465910139" />
+    <state x="395" y="215" key="Vcs.Push.Dialog.v2" timestamp="1583463679208">
+      <screen x="38" y="23" width="1242" height="777" />
     </state>
     <state x="552" y="259" key="Vcs.Push.Dialog.v2/0.0.1920.1050/1920.0.1440.870@0.0.1920.1050" timestamp="1583181901535" />
-    <state x="552" y="259" key="Vcs.Push.Dialog.v2/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1583458295746" />
-    <state x="655" y="348" key="com.intellij.ide.util.TipDialog" timestamp="1583456039515">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="395" y="215" key="Vcs.Push.Dialog.v2/38.23.1242.777@38.23.1242.777" timestamp="1583463679208" />
+    <state x="462" y="281" key="com.intellij.ide.util.TipDialog" timestamp="1583508653819">
+      <screen x="38" y="23" width="1242" height="777" />
     </state>
-    <state x="655" y="348" key="com.intellij.ide.util.TipDialog/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1583456039515" />
-    <state x="769" y="441" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1583470338884">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="655" y="348" key="com.intellij.ide.util.TipDialog/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1581620901700" />
+    <state x="462" y="281" key="com.intellij.ide.util.TipDialog/38.23.1242.777@38.23.1242.777" timestamp="1583508653819" />
+    <state x="535" y="349" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1583508691693">
+      <screen x="38" y="23" width="1242" height="777" />
     </state>
-    <state x="769" y="441" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1583470338884" />
+    <state x="769" y="441" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1581653408695" />
+    <state x="535" y="349" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/38.23.1242.777@38.23.1242.777" timestamp="1583508691693" />
   </component>
 </project>

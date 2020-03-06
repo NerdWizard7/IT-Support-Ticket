@@ -72,20 +72,21 @@ class Query:
 
     # Static method to insert new data into a given database table
     @staticmethod
-    def insertData(sql, val, multi):
+    def insertData(sql):
         # Try except block to catch SQL errors (they are common)
         try:
             mydb = pymysql.connect(host=HOSTNAME, user=USER, passwd=PASSWD)  # Create a new connector object
             with mydb:
                 mycursor = mydb.cursor()  # Create a db cursor
-                mycursor.execute(sql, val)  # Execute the query
+                mycursor.execute(sql)  # Execute the query
                 mydb.commit()  # Commit the statement
                 # Close the connection
                 mycursor.close()
             mydb.close()
             return 0
         except Exception as err:
-            traceback.print_tb(err.__traceback__)
+            print(traceback.format_exc())
+            print(traceback)
             return 1
 
     # Static method to all records submitted by a given user
@@ -93,19 +94,28 @@ class Query:
     def selectUser(uname):
         db = DBManager
         schema = db.load()[3]
-        mydb = pymysql.connect(host=HOSTNAME, user=USER, passwd=PASSWD)
-        with mydb:
-            mycursor = mydb.cursor()
-            sql = f"SELECT ID, Name, Date, Category, Priority, Status, Hidden " \
-                  f"FROM {schema}.requests " \
-                  f"WHERE Name = '{uname}' " \
-                  f"AND Status != 'Completed'"
-            mycursor.execute(sql)
-            results = mycursor.fetchall()
-            mydb.commit()
-            mycursor.close()
-        mydb.close()
-        return results
+        try:
+            mydb = pymysql.connect(host=HOSTNAME, user=USER, passwd=PASSWD)
+            with mydb:
+                mycursor = mydb.cursor()
+                mycursor.execute(f'USE {schema}')
+                sql = "SELECT ticketId, User.username, submitDate, category, priority, jobStatus, isHidden " \
+                      f"FROM {schema}.Support_Ticket " \
+                      "INNER JOIN User ON Support_Ticket.submitterId=User.userId " \
+                      "WHERE jobStatus != 'Completed' " \
+                      f"AND username = '{uname}'"
+                mycursor.execute(sql)
+                results = mycursor.fetchall()
+                print(results)
+                mydb.commit()
+                mycursor.close()
+            mydb.close()
+            return results
+        except Exception as err:
+            print(traceback.format_exc())
+            print(err)
+            return 1
+
 
     # Static method to get the description field of a database record when passed the ticket ID
     @staticmethod

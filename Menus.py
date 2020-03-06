@@ -6,7 +6,7 @@ from DB import Query, DBManager
 from PrintHandler import PrintMe, PrintFormat
 import datetime
 from Format import ListFormat, Sorter
-import getpass
+from Credentials import Credentials
 
 HIDDEN = False
 # TODO: Rework the refresh functions in this file to work with the new database design
@@ -179,10 +179,9 @@ class ClientFrame(wx.Frame):
 
     # Called every time the list needs refreshed
     def refreshDB(self):
-        # TODO: This method will need fixed
         query = Query()
         # Make the query, getting only entries from current user
-        historyList = query.selectUser(getpass.getuser().upper())
+        historyList = query.selectUser(self.username)
         ListFormat.listwriter(self, historyList)
 
     # Display warnings when passed a string value. This method isn't used too much
@@ -322,17 +321,16 @@ class ClientFrame(wx.Frame):
         schema = db.load()[3]  # Grab the schema name from the static load method in DBManager
         if self.formValidate() == 0:  # If formValidate returns an exit code of 0 (form checks out)...
             # SQL Query to create a new row with ticket data
-            # TODO: Change this to insert into Support_Ticket table and Description Table
-            sql = f"INSERT INTO {schema}.requests (Name, Date, Category, Description, Priority, Status, Hidden) " \
-                  "VALUES (%s, %s, %s, %s, %s, %s, %s)"
-            # Set up values to be added to the database
-            val = (f"{self.nameTxtCtrl.GetValue()}",
-                   f"{datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')}",
-                   f"{self.typeCombo.GetValue()}",
-                   f"{self.descTxtCtrl.GetValue()}",
-                   f"{str(self.priorityChoice.GetStringSelection())}", "Submitted", HIDDEN)
+            # TODO: Change this to insert into Support_Ticket table and Description Table (at the same time?)
+            sql = f"INSERT INTO {schema}.Support_Ticket (ticketId, submitterId, submitDate, category," \
+                  f" jobStatus, isHidden, isComplete, completedBy, priority) " \
+                  f"VALUES (NULL, {Credentials.getUserId(self.nameTxtCtrl.GetValue())}," \
+                  f" {datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')}," \
+                  f"'{self.typeCombo.GetValue()}', 'Submitted, {HIDDEN}, 0, NULL," \
+                  f"'{str(self.priorityChoice.GetStringSelection())}')"
+
             query = Query()
-            if query.insertData(sql, val, False) == 0:  # Make the Insert Query and make sure it worked (returned 0)
+            if query.insertData(sql) == 0:  # Make the Insert Query and make sure it worked (returned 0)
                 msg = wx.MessageBox('Submission Completed Successfully!',
                                     'Success!', wx.OK_DEFAULT)
                 self.descTxtCtrl.Clear()  # Clear the Description field (what the user just typed)
