@@ -319,13 +319,6 @@ class ClientFrame(wx.Frame):
         schema = db.load()[3]  # Grab the schema name from the static load method in DBManager
         if self.formValidate() == 0:  # If formValidate returns an exit code of 0 (form checks out)...
             # SQL Query to create a new row with ticket data
-            sql = f"INSERT INTO {schema}.Support_Ticket (ticketId, submitterId, submitDate, category," \
-                  f" jobStatus, isHidden, isComplete, completedBy, priority) " \
-                  f"VALUES (NULL, '', " \
-                  f"CURRENT_TIMESTAMP, " \
-                  f"'{self.typeCombo.GetValue()}', 'Submitted', {1 if HIDDEN else 0}, 0, NULL, " \
-                  f"'')"
-
             query = Query()
             if query.insertTicket(Credentials.getUserId(self.nameTxtCtrl.GetValue())[0][0], self.typeCombo.GetValue(),
                                   HIDDEN, str(self.priorityChoice.GetStringSelection()),

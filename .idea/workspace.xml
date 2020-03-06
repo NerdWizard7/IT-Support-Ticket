@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f242de5d-a7ca-47d2-b87d-9abc89c05299" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB.py" beforeDir="false" afterPath="$PROJECT_DIR$/DB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Menus.py" beforeDir="false" afterPath="$PROJECT_DIR$/Menus.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -173,7 +171,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583523191218</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Removed TODO Statements">
+      <created>1583527590138</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1583527590138</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -181,7 +186,8 @@
     <MESSAGE value="Moved Admin and Client to Menus file, and added Main.py" />
     <MESSAGE value="Wrote credential validator function" />
     <MESSAGE value="Successful ticket submission from client view" />
-    <option name="LAST_COMMIT_MESSAGE" value="Successful ticket submission from client view" />
+    <MESSAGE value="Removed TODO Statements" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed TODO Statements" />
   </component>
   <component name="WindowStateProjectService">
     <state x="679" y="139" key="#Client" timestamp="1581569191431">
@@ -196,10 +202,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="716" y="327" key="#com.intellij.fileTypes.FileTypeChooser/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1581564234258" />
-    <state x="614" y="119" key="CommitChangelistDialog2" timestamp="1583523184703">
+    <state x="614" y="119" key="CommitChangelistDialog2" timestamp="1583527584447">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="614" y="119" key="CommitChangelistDialog2/0.0.1920.1050/1920.0.1440.870@0.0.1920.1050" timestamp="1583523184703" />
+    <state x="614" y="119" key="CommitChangelistDialog2/0.0.1920.1050/1920.0.1440.870@0.0.1920.1050" timestamp="1583527584447" />
     <state x="614" y="119" key="CommitChangelistDialog2/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1581569856870" />
     <state x="740" y="279" key="FileChooserDialogImpl" timestamp="1582061452846">
       <screen x="0" y="0" width="1920" height="1050" />
@@ -244,10 +250,10 @@
     <state x="461" y="167" key="SettingsEditor/0.0.1920.1050/1920.0.1440.870@0.0.1920.1050" timestamp="1583519047436" />
     <state x="461" y="167" key="SettingsEditor/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1581569208458" />
     <state x="283" y="78" key="SettingsEditor/38.23.1242.777@38.23.1242.777" timestamp="1583465910139" />
-    <state x="552" y="259" key="Vcs.Push.Dialog.v2" timestamp="1583523201243">
+    <state x="552" y="259" key="Vcs.Push.Dialog.v2" timestamp="1583527598332">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="552" y="259" key="Vcs.Push.Dialog.v2/0.0.1920.1050/1920.0.1440.870@0.0.1920.1050" timestamp="1583523201243" />
+    <state x="552" y="259" key="Vcs.Push.Dialog.v2/0.0.1920.1050/1920.0.1440.870@0.0.1920.1050" timestamp="1583527598332" />
     <state x="395" y="215" key="Vcs.Push.Dialog.v2/38.23.1242.777@38.23.1242.777" timestamp="1583463679208" />
     <state x="462" y="281" key="com.intellij.ide.util.TipDialog" timestamp="1583508653819">
       <screen x="38" y="23" width="1242" height="777" />
