@@ -16,7 +16,7 @@ class MainApp(wx.Frame):
     def __init__(self):
         wx.Frame.__init__(self, None, wx.ID_ANY, title='IT Support System', size=(800, 500))
 
-        # TODO: Make sure to set these variables once the user logs in
+
         self.userId = 0
 
         # Set up main panel

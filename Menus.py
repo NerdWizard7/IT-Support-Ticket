@@ -9,7 +9,6 @@ from Format import ListFormat, Sorter
 from Credentials import Credentials
 
 HIDDEN = False
-# TODO: Rework the refresh functions in this file to work with the new database design
 
 
 class ClientFrame(wx.Frame):
@@ -274,7 +273,6 @@ class ClientFrame(wx.Frame):
               "WHERE isHidden = 0 " \
               "AND isComplete = 1 " \
               f"AND username = '{self.username}'"
-        # TODO: Fix this to work with accounts. Need a way to remember who is logged in.
 
         print(sql)  # Print SQL code to console (for debugging)
         # Create a QueueViewer object, and pass it SQL code
@@ -321,7 +319,6 @@ class ClientFrame(wx.Frame):
         schema = db.load()[3]  # Grab the schema name from the static load method in DBManager
         if self.formValidate() == 0:  # If formValidate returns an exit code of 0 (form checks out)...
             # SQL Query to create a new row with ticket data
-            # TODO: Change this to insert into Support_Ticket table and Description Table (at the same time?)
             sql = f"INSERT INTO {schema}.Support_Ticket (ticketId, submitterId, submitDate, category," \
                   f" jobStatus, isHidden, isComplete, completedBy, priority) " \
                   f"VALUES (NULL, '', " \
@@ -402,6 +399,7 @@ class AdminFrame(wx.Frame):
 
         menu2 = wx.Menu()
         menu2.Append(150, '&Database')
+        menu2.Append(180, '&User Administraton')
         menuBar.Append(menu2, '&Settings')
         self.SetMenuBar(menuBar)
 

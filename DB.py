@@ -63,7 +63,6 @@ DB = data[3]
 
 class Query:
 
-    # TODO: Restructure all of these methods to fit the new database design
 
     # The following methods are responsible for creating the actual connection to the SQL server.
     # Each one of these methods does a slightly different thing. The genericQuery method can be
@@ -141,7 +140,6 @@ class Query:
 
     # Static method to make a generic SQL query. You can pass this any SQL and it will run it
     @staticmethod
-    # TODO: This method can likely stay the same. All others need changed.
     def genericQuery(sql, multi):
         schema = db.load()[3]
         try:
