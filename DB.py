@@ -72,13 +72,19 @@ class Query:
 
     # Static method to insert new data into a given database table
     @staticmethod
-    def insertData(sql):
+    def insertTicket(submitterId, category, hidden, priority, description):
         # Try except block to catch SQL errors (they are common)
+        schema = db.load()[3]
         try:
             mydb = pymysql.connect(host=HOSTNAME, user=USER, passwd=PASSWD)  # Create a new connector object
             with mydb:
                 mycursor = mydb.cursor()  # Create a db cursor
-                mycursor.execute(sql)  # Execute the query
+                mycursor.execute(f'USE {schema}')
+                mycursor.execute(f"INSERT INTO {schema}.Support_Ticket (ticketId, submitterId, submitDate,"
+                                 f" category, jobStatus, isHidden, isComplete, completedBy, priority, description)"
+                                 f" VALUES (NULL, '{submitterId}', CURRENT_TIMESTAMP, '{category}', 'Submitted',"
+                                 f" {1 if hidden else 0}, 0, NULL,"
+                                 f" '{priority}', '{description}')")  # Execute the query on ticket
                 mydb.commit()  # Commit the statement
                 # Close the connection
                 mycursor.close()
@@ -103,7 +109,7 @@ class Query:
                       f"FROM {schema}.Support_Ticket " \
                       "INNER JOIN User ON Support_Ticket.submitterId=User.userId " \
                       "WHERE jobStatus != 'Completed' " \
-                      f"AND username = '{uname}'"
+                      f"AND User.username = '{uname}'"
                 mycursor.execute(sql)
                 results = mycursor.fetchall()
                 print(results)
@@ -125,7 +131,7 @@ class Query:
         mydb = pymysql.connect(host=HOSTNAME, user=USER, passwd=PASSWD)
         with mydb:
             mycursor = mydb.cursor()
-            sql = f"SELECT description FROM {schema}.Description WHERE ticketId = {id}"
+            sql = f"SELECT description FROM {schema}.Support_Ticket WHERE ticketId = {id}"
             mycursor.execute(sql)
             description = mycursor.fetchall()
             mydb.commit()
@@ -143,10 +149,7 @@ class Query:
             with mydb:
                 mycursor = mydb.cursor()
                 mycursor.execute(f'USE {schema};')
-                if multi:
-                    mycursor.execute(sql, True)
-                else:
-                    mycursor.execute(sql)
+                mycursor.execute(sql)
                 result = mycursor.fetchall()
                 mydb.commit()
                 mycursor.close()

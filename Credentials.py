@@ -21,6 +21,6 @@ class Credentials:
     @staticmethod
     def getUserId(username):
         query = Query()
-        sql = f"SELECT userId FROM User WHERE username = {username}"
+        sql = f"SELECT userId FROM User WHERE username = '{username}'"
         userId = query.genericQuery(sql, False)
         return userId

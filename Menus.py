@@ -324,13 +324,15 @@ class ClientFrame(wx.Frame):
             # TODO: Change this to insert into Support_Ticket table and Description Table (at the same time?)
             sql = f"INSERT INTO {schema}.Support_Ticket (ticketId, submitterId, submitDate, category," \
                   f" jobStatus, isHidden, isComplete, completedBy, priority) " \
-                  f"VALUES (NULL, {Credentials.getUserId(self.nameTxtCtrl.GetValue())}," \
-                  f" {datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')}," \
-                  f"'{self.typeCombo.GetValue()}', 'Submitted, {HIDDEN}, 0, NULL," \
-                  f"'{str(self.priorityChoice.GetStringSelection())}')"
+                  f"VALUES (NULL, '', " \
+                  f"CURRENT_TIMESTAMP, " \
+                  f"'{self.typeCombo.GetValue()}', 'Submitted', {1 if HIDDEN else 0}, 0, NULL, " \
+                  f"'')"
 
             query = Query()
-            if query.insertData(sql) == 0:  # Make the Insert Query and make sure it worked (returned 0)
+            if query.insertTicket(Credentials.getUserId(self.nameTxtCtrl.GetValue())[0][0], self.typeCombo.GetValue(),
+                                  HIDDEN, str(self.priorityChoice.GetStringSelection()),
+                                  self.descTxtCtrl.GetValue()) == 0:  # Make the Insert Query and make sure it worked
                 msg = wx.MessageBox('Submission Completed Successfully!',
                                     'Success!', wx.OK_DEFAULT)
                 self.descTxtCtrl.Clear()  # Clear the Description field (what the user just typed)
