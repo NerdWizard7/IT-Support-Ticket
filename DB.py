@@ -167,3 +167,23 @@ class Query:
             print(traceback.format_exc())
             print(err)
             return 1
+
+    @staticmethod
+    def userValidate(username, passwd):
+        try:
+            mydb = pymysql.connect(host=HOSTNAME, user=USER, passwd=PASSWD)
+            with mydb:
+                mycursor = mydb.cursor()
+                sql=f'SELECT passwordHash FROM User WHERE username = {username}'
+                mycursor.execute(sql)
+                hash = mycursor.fetchall()
+                if passwd == hash:  # User is real
+                    return 0
+                else:
+                    return 1
+        except Exception as err:
+            print(traceback.format_exc())
+            print(err)
+            return 2
+
+
