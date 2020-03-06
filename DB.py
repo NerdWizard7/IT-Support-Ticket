@@ -45,7 +45,6 @@ class DBManager():
     def save(host, user, passwd, db):
         global dir
         global filePath
-        #dir = rf'{Path.home()}\AppData\Local\BMISupportClient'
         with open(filePath, 'w+') as file:  # Open the config file
             data = [host, user, passwd, db]  # Create data list full of db settings
             file.truncate()  # Truncate existing file
