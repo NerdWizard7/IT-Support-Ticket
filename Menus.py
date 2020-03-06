@@ -378,8 +378,6 @@ class AdminFrame(wx.Frame):
         menu3.Append(125, 'Add &Notes...')
 
         menu4 = wx.Menu()
-        menu4.Append(170, "C&ustom SQL")
-
         menu3.Append(126, "&Repor&ts", menu4)
 
         menu3.AppendSeparator()
@@ -404,7 +402,6 @@ class AdminFrame(wx.Frame):
         self.Bind(wx.EVT_MENU, self.addNotes_OnClick, id=125)
         self.Bind(wx.EVT_MENU, self.dataBaseSettings_OnClick, id=150)
         self.Bind(wx.EVT_MENU, self.viewCompleted_OnClick, id=160)
-        self.Bind(wx.EVT_MENU, self.customSQL_OnClick, id=170)
 
         # Set Up Printing Data
         self.pdata = wx.PrintData()
@@ -496,12 +493,6 @@ class AdminFrame(wx.Frame):
         ListFormat.listwriter(self, result)
 
     # Event Handlers
-
-    def customSQL_OnClick(self, evt):
-        win = SQLEdit(self, 'SQL Editor',
-                      style=wx.DEFAULT_FRAME_STYLE)
-        win.Show(True)
-        win.SetFocus()
 
     def viewCompleted_OnClick(self, evt):
         db = DBManager
@@ -952,32 +943,3 @@ class QueueViewer(wx.MiniFrame):
                 else:  # Get contents of the queue
                     text += f'{self.queueListCtrl.GetItemText(row, col):{PrintFormat.getSpacing(col)}}'
         PrintMe.print(self, text)  # Send text to printer
-
-class SQLEdit(wx.MiniFrame):
-    def __init__(self, parent, title, pos=wx.DefaultPosition, size=wx.DefaultSize,
-                 style=wx.DEFAULT_FRAME_STYLE):
-        wx.MiniFrame.__init__(self, parent, -1, title, pos, size, style)
-        panel = wx.Panel(self, -1)
-        self.parent = parent
-
-        sizer = wx.BoxSizer(wx.VERTICAL)
-        self.editorTextCtrl = wx.TextCtrl(panel, -1, style=wx.TE_MULTILINE)
-        sizer.Add(self.editorTextCtrl, 1, wx.EXPAND, 1)
-
-        self.submitButton = wx.Button(panel, 10, 'Submit')
-        sizer.Add(self.submitButton, 0, wx.ALIGN_CENTER_HORIZONTAL, 0)
-        self.Bind(wx.EVT_BUTTON, self.submitButton_OnClick, self.submitButton)
-
-        panel.SetSizerAndFit(sizer)
-
-
-    def submitButton_OnClick(self, evt):
-        sql = self.editorTextCtrl.GetValue()
-        if len(sqlparse.split(sql)) > 1:
-            multi = True
-        else:
-            multi = False
-        result = Query.genericQuery(sql, multi)
-
-        self.Close()
-
