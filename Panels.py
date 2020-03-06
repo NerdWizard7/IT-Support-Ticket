@@ -1,4 +1,5 @@
 import wx
+from Menus import *
 
 
 class AdminLogin(wx.Panel):
@@ -11,7 +12,8 @@ class AdminLogin(wx.Panel):
         self.passwdTxtCtrl = wx.TextCtrl(self, -1, size=(300, 20), style=wx.TE_PASSWORD)
 
         self.loginButton = wx.Button(self, 20, 'Login')
-        self.Bind(wx.EVT_BUTTON, parent.button_OnClick, self.loginButton)
+        self.Bind(wx.EVT_BUTTON, lambda event: parent.login_OnClick(event, self.userNameTextCtrl.GetValue(),
+                                                      self.passwdTxtCtrl.GetValue()), self.loginButton)
 
         sizer.AddStretchSpacer()
         sizer.Add(self.userNameTextCtrl, 0, wx.CENTER)
@@ -33,7 +35,8 @@ class ClientLogin(wx.Panel):
         self.passwdTxtCtrl = wx.TextCtrl(self, -1, size=(300, 20), style=wx.TE_PASSWORD)
 
         self.loginButton = wx.Button(self, 10, 'Login')
-        self.Bind(wx.EVT_BUTTON, parent.button_OnClick, self.loginButton)
+        self.Bind(wx.EVT_BUTTON, lambda event: parent.login_OnClick(event, self.userNameTextCtrl.GetValue(),
+                                                      self.passwdTxtCtrl.GetValue()), self.loginButton)
 
         sizer.AddStretchSpacer()
         sizer.Add(self.userNameTextCtrl, 0, wx.CENTER)

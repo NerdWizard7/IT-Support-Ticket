@@ -1,5 +1,6 @@
 from Menus import *
 import Panels
+from Credentials import Credentials
 
 __author__ = "Caleb A. Smith"
 __copyrightLine__ = "Copyright (c) 2020, Caleb A. Smith, et al. All Rights Reserved."
@@ -16,7 +17,6 @@ class MainApp(wx.Frame):
         wx.Frame.__init__(self, None, wx.ID_ANY, title='IT Support System', size=(800, 500))
 
         # TODO: Make sure to set these variables once the user logs in
-        self.username = ''
         self.userId = 0
 
         # Set up main panel
@@ -47,17 +47,33 @@ class MainApp(wx.Frame):
             self.clientPanel.Show()
             self.SetTitle('Client Login')
             self.Layout()
-        elif btn == 'Login':
-            if id == 10:
-                print('Client')
-                win = ClientFrame(self.userId)
+
+    def login_OnClick(self, evt, u, p):
+        id = evt.GetEventObject().GetId()
+        if id == 10:
+            print('Client')
+            valid = Credentials.passwordHasher(u, p)
+            if valid == 0 or valid == 1:
+                self.userId = Credentials.getUserId(u)
+                win = ClientFrame(u)
                 win.Show()
                 self.Close()
-            elif id == 20:
-                print('Admin')
-                win = AdminFrame(self.userId)
+            else:
+                msg = wx.MessageBox(valid, 'Login Notice')
+
+        elif id == 20:
+            print('Admin')
+            valid = Credentials.passwordHasher(u, p)
+            if valid == 0:
+                self.userId = Credentials.getUserId(u)
+                win = AdminFrame(u)
                 win.Show()
                 self.Close()
+            elif valid == 1:
+                msg = wx.MessageBox("Looks like you aren't an administrator. Contact IT if this is an error",
+                                    'Not Authotized')
+            else:
+                msg = wx.MessageBox(valid, 'Login Notice')
 
 # Main Program Loop
 if __name__ == '__main__':

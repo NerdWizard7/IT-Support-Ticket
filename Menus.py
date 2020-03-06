@@ -14,7 +14,7 @@ HIDDEN = False
 
 class ClientFrame(wx.Frame):
     # Default Constructor
-    def __init__(self, userId):
+    def __init__(self, username):
         super(ClientFrame, self).__init__(
             parent=None, title=f'Support Ticket Client',
             size=(670, 540), style=wx.DEFAULT_FRAME_STYLE | wx.RESIZE_BORDER)
@@ -22,8 +22,7 @@ class ClientFrame(wx.Frame):
         # Set up panel and status bar
         panel = wx.Panel(self, wx.ID_ANY)
 
-        self.userId = userId
-        self.username = ''
+        self.username = username
 
         # Setup menu
         menuBar = wx.MenuBar()
@@ -275,7 +274,7 @@ class ClientFrame(wx.Frame):
               "INNER JOIN User ON Support_Ticket.submitterId=User.userId " \
               "WHERE isHidden = 0 " \
               "AND isComplete = 1 " \
-              f"AND userId = '{self.userId}'"
+              f"AND username = '{self.username}'"
         # TODO: Fix this to work with accounts. Need a way to remember who is logged in.
 
         print(sql)  # Print SQL code to console (for debugging)
@@ -367,13 +366,13 @@ if __name__ == '__main__':
 
 class AdminFrame(wx.Frame):
     # Default Constructor
-    def __init__(self, userId):
+    def __init__(self, username):
         super(AdminFrame, self).__init__(
             size=(870, 520), parent=None, title=f'Support Ticket Administration')
 
         self.sortFlag = False
 
-        self.userId = userId
+        self.username = username
 
         # Set up panel and status bar
         panel = wx.Panel(self, wx.ID_ANY)

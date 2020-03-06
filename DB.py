@@ -169,20 +169,25 @@ class Query:
 
     @staticmethod
     def userValidate(username, passwd):
+        schema = db.load()[3]
         try:
             mydb = pymysql.connect(host=HOSTNAME, user=USER, passwd=PASSWD)
             with mydb:
                 mycursor = mydb.cursor()
-                sql=f'SELECT passwordHash FROM User WHERE username = {username}'
-                mycursor.execute(sql)
-                hash = mycursor.fetchall()
-                if passwd == hash:  # User is real
-                    return 0
+                mycursor.execute(f"SELECT passwordHash, isAdmin FROM {schema}.User WHERE username = '{username}'")
+                result = mycursor.fetchall()
+                print(result)
+                print(result[0])
+                if passwd == result[0][0]:  # Passwords match
+                    if result[0][1] == b'\x01':
+                        return 0  # User is an administrator
+                    else:
+                        return 1  # User is in system, but isn't admin
                 else:
-                    return 1
+                    return 2  # Password didn't match
         except Exception as err:
             print(traceback.format_exc())
             print(err)
-            return 2
+            return 3  # User entered Incorrect username
 
 
