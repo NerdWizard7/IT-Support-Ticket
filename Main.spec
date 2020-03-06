@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['Main.py'],
-             pathex=['C:\\Users\\Caleb Smith\\PycharmProjects\\IT-Support-Ticket'],
+             pathex=['U:\\Python Projects\\IT-Support-Ticket'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -30,4 +30,4 @@ exe = EXE(pyz,
           upx=True,
           upx_exclude=[],
           runtime_tmpdir=None,
-          console=False )
+          console=False , icon='icon.ico')

@@ -1,5 +1,4 @@
-('C:\\Users\\Caleb '
- 'Smith\\PycharmProjects\\IT-Support-Ticket\\build\\Main\\PKG-00.pkg',
+('U:\\Python Projects\\IT-Support-Ticket\\build\\Main\\PKG-00.pkg',
  {'BINARY': 1,
   'DATA': 1,
   'EXECUTABLE': 1,
@@ -8,118 +7,99 @@
   'PYSOURCE': 1,
   'PYZ': 0},
  [('PYZ-00.pyz',
-   'C:\\Users\\Caleb '
-   'Smith\\PycharmProjects\\IT-Support-Ticket\\build\\Main\\PYZ-00.pyz',
+   'U:\\Python Projects\\IT-Support-Ticket\\build\\Main\\PYZ-00.pyz',
    'PYZ'),
   ('struct',
-   'C:\\Users\\Caleb '
-   'Smith\\AppData\\Local\\Programs\\Python\\Python37\\lib\\struct.pyo',
+   'C:\\Users\\caleb\\AppData\\Local\\Programs\\Python\\Python37\\lib\\struct.pyo',
    'PYMODULE'),
   ('pyimod01_os_path',
-   'c:\\users\\caleb '
-   'smith\\pycharmprojects\\it-support-ticket\\venv\\lib\\site-packages\\PyInstaller\\loader\\pyimod01_os_path.pyc',
+   'u:\\python '
+   'projects\\it-support-ticket\\venv\\lib\\site-packages\\PyInstaller\\loader\\pyimod01_os_path.pyc',
    'PYMODULE'),
   ('pyimod02_archive',
-   'c:\\users\\caleb '
-   'smith\\pycharmprojects\\it-support-ticket\\venv\\lib\\site-packages\\PyInstaller\\loader\\pyimod02_archive.pyc',
+   'u:\\python '
+   'projects\\it-support-ticket\\venv\\lib\\site-packages\\PyInstaller\\loader\\pyimod02_archive.pyc',
    'PYMODULE'),
   ('pyimod03_importers',
-   'c:\\users\\caleb '
-   'smith\\pycharmprojects\\it-support-ticket\\venv\\lib\\site-packages\\PyInstaller\\loader\\pyimod03_importers.pyc',
+   'u:\\python '
+   'projects\\it-support-ticket\\venv\\lib\\site-packages\\PyInstaller\\loader\\pyimod03_importers.pyc',
    'PYMODULE'),
   ('pyiboot01_bootstrap',
-   'c:\\users\\caleb '
-   'smith\\pycharmprojects\\it-support-ticket\\venv\\lib\\site-packages\\PyInstaller\\loader\\pyiboot01_bootstrap.py',
+   'u:\\python '
+   'projects\\it-support-ticket\\venv\\lib\\site-packages\\PyInstaller\\loader\\pyiboot01_bootstrap.py',
    'PYSOURCE'),
-  ('Main',
-   'C:\\Users\\Caleb Smith\\PycharmProjects\\IT-Support-Ticket\\Main.py',
-   'PYSOURCE'),
+  ('Main', 'U:\\Python Projects\\IT-Support-Ticket\\Main.py', 'PYSOURCE'),
+  ('_bz2',
+   'C:\\Users\\caleb\\AppData\\Local\\Programs\\Python\\Python37\\DLLs\\_bz2.pyd',
+   'EXTENSION'),
   ('select',
-   'C:\\Users\\Caleb '
-   'Smith\\AppData\\Local\\Programs\\Python\\Python37\\DLLs\\select.pyd',
+   'C:\\Users\\caleb\\AppData\\Local\\Programs\\Python\\Python37\\DLLs\\select.pyd',
    'EXTENSION'),
   ('unicodedata',
-   'C:\\Users\\Caleb '
-   'Smith\\AppData\\Local\\Programs\\Python\\Python37\\DLLs\\unicodedata.pyd',
-   'EXTENSION'),
-  ('_bz2',
-   'C:\\Users\\Caleb '
-   'Smith\\AppData\\Local\\Programs\\Python\\Python37\\DLLs\\_bz2.pyd',
+   'C:\\Users\\caleb\\AppData\\Local\\Programs\\Python\\Python37\\DLLs\\unicodedata.pyd',
    'EXTENSION'),
   ('_socket',
-   'C:\\Users\\Caleb '
-   'Smith\\AppData\\Local\\Programs\\Python\\Python37\\DLLs\\_socket.pyd',
+   'C:\\Users\\caleb\\AppData\\Local\\Programs\\Python\\Python37\\DLLs\\_socket.pyd',
    'EXTENSION'),
   ('_lzma',
-   'C:\\Users\\Caleb '
-   'Smith\\AppData\\Local\\Programs\\Python\\Python37\\DLLs\\_lzma.pyd',
+   'C:\\Users\\caleb\\AppData\\Local\\Programs\\Python\\Python37\\DLLs\\_lzma.pyd',
    'EXTENSION'),
   ('_hashlib',
-   'C:\\Users\\Caleb '
-   'Smith\\AppData\\Local\\Programs\\Python\\Python37\\DLLs\\_hashlib.pyd',
+   'C:\\Users\\caleb\\AppData\\Local\\Programs\\Python\\Python37\\DLLs\\_hashlib.pyd',
    'EXTENSION'),
   ('_ssl',
-   'C:\\Users\\Caleb '
-   'Smith\\AppData\\Local\\Programs\\Python\\Python37\\DLLs\\_ssl.pyd',
+   'C:\\Users\\caleb\\AppData\\Local\\Programs\\Python\\Python37\\DLLs\\_ssl.pyd',
    'EXTENSION'),
   ('pyexpat',
-   'C:\\Users\\Caleb '
-   'Smith\\AppData\\Local\\Programs\\Python\\Python37\\DLLs\\pyexpat.pyd',
+   'C:\\Users\\caleb\\AppData\\Local\\Programs\\Python\\Python37\\DLLs\\pyexpat.pyd',
    'EXTENSION'),
   ('_decimal',
-   'C:\\Users\\Caleb '
-   'Smith\\AppData\\Local\\Programs\\Python\\Python37\\DLLs\\_decimal.pyd',
+   'C:\\Users\\caleb\\AppData\\Local\\Programs\\Python\\Python37\\DLLs\\_decimal.pyd',
    'EXTENSION'),
   ('wx.siplib',
-   'c:\\users\\caleb '
-   'smith\\pycharmprojects\\it-support-ticket\\venv\\lib\\site-packages\\wx\\siplib.cp37-win_amd64.pyd',
+   'u:\\python '
+   'projects\\it-support-ticket\\venv\\lib\\site-packages\\wx\\siplib.cp37-win_amd64.pyd',
    'EXTENSION'),
   ('wx._core',
-   'c:\\users\\caleb '
-   'smith\\pycharmprojects\\it-support-ticket\\venv\\lib\\site-packages\\wx\\_core.cp37-win_amd64.pyd',
+   'u:\\python '
+   'projects\\it-support-ticket\\venv\\lib\\site-packages\\wx\\_core.cp37-win_amd64.pyd',
    'EXTENSION'),
   ('VCRUNTIME140.dll',
-   'C:\\Users\\Caleb '
-   'Smith\\AppData\\Local\\Programs\\Python\\Python37\\VCRUNTIME140.dll',
+   'C:\\Users\\caleb\\AppData\\Local\\Programs\\Python\\Python37\\VCRUNTIME140.dll',
    'BINARY'),
   ('python37.dll',
-   'C:\\Users\\Caleb '
-   'Smith\\AppData\\Local\\Programs\\Python\\Python37\\python37.dll',
+   'C:\\Users\\caleb\\AppData\\Local\\Programs\\Python\\Python37\\python37.dll',
    'BINARY'),
   ('libcrypto-1_1-x64.dll',
-   'C:\\Users\\Caleb '
-   'Smith\\AppData\\Local\\Programs\\Python\\Python37\\DLLs\\libcrypto-1_1-x64.dll',
+   'C:\\Users\\caleb\\AppData\\Local\\Programs\\Python\\Python37\\DLLs\\libcrypto-1_1-x64.dll',
    'BINARY'),
   ('libssl-1_1-x64.dll',
-   'C:\\Users\\Caleb '
-   'Smith\\AppData\\Local\\Programs\\Python\\Python37\\DLLs\\libssl-1_1-x64.dll',
+   'C:\\Users\\caleb\\AppData\\Local\\Programs\\Python\\Python37\\DLLs\\libssl-1_1-x64.dll',
    'BINARY'),
   ('MSVCP140.dll',
-   'c:\\users\\caleb '
-   'smith\\pycharmprojects\\it-support-ticket\\venv\\lib\\site-packages\\wx\\MSVCP140.dll',
-   'BINARY'),
-  ('wxmsw30u_core_vc140_x64.dll',
-   'c:\\users\\caleb '
-   'smith\\pycharmprojects\\it-support-ticket\\venv\\lib\\site-packages\\wx\\wxmsw30u_core_vc140_x64.dll',
+   'u:\\python '
+   'projects\\it-support-ticket\\venv\\lib\\site-packages\\wx\\MSVCP140.dll',
    'BINARY'),
   ('wxbase30u_vc140_x64.dll',
-   'c:\\users\\caleb '
-   'smith\\pycharmprojects\\it-support-ticket\\venv\\lib\\site-packages\\wx\\wxbase30u_vc140_x64.dll',
+   'u:\\python '
+   'projects\\it-support-ticket\\venv\\lib\\site-packages\\wx\\wxbase30u_vc140_x64.dll',
+   'BINARY'),
+  ('wxmsw30u_core_vc140_x64.dll',
+   'u:\\python '
+   'projects\\it-support-ticket\\venv\\lib\\site-packages\\wx\\wxmsw30u_core_vc140_x64.dll',
    'BINARY'),
   ('wxbase30u_net_vc140_x64.dll',
-   'c:\\users\\caleb '
-   'smith\\pycharmprojects\\it-support-ticket\\venv\\lib\\site-packages\\wx\\wxbase30u_net_vc140_x64.dll',
+   'u:\\python '
+   'projects\\it-support-ticket\\venv\\lib\\site-packages\\wx\\wxbase30u_net_vc140_x64.dll',
    'BINARY'),
   ('base_library.zip',
-   'C:\\Users\\Caleb '
-   'Smith\\PycharmProjects\\IT-Support-Ticket\\build\\Main\\base_library.zip',
+   'U:\\Python Projects\\IT-Support-Ticket\\build\\Main\\base_library.zip',
    'DATA'),
   ('Main.exe.manifest',
-   'C:\\Users\\Caleb '
-   'Smith\\PycharmProjects\\IT-Support-Ticket\\build\\Main\\Main.exe.manifest',
+   'U:\\Python Projects\\IT-Support-Ticket\\build\\Main\\Main.exe.manifest',
    'BINARY'),
   ('pyi-windows-manifest-filename Main.exe.manifest', '', 'OPTION')],
  False,
  False,
- False,
+ True,
  [])
