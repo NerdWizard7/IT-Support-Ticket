@@ -7,8 +7,16 @@ from PrintHandler import PrintMe, PrintFormat
 import datetime
 from Format import ListFormat, Sorter
 from Credentials import Credentials
+import os, sys
 
 HIDDEN = False
+
+# Method is used to reference assets that are bundled in with the executable file (such as icons)
+# Add any such assets to program.spec file, and run pyinstaller --specpath program.spec to compile
+def resource_path(relative_path):
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath("."), relative_path)
 
 
 class ClientFrame(wx.Frame):
@@ -18,11 +26,12 @@ class ClientFrame(wx.Frame):
             parent=None, title=f'Support Ticket Client',
             size=(670, 540), style=wx.DEFAULT_FRAME_STYLE | wx.RESIZE_BORDER)
 
+        self.SetIcon(wx.Icon(resource_path('StickyHamsters32x32.ico')))  # Add the icon (This is to show Michael)
+
         # Set up panel and status bar
         panel = wx.Panel(self, wx.ID_ANY)
 
         self.username = username
-
         # Setup menu
         menuBar = wx.MenuBar()
 
@@ -346,12 +355,6 @@ class ClientFrame(wx.Frame):
         win.SetSize((400, 400))  # Set Menu Size
         win.Show(True)  # Show the menu
         win.SetFocus()
-'''
-if __name__ == '__main__':
-    app = wx.App()
-    frame = ClientFrame()
-    app.MainLoop()
-'''
 
 
 class AdminFrame(wx.Frame):
@@ -620,14 +623,6 @@ class AdminFrame(wx.Frame):
             win.Show(True)  # Show the editor
             self.refreshDB()  # Refresh the database after closed
 
-'''
-# Main function. Runs the program loop
-if __name__ == '__main__':
-    app = wx.App()
-    frame = AdminFrame()
-    app.MainLoop()
-'''
-
 
 class DatabaseMenu(wx.MiniFrame):
     # Default Constructor for Database Menu
@@ -814,9 +809,8 @@ class NotesEditor(wx.MiniFrame):
         if self.overwrite == False:  # If it is a new note...
             # SQL
             sql = f"INSERT INTO {schema}.Note " \
-                  f"VALUES (%s, %s)"
-            val = (f"{self.id}", f"{json.dumps(text)}")  # Values to be inserted
-            if query.insertData(sql, val, False) == 0:  # Make query
+                  f"VALUES ({self.id}, '{json.dumps(text)}')"
+            if query.genericQuery(sql, False) != 1:  # Make query
                 msg = wx.MessageBox('Notes Added Successcully!', 'Success!')
             else:
                 msg = wx.MessageBox('Something went wrong. Contact a system administrator immediately.',
