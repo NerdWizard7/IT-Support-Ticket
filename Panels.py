@@ -67,12 +67,17 @@ class MainMenu(wx.Panel):
         self.clientButton = wx.Button(self, -1, 'Client', size=(300,30))
         self.Bind(wx.EVT_BUTTON, parent.button_OnClick, self.clientButton)
 
+        self.connectToDatabaseButton = wx.Button(self, -1, 'Connect to DB', size=(100, 30))
+        self.Bind(wx.EVT_BUTTON, parent.connectToDb_OnClick, self.connectToDatabaseButton)
+
         # Add buttons to sizer
         sizer.AddStretchSpacer()
         sizer.Add(mainLabel, 0, wx.CENTER)
         sizer.AddStretchSpacer()
         sizer.Add(self.adminButton, 0, wx.CENTER)
         sizer.Add(self.clientButton, 0, wx.CENTER)
+        sizer.AddStretchSpacer()
+        sizer.Add(self.connectToDatabaseButton, 0, wx.CENTER)
         sizer.AddStretchSpacer()
 
         # Add sizer to panel

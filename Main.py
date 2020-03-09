@@ -73,6 +73,14 @@ class MainApp(wx.Frame):
             else:
                 msg = wx.MessageBox(valid, 'Login Notice')
 
+    def connectToDb_OnClick(self, evt):
+        # Create a DatabaseMenu object called win
+        win = DatabaseMenu(self, 'DB Settings',
+                           style=wx.DEFAULT_FRAME_STYLE)
+        win.SetSize((400, 400))  # Set Menu Size
+        win.Show(True)  # Show the menu
+        win.SetFocus()
+
 # Main Program Loop
 if __name__ == '__main__':
     app = wx.App(False)
