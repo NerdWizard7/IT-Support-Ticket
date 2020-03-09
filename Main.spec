@@ -6,7 +6,7 @@ block_cipher = None
 a = Analysis(['Main.py'],
              pathex=['U:\\Python Projects\\IT-Support-Ticket'],
              binaries=[],
-             datas=[],
+             datas=[('StickyHamsters32x32.ico', '.')],
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],
@@ -30,4 +30,4 @@ exe = EXE(pyz,
           upx=True,
           upx_exclude=[],
           runtime_tmpdir=None,
-          console=False , icon='icon.ico')
+          console=False , icon='StickyHamsters32x32.ico')

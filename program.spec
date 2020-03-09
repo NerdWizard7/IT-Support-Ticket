@@ -1,1 +1,1 @@
-a.datas += [ ('StickyHamster32x32.ico', '.\\StickyHamster32x32.ico', 'DATA')]'
+a.datas += [ ('StickyHamsters32x32.ico', '.\\StickyHamsters32x32.ico', 'DATA')]'

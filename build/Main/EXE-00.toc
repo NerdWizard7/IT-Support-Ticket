@@ -2,7 +2,7 @@
  False,
  False,
  False,
- 'icon.ico',
+ 'StickyHamsters32x32.ico',
  None,
  False,
  False,
@@ -79,14 +79,6 @@
   ('libssl-1_1-x64.dll',
    'C:\\Users\\caleb\\AppData\\Local\\Programs\\Python\\Python37\\DLLs\\libssl-1_1-x64.dll',
    'BINARY'),
-  ('MSVCP140.dll',
-   'u:\\python '
-   'projects\\it-support-ticket\\venv\\lib\\site-packages\\wx\\MSVCP140.dll',
-   'BINARY'),
-  ('wxbase30u_vc140_x64.dll',
-   'u:\\python '
-   'projects\\it-support-ticket\\venv\\lib\\site-packages\\wx\\wxbase30u_vc140_x64.dll',
-   'BINARY'),
   ('wxmsw30u_core_vc140_x64.dll',
    'u:\\python '
    'projects\\it-support-ticket\\venv\\lib\\site-packages\\wx\\wxmsw30u_core_vc140_x64.dll',
@@ -95,8 +87,19 @@
    'u:\\python '
    'projects\\it-support-ticket\\venv\\lib\\site-packages\\wx\\wxbase30u_net_vc140_x64.dll',
    'BINARY'),
+  ('MSVCP140.dll',
+   'u:\\python '
+   'projects\\it-support-ticket\\venv\\lib\\site-packages\\wx\\MSVCP140.dll',
+   'BINARY'),
+  ('wxbase30u_vc140_x64.dll',
+   'u:\\python '
+   'projects\\it-support-ticket\\venv\\lib\\site-packages\\wx\\wxbase30u_vc140_x64.dll',
+   'BINARY'),
   ('base_library.zip',
    'U:\\Python Projects\\IT-Support-Ticket\\build\\Main\\base_library.zip',
+   'DATA'),
+  ('StickyHamsters32x32.ico',
+   'U:\\Python Projects\\IT-Support-Ticket\\StickyHamsters32x32.ico',
    'DATA'),
   ('Main.exe.manifest',
    'U:\\Python Projects\\IT-Support-Ticket\\build\\Main\\Main.exe.manifest',
@@ -105,7 +108,7 @@
  [],
  False,
  True,
- 1583529495,
+ 1583787009,
  [('runw.exe',
    'u:\\python '
    'projects\\it-support-ticket\\venv\\lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit\\runw.exe',
