@@ -1,0 +1,1 @@
+a.datas += [ ('StickyHamster32x32.ico', '.\\StickyHamster32x32.ico', 'DATA')]'

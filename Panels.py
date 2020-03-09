@@ -1,6 +1,4 @@
-import wx
 from Menus import *
-
 
 class AdminLogin(wx.Panel):
     def __init__(self, parent):
@@ -8,7 +6,9 @@ class AdminLogin(wx.Panel):
 
         sizer = wx.BoxSizer(wx.VERTICAL)
 
+        userNameLabel = wx.StaticText(self, -1, 'Username')
         self.userNameTextCtrl = wx.TextCtrl(self, -1, size=(300, 20))
+        passwordLabel = wx.StaticText(self, -1, 'Passphrase')
         self.passwdTxtCtrl = wx.TextCtrl(self, -1, size=(300, 20), style=wx.TE_PASSWORD)
 
         self.loginButton = wx.Button(self, 20, 'Login')
@@ -16,8 +16,10 @@ class AdminLogin(wx.Panel):
                                                       self.passwdTxtCtrl.GetValue()), self.loginButton)
 
         sizer.AddStretchSpacer()
+        sizer.Add(userNameLabel, 0, wx.CENTER)
         sizer.Add(self.userNameTextCtrl, 0, wx.CENTER)
         sizer.AddSpacer(10)
+        sizer.Add(passwordLabel, 0, wx.CENTER)
         sizer.Add(self.passwdTxtCtrl, 0, wx.CENTER)
         sizer.AddStretchSpacer()
         sizer.Add(self.loginButton, 0, wx.CENTER)
@@ -31,7 +33,9 @@ class ClientLogin(wx.Panel):
 
         sizer = wx.BoxSizer(wx.VERTICAL)
 
+        userNameLabel = wx.StaticText(self, -1, 'Username')
         self.userNameTextCtrl = wx.TextCtrl(self, -1, size=(300, 20))
+        passwordLabel = wx.StaticText(self, -1, 'Passphrase')
         self.passwdTxtCtrl = wx.TextCtrl(self, -1, size=(300, 20), style=wx.TE_PASSWORD)
 
         self.loginButton = wx.Button(self, 10, 'Login')
@@ -39,8 +43,10 @@ class ClientLogin(wx.Panel):
                                                       self.passwdTxtCtrl.GetValue()), self.loginButton)
 
         sizer.AddStretchSpacer()
+        sizer.Add(userNameLabel, 0, wx.CENTER)
         sizer.Add(self.userNameTextCtrl, 0, wx.CENTER)
         sizer.AddSpacer(10)
+        sizer.Add(passwordLabel, 0, wx.CENTER)
         sizer.Add(self.passwdTxtCtrl, 0, wx.CENTER)
         sizer.AddStretchSpacer()
         sizer.Add(self.loginButton, 0, wx.CENTER)

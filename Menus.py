@@ -1,6 +1,5 @@
 import wx.lib.editor as editor
 import json
-import sqlparse
 import wx
 from DB import Query, DBManager
 from PrintHandler import PrintMe, PrintFormat
@@ -41,6 +40,7 @@ class ClientFrame(wx.Frame):
         menu3.Append(115, '&Print...')
         menu3.AppendSeparator()
         menu3.Append(116, '&Refresh')
+        #menu3.Append(117, '&Logout')
         menuBar.Append(menu3, '&File')
 
         menu1 = wx.Menu()
@@ -60,6 +60,7 @@ class ClientFrame(wx.Frame):
         self.Bind(wx.EVT_MENU, self.print_OnClick, id=115)
         self.Bind(wx.EVT_MENU, self.pageSetup_OnClick, id=114)
         self.Bind(wx.EVT_MENU, self.printPreview_OnClick, id=112)
+        self.Bind(wx.EVT_MENU, self.logout_OnClick, id=117)
         self.SetMenuBar(menuBar)
 
         # Visual Elements
@@ -216,6 +217,8 @@ class ClientFrame(wx.Frame):
             return 0
 
     # Event Handlers
+    def logout_OnClick(self, evt):
+        pass
 
     # Called when a column header is clicked
     def listCol_OnClick(self, evt):
