@@ -56,7 +56,6 @@ class ClientLogin(wx.Panel):
 class MainMenu(wx.Panel):
     def __init__(self, parent):
         wx.Panel.__init__(self, parent=parent)
-
         # Box Sizer
         sizer = wx.BoxSizer(wx.VERTICAL)
 

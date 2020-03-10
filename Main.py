@@ -81,9 +81,11 @@ class MainApp(wx.Frame):
         win.Show(True)  # Show the menu
         win.SetFocus()
 
+
 # Main Program Loop
 if __name__ == '__main__':
     app = wx.App(False)
     frame = MainApp()
     frame.Show()
+    frame.SetIcon(wx.Icon(resource_path('StickyHamsters32x32.ico')))
     app.MainLoop()
