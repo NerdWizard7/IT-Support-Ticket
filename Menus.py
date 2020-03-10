@@ -25,8 +25,7 @@ class ClientFrame(wx.Frame):
             parent=None, title=f'Support Ticket Client',
             size=(670, 540), style=wx.DEFAULT_FRAME_STYLE | wx.RESIZE_BORDER)
 
-        self.SetIcon(wx.Icon(resource_path('StickyHamsters32x32.ico'))) # Add the icon (This is to show Michael)
-        frame.SetIcon(wx.Icon(resource_path('StickyHamsters32x32.ico')))
+        self.SetIcon(wx.Icon(resource_path('StickyHamsters32x32.ico')))
         # Set up panel and status bar
         panel = wx.Panel(self, wx.ID_ANY)
 
@@ -367,6 +366,7 @@ class AdminFrame(wx.Frame):
             size=(870, 520), parent=None, title=f'Support Ticket Administration')
 
         self.sortFlag = False
+        self.SetIcon(wx.Icon(resource_path('StickyHamsters32x32.ico')))
 
         self.username = username
 
@@ -637,6 +637,8 @@ class DatabaseMenu(wx.MiniFrame):
         wx.MiniFrame.__init__(self, parent, -1, title, pos, size, style)  # Default Constructor
         panel = wx.Panel(self, -1)
 
+        self.SetIcon(wx.Icon(resource_path('StickyHamsters32x32.ico')))
+
         # Visual Elements
 
         # Host Text Control
@@ -687,7 +689,7 @@ class DescViewer(wx.MiniFrame):
                  style=wx.DEFAULT_FRAME_STYLE):
         wx.MiniFrame.__init__(self, parent, -1, title, pos, size, style)
         panel = wx.Panel(self, -1)
-        frame.SetIcon(wx.Icon(resource_path('StickyHamsters32x32.ico')))
+        self.SetIcon(wx.Icon(resource_path('StickyHamsters32x32.ico')))
         # Setup print data
         self.pdata = wx.PrintData()
         self.pdata.SetPaperId(wx.PAPER_LETTER)
@@ -736,7 +738,7 @@ class NotesEditor(wx.MiniFrame):
         wx.MiniFrame.__init__(self, parent, -1, title, pos, size, style)
         panel = wx.Panel(self, -1)
         self.id = id
-        frame.SetIcon(wx.Icon(resource_path('StickyHamsters32x32.ico')))
+        self.SetIcon(wx.Icon(resource_path('StickyHamsters32x32.ico')))
         # Visual Elements
         self.ed = editor.Editor(panel, -1, style=wx.SUNKEN_BORDER)
         box = wx.BoxSizer(wx.VERTICAL)
@@ -845,7 +847,7 @@ class QueueViewer(wx.MiniFrame):
         panel = wx.Panel(self, -1)
 
         self.sql = sql
-        frame.SetIcon(wx.Icon(resource_path('StickyHamsters32x32.ico')))
+        self.SetIcon(wx.Icon(resource_path('StickyHamsters32x32.ico')))
         # Visual Elements
         box = wx.BoxSizer(wx.VERTICAL)
 
