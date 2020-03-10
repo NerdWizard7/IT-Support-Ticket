@@ -263,13 +263,13 @@ class ClientFrame(wx.Frame):
         db = DBManager
         schema = db.load()[3]  # Grab schema name from static load method in DBManager
         # Write SQL
-        sql = "SELECT ticketId, User.username, submitDate, category, priority, jobStatus, isHidden " \
+        sql = "SELECT ticketId, User.username, completedBy, submitDate, category, priority, jobStatus, isHidden " \
               f"FROM {schema}.Support_Ticket " \
               "INNER JOIN User ON Support_Ticket.submitterId=User.userId " \
               "WHERE isHidden = 0"
         # Create a QueueViewer object called win, passing it sql code (QueueViewer handles its own SQL queries)
         win = QueueViewer(self, 'Full Job Queue', sql,
-                          pos=wx.DefaultPosition, size=(595, 450),
+                          pos=wx.DefaultPosition, size=(795, 450),
                           style=wx.DEFAULT_FRAME_STYLE)
         win.Show(True)  # Show the QueueViewer
         win.SetFocus()
@@ -279,7 +279,7 @@ class ClientFrame(wx.Frame):
         db = DBManager
         schema = db.load()[3]  # Get schema name from static load method in DBManager
         # Write SQL
-        sql = "SELECT ticketId, User.username, submitDate, category, priority, jobStatus, isHidden " \
+        sql = "SELECT ticketId, User.username, completedBy, submitDate, category, priority, jobStatus, isHidden " \
               f"FROM {schema}.Support_Ticket " \
               "INNER JOIN User ON Support_Ticket.submitterId=User.userId " \
               "WHERE isHidden = 0 " \
@@ -289,7 +289,7 @@ class ClientFrame(wx.Frame):
         print(sql)  # Print SQL code to console (for debugging)
         # Create a QueueViewer object, and pass it SQL code
         win = QueueViewer(self, 'Completed Jobs', sql,
-                          pos=wx.DefaultPosition, size=(595, 450))
+                          pos=wx.DefaultPosition, size=(795, 450))
         win.Show(True)
         win.SetFocus()
 
@@ -504,14 +504,14 @@ class AdminFrame(wx.Frame):
         db = DBManager
         schema = db.load()[3]  # Get schema name from static load method in DBManager
         # Write SQL
-        sql = "SELECT ticketId, User.username, submitDate, category, priority, jobStatus, isHidden " \
+        sql = "SELECT ticketId, User.username, completedBy, submitDate, category, priority, jobStatus, isHidden " \
               f"FROM {schema}.Support_Ticket " \
               "INNER JOIN User ON Support_Ticket.submitterId=User.userId " \
               "WHERE isComplete = 1"
         print(sql)  # Print SQL code to console (for debugging)
         # Create a QueueViewer object, and pass it SQL code
         win = QueueViewer(self, 'Completed Jobs', sql,
-                          pos=wx.DefaultPosition, size=(595, 450))
+                          pos=wx.DefaultPosition, size=(795, 450))
         win.Show(True)
         win.SetFocus()
 
@@ -551,7 +551,10 @@ class AdminFrame(wx.Frame):
         # Set up values for the update method in Query class
         query = Query()
         dbname = f'{schema}.Support_Ticket'
-        set = f"priority = '{priority}', jobStatus = '{status}'"
+        if status != 'Completed':
+            set = f"priority = '{priority}', jobStatus = '{status}'"
+        else:
+            set = f"priority = '{priority}', jobStatus = '{status}', isComplete = 1, completedBy = {Credentials.getUserId(self.username)[0][0]}"
         cond = f"ticketId = {id}"
 
         if query.updateTable(dbname, set, cond) == 0:  # Make the query and perform logic on return value
@@ -851,11 +854,12 @@ class QueueViewer(wx.MiniFrame):
 
         self.queueListCtrl.InsertColumn(0, 'ID', width=50)
         self.queueListCtrl.InsertColumn(1, 'Name', width=135)
-        self.queueListCtrl.InsertColumn(2, 'Date', width=85)
-        self.queueListCtrl.InsertColumn(3, 'Category', width=140)
-        self.queueListCtrl.InsertColumn(4, 'Priority', width=70)
-        self.queueListCtrl.InsertColumn(5, 'Job Status', width=100)
-        self.queueListCtrl.InsertColumn(6, 'Hidden', width=wx.EXPAND)
+        self.queueListCtrl.InsertColumn(2, 'Completed By', width=130)
+        self.queueListCtrl.InsertColumn(3, 'Date', width=85)
+        self.queueListCtrl.InsertColumn(4, 'Category', width=140)
+        self.queueListCtrl.InsertColumn(5, 'Priority', width=70)
+        self.queueListCtrl.InsertColumn(6, 'Job Status', width=100)
+        self.queueListCtrl.InsertColumn(7, 'Hidden', width=wx.EXPAND)
         self.Bind(wx.EVT_LIST_ITEM_ACTIVATED, self.listItem_OnClick, self.queueListCtrl)
         self.Bind(wx.EVT_LIST_COL_CLICK, self.listCol_OnClick, self.queueListCtrl)
         box.Add(self.queueListCtrl, 1, wx.EXPAND)
