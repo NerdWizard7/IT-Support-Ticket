@@ -32,6 +32,8 @@ class MainApp(wx.Frame):
         self.sizer.Add(self.clientPanel, 1, wx.EXPAND)
         self.SetSizer(self.sizer)
 
+        self.winStack = [self]
+
 
     # Button Event Logic
     def button_OnClick(self, evt):
@@ -54,9 +56,7 @@ class MainApp(wx.Frame):
             print('Client')
             valid = Credentials.passwordHasher(u, p)
             if valid == 0 or valid == 1:
-                win = ClientFrame(u)
-                win.Show()
-                self.Close()
+                self.pushWinStack(ClientFrame(self, u))
             else:
                 msg = wx.MessageBox(valid, 'Login Notice')
 
@@ -64,9 +64,7 @@ class MainApp(wx.Frame):
             print('Admin')
             valid = Credentials.passwordHasher(u, p)
             if valid == 0:
-                win = AdminFrame(u)
-                win.Show()
-                self.Close()
+                self.pushWinStack(AdminFrame(self, u))
             elif valid == 1:
                 msg = wx.MessageBox("Looks like you aren't an administrator. Contact IT if this is an error",
                                     'Not Authotized')
@@ -80,6 +78,21 @@ class MainApp(wx.Frame):
         win.SetSize((400, 400))  # Set Menu Size
         win.Show(True)  # Show the menu
         win.SetFocus()
+
+    def refreshWinStack(self):
+        self.winStack[len(self.winStack) - 1].Restore()
+        for i in range(len(self.winStack)):
+            if i != len(self.winStack) - 1:
+                self.winStack[i].Close()
+
+    def pushWinStack(self, newWindow):
+        self.winStack.append(newWindow)
+        self.refreshWinStack()
+
+    def popWinStack(self):
+        self.winStack.pop(len(self.winStack) - 1)
+        self.refreshWinStack()
+
 
 
 # Main Program Loop

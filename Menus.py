@@ -20,7 +20,7 @@ def resource_path(relative_path):
 
 class ClientFrame(wx.Frame):
     # Default Constructor
-    def __init__(self, username):
+    def __init__(self, parent, username):
         super(ClientFrame, self).__init__(
             parent=None, title=f'Support Ticket Client',
             size=(670, 540), style=wx.DEFAULT_FRAME_STYLE | wx.RESIZE_BORDER)
@@ -28,6 +28,8 @@ class ClientFrame(wx.Frame):
         self.SetIcon(wx.Icon(resource_path('StickyHamsters32x32.ico')))
         # Set up panel and status bar
         panel = wx.Panel(self, wx.ID_ANY)
+
+        self.parent = parent
 
         self.username = username
         # Setup menu
@@ -361,7 +363,7 @@ class ClientFrame(wx.Frame):
 
 class AdminFrame(wx.Frame):
     # Default Constructor
-    def __init__(self, username):
+    def __init__(self, parent, username):
         super(AdminFrame, self).__init__(
             size=(870, 520), parent=None, title=f'Support Ticket Administration')
 
@@ -369,6 +371,10 @@ class AdminFrame(wx.Frame):
         self.SetIcon(wx.Icon(resource_path('StickyHamsters32x32.ico')))
 
         self.username = username
+
+        self.parent = parent
+
+        #self.Bind(wx.EVT_CLOSE, self.OnClose)
 
         # Set up panel and status bar
         panel = wx.Panel(self, wx.ID_ANY)
@@ -499,6 +505,9 @@ class AdminFrame(wx.Frame):
         ListFormat.listwriter(self, result)
 
     # Event Handlers
+    def OnClose(self, evt):
+        print('OnClose method call')
+        self.parent.popWinStack()
 
     def viewCompleted_OnClick(self, evt):
         db = DBManager
