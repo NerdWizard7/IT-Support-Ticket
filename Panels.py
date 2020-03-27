@@ -30,7 +30,7 @@ class AdminLogin(wx.Panel):
 class ClientPanel(wx.Panel):
     # Default Constructor
     def __init__(self, parent, username):
-        wx.Panel.__init__(self, size=(800, 500), parent=parent)
+        wx.Panel.__init__(self, size=parent.Size, parent=parent)
 
         #self.SetIcon(wx.Icon(resource_path('StickyHamsters32x32.ico')))
         # Set up self and status bar
@@ -131,10 +131,10 @@ class ClientPanel(wx.Panel):
         self.Bind(wx.EVT_LIST_ITEM_ACTIVATED, self.listItem_OnClick, self.queueList)
         self.Bind(wx.EVT_LIST_COL_CLICK, self.listCol_OnClick, self.queueList)
 
-        listBox.Add(self.queueList, 1, wx.GROW)
+
+        listBox.Add(self.queueList, 1, wx.EXPAND)
         listBox.AddSpacer(5)
-        box.Add(listBox, 1, wx.GROW)
-        box.AddSpacer(10)
+        box.Add(listBox, 1, wx.EXPAND)
 
         # Bottom button(s)
         bottomBox = wx.BoxSizer()
@@ -339,7 +339,7 @@ class ClientPanel(wx.Panel):
 class AdminPanel(wx.Panel):
     # Default Constructor
     def __init__(self, parent, username):
-        wx.Panel.__init__(self, size=(870, 520), parent=parent)
+        wx.Panel.__init__(self, size=parent.Size, parent=parent)
 
         self.sortFlag = False
         #self.SetIcon(wx.Icon(resource_path('StickyHamsters32x32.ico')))
@@ -413,7 +413,7 @@ class AdminPanel(wx.Panel):
         box.Add(updateBox)
         box.AddSpacer(20)
 
-        self.SetSizerAndFit(box)
+        self.SetSizer(box)
         try:
             self.refreshDB()
         except:

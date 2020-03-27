@@ -51,7 +51,7 @@ class MainApp(wx.Frame):
             clientMenu3.Append(115, '&Print...')
             clientMenu3.AppendSeparator()
             clientMenu3.Append(116, '&Refresh')
-            # clientMenu3.Append(117, '&Logout')
+            clientMenu3.Append(117, '&Logout')
             clientMenuBar.Append(clientMenu3, '&File')
 
             clientMenu1 = wx.Menu()
@@ -131,19 +131,17 @@ class MainApp(wx.Frame):
         id = evt.GetEventObject().GetId()
         if id == 10:
             print('Client')
-            panel = Panels.ClientPanel(self, u)
             valid = Credentials.passwordHasher(u, p)
             if valid == 0 or valid == 1:
-                self.pushWinStack(panel)
+                self.pushWinStack(Panels.ClientPanel(self, u))
             else:
                 msg = wx.MessageBox(valid, 'Login Notice')
 
         elif id == 20:
             print('Admin')
-            panel = Panels.AdminPanel(self, u)
             valid = Credentials.passwordHasher(u, p)
             if valid == 0:
-                self.pushWinStack(panel)
+                self.pushWinStack(Panels.AdminPanel(self, u))
             elif valid == 1:
                 msg = wx.MessageBox("Looks like you aren't an administrator. Contact IT if this is an error",
                                     'Not Authotized')
@@ -162,13 +160,12 @@ class MainApp(wx.Frame):
         self.popWinStack()
 
     def refreshWinStack(self):
+        print(self.winStack)
         for i in range(len(self.winStack)):
-            if i != len(self.winStack) - 1:
-                self.winStack[i].Hide()
-        top = self.winStack[len(self.winStack) - 1]
-        top.Show()
+            self.winStack[i].Hide()
+        self.winStack[len(self.winStack) - 1].Show()
 
-        self.shownPanel = top  # Get the current shown panel object
+        self.shownPanel = self.winStack[len(self.winStack) - 1]  # Get the current shown panel object
         self.shownName = self.shownPanel.GetName()
         print(self.shownName)
         self.loadMenuBar(self.shownName)
@@ -180,7 +177,9 @@ class MainApp(wx.Frame):
         self.refreshWinStack()
 
     def popWinStack(self):
-        self.winStack.pop(len(self.winStack) - 1)
+        self.winStack[len(self.winStack) - 1].Hide()
+        self.SetMenuBar(None)
+        self.winStack.pop()
         self.refreshWinStack()
 
 
