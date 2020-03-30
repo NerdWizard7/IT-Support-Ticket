@@ -443,7 +443,7 @@ class AdminPanel(wx.Panel):
         box.Add(updateBox)
         box.AddSpacer(20)
 
-        parent.SetSizer(box)
+        self.parent.SetSizer(box)
         try:
             self.refreshDB()
         except:
