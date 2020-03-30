@@ -14,8 +14,8 @@ __status__ = "In Development"
 
 class MainApp(wx.Frame):
     def __init__(self):
-        wx.Frame.__init__(self, None, wx.ID_ANY, title='IT Support System', size=(800, 500))
-
+        wx.Frame.__init__(self, None, wx.ID_ANY, title='IT Support System', size=(900, 600),
+                          style=wx.DEFAULT_FRAME_STYLE ^ wx.RESIZE_BORDER)
 
         self.userId = 0
 

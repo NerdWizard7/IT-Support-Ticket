@@ -32,10 +32,6 @@ class ClientPanel(wx.Panel):
     def __init__(self, parent, username):
         wx.Panel.__init__(self, size=parent.Size, parent=parent)
 
-        #self.SetIcon(wx.Icon(resource_path('StickyHamsters32x32.ico')))
-        # Set up self and status bar
-        #self = wx.Panel(self, wx.ID_ANY)
-
         self.parent = parent
 
         self.username = username
@@ -144,7 +140,7 @@ class ClientPanel(wx.Panel):
         box.Add(bottomBox, 0, wx.ALIGN_CENTER_HORIZONTAL)
         box.AddSpacer(5)
 
-        self.SetSizerAndFit(box)
+        self.parent.SetSizer(box)
 
         # Set Up Printing Data
         self.pdata = wx.PrintData()
@@ -413,7 +409,7 @@ class AdminPanel(wx.Panel):
         box.Add(updateBox)
         box.AddSpacer(20)
 
-        self.SetSizer(box)
+        parent.SetSizer(box)
         try:
             self.refreshDB()
         except:

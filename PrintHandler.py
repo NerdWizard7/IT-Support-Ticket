@@ -98,7 +98,7 @@ class PrintMe:
             wx.MessageBox("Unable to create Print Preview!", "Error")  # Display an error window
         else:  # Everything worked
             frame = wx.PreviewFrame(preview, ref, "Print Preview",
-                                    pos=ref.GetPosition(), size=ref.GetSize())  # Render the preview
+                                    pos=ref.GetPosition(), size=(800, 500))  # Render the preview
             frame.Initialize()  # Initialize the frame
             frame.Show()  # Show the window
 
