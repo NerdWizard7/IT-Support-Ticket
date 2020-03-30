@@ -148,6 +148,10 @@ class MainApp(wx.Frame):
             else:
                 msg = wx.MessageBox(valid, 'Login Notice')
 
+    def mainMenu_OnClick(self, evt):
+        while len(self.winStack) != 1:
+            self.popWinStack()
+
     def connectToDb_OnClick(self, evt):
         # Create a DatabaseMenu object called win
         win = DatabaseMenu(self, 'DB Settings',

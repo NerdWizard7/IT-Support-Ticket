@@ -14,6 +14,8 @@ class AdminLogin(wx.Panel):
         self.loginButton = wx.Button(self, 20, 'Login')
         self.Bind(wx.EVT_BUTTON, lambda event: parent.login_OnClick(event, self.userNameTextCtrl.GetValue(),
                                                       self.passwdTxtCtrl.GetValue()), self.loginButton)
+        self.mainMenuButton = wx.Button(self, -1, 'Main Menu')
+        self.Bind(wx.EVT_BUTTON, parent.mainMenu_OnClick, self.mainMenuButton)
 
         sizer.AddStretchSpacer()
         sizer.Add(userNameLabel, 0, wx.CENTER)
@@ -23,8 +25,40 @@ class AdminLogin(wx.Panel):
         sizer.Add(self.passwdTxtCtrl, 0, wx.CENTER)
         sizer.AddStretchSpacer()
         sizer.Add(self.loginButton, 0, wx.CENTER)
+        sizer.AddSpacer(5)
+        sizer.Add(self.mainMenuButton, 0, wx.CENTER)
         sizer.AddStretchSpacer()
 
+        self.SetSizer(sizer)
+
+class ClientLogin(wx.Panel):
+    def __init__(self, parent):
+        wx.Panel.__init__(self, parent=parent)
+
+        sizer = wx.BoxSizer(wx.VERTICAL)
+
+        userNameLabel = wx.StaticText(self, -1, 'Username')
+        self.userNameTextCtrl = wx.TextCtrl(self, -1, size=(300, 20))
+        passwordLabel = wx.StaticText(self, -1, 'Passphrase')
+        self.passwdTxtCtrl = wx.TextCtrl(self, -1, size=(300, 20), style=wx.TE_PASSWORD)
+
+        self.loginButton = wx.Button(self, 10, 'Login')
+        self.Bind(wx.EVT_BUTTON, lambda event: parent.login_OnClick(event, self.userNameTextCtrl.GetValue(),
+                                                      self.passwdTxtCtrl.GetValue()), self.loginButton)
+        self.mainMenuButton = wx.Button(self, -1, 'Main Menu')
+        self.Bind(wx.EVT_BUTTON, parent.mainMenu_OnClick, self.mainMenuButton)
+
+        sizer.AddStretchSpacer()
+        sizer.Add(userNameLabel, 0, wx.CENTER)
+        sizer.Add(self.userNameTextCtrl, 0, wx.CENTER)
+        sizer.AddSpacer(10)
+        sizer.Add(passwordLabel, 0, wx.CENTER)
+        sizer.Add(self.passwdTxtCtrl, 0, wx.CENTER)
+        sizer.AddStretchSpacer()
+        sizer.Add(self.loginButton, 0, wx.CENTER)
+        sizer.AddSpacer(5)
+        sizer.Add(self.mainMenuButton, 0, wx.CENTER)
+        sizer.AddStretchSpacer()
         self.SetSizer(sizer)
 
 class ClientPanel(wx.Panel):
@@ -570,31 +604,6 @@ class AdminPanel(wx.Panel):
             win.Show(True)  # Show the editor
             self.refreshDB()  # Refresh the database after closed
 
-class ClientLogin(wx.Panel):
-    def __init__(self, parent):
-        wx.Panel.__init__(self, parent=parent)
-
-        sizer = wx.BoxSizer(wx.VERTICAL)
-
-        userNameLabel = wx.StaticText(self, -1, 'Username')
-        self.userNameTextCtrl = wx.TextCtrl(self, -1, size=(300, 20))
-        passwordLabel = wx.StaticText(self, -1, 'Passphrase')
-        self.passwdTxtCtrl = wx.TextCtrl(self, -1, size=(300, 20), style=wx.TE_PASSWORD)
-
-        self.loginButton = wx.Button(self, 10, 'Login')
-        self.Bind(wx.EVT_BUTTON, lambda event: parent.login_OnClick(event, self.userNameTextCtrl.GetValue(),
-                                                      self.passwdTxtCtrl.GetValue()), self.loginButton)
-
-        sizer.AddStretchSpacer()
-        sizer.Add(userNameLabel, 0, wx.CENTER)
-        sizer.Add(self.userNameTextCtrl, 0, wx.CENTER)
-        sizer.AddSpacer(10)
-        sizer.Add(passwordLabel, 0, wx.CENTER)
-        sizer.Add(self.passwdTxtCtrl, 0, wx.CENTER)
-        sizer.AddStretchSpacer()
-        sizer.Add(self.loginButton, 0, wx.CENTER)
-        sizer.AddStretchSpacer()
-        self.SetSizer(sizer)
 
 class MainMenu(wx.Panel):
     def __init__(self, parent):
