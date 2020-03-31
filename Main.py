@@ -14,24 +14,16 @@ __status__ = "In Development"
 
 class MainApp(wx.Frame):
     def __init__(self):
-        wx.Frame.__init__(self, None, wx.ID_ANY, title='IT Support System', size=(900, 600),
+        wx.Frame.__init__(self, None, wx.ID_ANY, size=(900, 600),
                           style=wx.DEFAULT_FRAME_STYLE ^ wx.RESIZE_BORDER)
 
         self.userId = 0
 
         # Set up main panel
         self.mainMenuPanel = Panels.MainMenu(self)
-        self.mainMenuPanel.Hide()
-        self.adminPanel = Panels.AdminLogin(self)
-        self.adminPanel.Hide()
-        self.clientPanel = Panels.ClientLogin(self)
-        self.clientPanel.Hide()
 
         self.sizer = wx.BoxSizer(wx.VERTICAL)
         self.sizer.Add(self.mainMenuPanel, 1, wx.EXPAND)
-        self.sizer.Add(self.adminPanel, 1, wx.EXPAND)
-        self.sizer.Add(self.clientPanel, 1, wx.EXPAND)
-        self.SetSizer(self.sizer)
 
         self.winStack = []
 
@@ -119,12 +111,12 @@ class MainApp(wx.Frame):
         btn = evt.GetEventObject().GetLabel()  # Get the name of the button and store in btn variable
         id = evt.GetEventObject().GetId()  # Get the id of the button for differentiating between admin and client
         if btn == 'Admin':  # Admin Button
-            self.pushWinStack(self.adminPanel)
-            self.SetTitle('Administrator Login')
+            panel = Panels.AdminLogin(self)
+            self.pushWinStack(panel)
             self.Layout()
         elif btn == 'Client':  # Client Button
-            self.pushWinStack(self.clientPanel)
-            self.SetTitle('Client Login')
+            panel = Panels.ClientLogin(self)
+            self.pushWinStack(panel)
             self.Layout()
 
     def login_OnClick(self, evt, u, p):
@@ -133,7 +125,8 @@ class MainApp(wx.Frame):
             print('Client')
             valid = Credentials.passwordHasher(u, p)
             if valid == 0 or valid == 1:
-                self.pushWinStack(Panels.ClientPanel(self, u))
+                panel = Panels.ClientPanel(self, u)
+                self.pushWinStack(panel)
             else:
                 msg = wx.MessageBox(valid, 'Login Notice')
 
@@ -141,7 +134,8 @@ class MainApp(wx.Frame):
             print('Admin')
             valid = Credentials.passwordHasher(u, p)
             if valid == 0:
-                self.pushWinStack(Panels.AdminPanel(self, u))
+                panel = Panels.AdminPanel(self, u)
+                self.pushWinStack(panel)
             elif valid == 1:
                 msg = wx.MessageBox("Looks like you aren't an administrator. Contact IT if this is an error",
                                     'Not Authotized')
@@ -173,6 +167,7 @@ class MainApp(wx.Frame):
         self.shownName = self.shownPanel.GetName()
         print(self.shownName)
         self.loadMenuBar(self.shownName)
+        self.SetTitle(self.shownPanel.title)
 
 
 

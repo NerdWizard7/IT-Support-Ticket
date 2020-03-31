@@ -2,7 +2,8 @@ from Menus import *
 
 class AdminLogin(wx.Panel):
     def __init__(self, parent):
-        wx.Panel.__init__(self, parent=parent)
+        wx.Panel.__init__(self, size=parent.Size, parent=parent)
+        self.title = 'Administrator Login'
 
         sizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -29,11 +30,12 @@ class AdminLogin(wx.Panel):
         sizer.Add(self.mainMenuButton, 0, wx.CENTER)
         sizer.AddStretchSpacer()
 
-        self.SetSizer(sizer)
+        parent.SetSizer(sizer)
 
 class ClientLogin(wx.Panel):
     def __init__(self, parent):
-        wx.Panel.__init__(self, parent=parent)
+        wx.Panel.__init__(self, size=parent.Size, parent=parent)
+        self.title = 'Client Login'
 
         sizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -59,12 +61,13 @@ class ClientLogin(wx.Panel):
         sizer.AddSpacer(5)
         sizer.Add(self.mainMenuButton, 0, wx.CENTER)
         sizer.AddStretchSpacer()
-        self.SetSizer(sizer)
+        parent.SetSizer(sizer)
 
 class ClientPanel(wx.Panel):
     # Default Constructor
     def __init__(self, parent, username):
         wx.Panel.__init__(self, size=parent.Size, parent=parent)
+        self.title = 'Client Home'
 
         self.parent = parent
 
@@ -370,6 +373,7 @@ class AdminPanel(wx.Panel):
     # Default Constructor
     def __init__(self, parent, username):
         wx.Panel.__init__(self, size=parent.Size, parent=parent)
+        self.title = 'Administrator Home'
 
         self.sortFlag = False
         #self.SetIcon(wx.Icon(resource_path('StickyHamsters32x32.ico')))
@@ -608,6 +612,7 @@ class AdminPanel(wx.Panel):
 class MainMenu(wx.Panel):
     def __init__(self, parent):
         wx.Panel.__init__(self, parent=parent)
+        self.title = 'Main Menu'
         # Box Sizer
         sizer = wx.BoxSizer(wx.VERTICAL)
 
