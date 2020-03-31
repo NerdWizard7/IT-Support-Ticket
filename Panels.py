@@ -1,5 +1,41 @@
 from Menus import *
 
+class MainMenu(wx.Panel):
+    def __init__(self, parent):
+        wx.Panel.__init__(self, parent=parent)
+        self.title = 'Main Menu'
+        # Box Sizer
+        sizer = wx.BoxSizer(wx.VERTICAL)
+
+        # Label
+        font = wx.Font(21, wx.FONTFAMILY_ROMAN, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD)
+        mainLabel = wx.StaticText(self, -1, 'IT Support Ticket System')
+        mainLabel.SetFont(font)
+
+
+        # Buttons
+        self.adminButton = wx.Button(self, -1, 'Admin', size=(300,30))
+        self.Bind(wx.EVT_BUTTON, parent.button_OnClick, self.adminButton)
+
+        self.clientButton = wx.Button(self, -1, 'Client', size=(300,30))
+        self.Bind(wx.EVT_BUTTON, parent.button_OnClick, self.clientButton)
+
+        self.connectToDatabaseButton = wx.Button(self, -1, 'Connect to DB', size=(100, 30))
+        self.Bind(wx.EVT_BUTTON, parent.connectToDb_OnClick, self.connectToDatabaseButton)
+
+        # Add buttons to sizer
+        sizer.AddStretchSpacer()
+        sizer.Add(mainLabel, 0, wx.CENTER)
+        sizer.AddStretchSpacer()
+        sizer.Add(self.adminButton, 0, wx.CENTER)
+        sizer.Add(self.clientButton, 0, wx.CENTER)
+        sizer.AddStretchSpacer()
+        sizer.Add(self.connectToDatabaseButton, 0, wx.CENTER)
+        sizer.AddStretchSpacer()
+
+        # Add sizer to panel
+        self.SetSizer(sizer)
+
 class AdminLogin(wx.Panel):
     def __init__(self, parent):
         wx.Panel.__init__(self, size=parent.Size, parent=parent)
@@ -61,6 +97,7 @@ class ClientLogin(wx.Panel):
         sizer.AddSpacer(5)
         sizer.Add(self.mainMenuButton, 0, wx.CENTER)
         sizer.AddStretchSpacer()
+
         parent.SetSizer(sizer)
 
 class ClientPanel(wx.Panel):
@@ -608,39 +645,6 @@ class AdminPanel(wx.Panel):
             win.Show(True)  # Show the editor
             self.refreshDB()  # Refresh the database after closed
 
-
-class MainMenu(wx.Panel):
+class UserManagement(wx.Panel):
     def __init__(self, parent):
-        wx.Panel.__init__(self, parent=parent)
-        self.title = 'Main Menu'
-        # Box Sizer
-        sizer = wx.BoxSizer(wx.VERTICAL)
-
-        # Label
-        font = wx.Font(21, wx.FONTFAMILY_ROMAN, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD)
-        mainLabel = wx.StaticText(self, -1, 'IT Support Ticket System')
-        mainLabel.SetFont(font)
-
-
-        # Buttons
-        self.adminButton = wx.Button(self, -1, 'Admin', size=(300,30))
-        self.Bind(wx.EVT_BUTTON, parent.button_OnClick, self.adminButton)
-
-        self.clientButton = wx.Button(self, -1, 'Client', size=(300,30))
-        self.Bind(wx.EVT_BUTTON, parent.button_OnClick, self.clientButton)
-
-        self.connectToDatabaseButton = wx.Button(self, -1, 'Connect to DB', size=(100, 30))
-        self.Bind(wx.EVT_BUTTON, parent.connectToDb_OnClick, self.connectToDatabaseButton)
-
-        # Add buttons to sizer
-        sizer.AddStretchSpacer()
-        sizer.Add(mainLabel, 0, wx.CENTER)
-        sizer.AddStretchSpacer()
-        sizer.Add(self.adminButton, 0, wx.CENTER)
-        sizer.Add(self.clientButton, 0, wx.CENTER)
-        sizer.AddStretchSpacer()
-        sizer.Add(self.connectToDatabaseButton, 0, wx.CENTER)
-        sizer.AddStretchSpacer()
-
-        # Add sizer to panel
-        self.SetSizer(sizer)
+        wx.Panel.__init__(self, size=parent.Size, parent=parent)
