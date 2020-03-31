@@ -201,4 +201,19 @@ class Query:
             print(err)
             return 3  # User entered Incorrect username
 
+    @staticmethod
+    def GetAccessLevel(userid):
+        schema = db.load()[3]
+        try:
+            mydb = pymysql.connect(host=HOSTNAME, user=USER, passwd=PASSWD)
+            with mydb:
+                mycursor = mydb.cursor()
+                mycursor.execure(f"SELECT accessLevel FROM User WHERE userId = {userid}")
+                result = mycursor.fetchall()
+                print(result)
+            return result
+        except Exception as err:
+            print(traceback.format_exc())
+            print(err)
+            return 1
 

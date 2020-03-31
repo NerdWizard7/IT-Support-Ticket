@@ -648,3 +648,17 @@ class AdminPanel(wx.Panel):
 class UserManagement(wx.Panel):
     def __init__(self, parent):
         wx.Panel.__init__(self, size=parent.Size, parent=parent)
+
+        sizer = wx.BoxSizer(wx.VERTICAL)
+        self.userList = wx.ListCtrl(self, -1, style=wx.LC_REPORT | wx.SUNKEN_BORDER)
+        width = wx.LIST_AUTOSIZE
+        self.userList.InsertColumn(0, 'User ID', width=width)
+        self.userList.InsertColumn(1, 'Username', width=width)
+        self.userList.InsertColumn(2, 'First Name', width=width)
+        self.userList.InsertColumn(3, 'Last Name', width=width)
+        self.userList.InsertColumn(4, 'Department', width=width)
+        self.userList.InsertColumn(5, 'Role', width=width)
+        self.userList.InsertColumn(6, 'Access Level', width=wx.EXPAND)
+        sizer.Add(self.userList, 1, wx.EXPAND)
+
+        parent.SetSizer(sizer)
