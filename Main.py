@@ -27,6 +27,8 @@ class MainApp(wx.Frame):
 
         self.winStack = []
 
+        self.userId = None
+
         self.shownPanel = None
         self.shownName = ''
 
@@ -101,6 +103,7 @@ class MainApp(wx.Frame):
             self.Bind(wx.EVT_MENU, self.shownPanel.addNotes_OnClick, id=125)
             self.Bind(wx.EVT_MENU, self.shownPanel.dataBaseSettings_OnClick, id=150)
             self.Bind(wx.EVT_MENU, self.shownPanel.viewCompleted_OnClick, id=160)
+            self.Bind(wx.EVT_MENU, self.userAdmin_OnClick, id=180)
             self.Bind(wx.EVT_MENU, self.logout_OnClick, id=140)
         else:
             pass
@@ -141,6 +144,10 @@ class MainApp(wx.Frame):
                                     'Not Authotized')
             else:
                 msg = wx.MessageBox(valid, 'Login Notice')
+
+    def userAdmin_OnClick(self, evt):
+        panel = Panels.UserManagement
+        self.pushWinStack(panel)
 
     def mainMenu_OnClick(self, evt):
         while len(self.winStack) != 1:
