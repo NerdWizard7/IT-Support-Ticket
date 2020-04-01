@@ -17,6 +17,50 @@ def resource_path(relative_path):
         return os.path.join(sys._MEIPASS, relative_path)
     return os.path.join(os.path.abspath("."), relative_path)
 
+class UserManagement(wx.MiniFrame):
+    def __init__(self, parent, title, pos=wx.DefaultPosition, size=wx.DefaultSize, style=wx.DEFAULT_FRAME_STYLE):
+        wx.MiniFrame.__init__(self, parent, -1, title, pos, size, style)
+        panel = wx.Panel(self, -1)
+        self.SetIcon(wx.Icon(resource_path('StickyHamsters32x32.ico')))
+
+        sizer = wx.BoxSizer(wx.VERTICAL)
+
+        hsizer = wx.BoxSizer(wx.HORIZONTAL)
+        self.userList = wx.ListCtrl(panel, -1, style=wx.LC_REPORT | wx.SUNKEN_BORDER)
+        width = wx.LIST_AUTOSIZE
+        self.userList.InsertColumn(0, 'User ID', width=width)
+        self.userList.InsertColumn(1, 'Username', width=width)
+        self.userList.InsertColumn(2, 'First Name', width=width)
+        self.userList.InsertColumn(3, 'Last Name', width=width)
+        self.userList.InsertColumn(4, 'Department', width=width)
+        self.userList.InsertColumn(5, 'Role', width=width)
+        self.userList.InsertColumn(6, 'Access Level', width=wx.EXPAND)
+
+        self.Bind(wx.EVT_LIST_COL_CLICK, self.listCol_OnClick, self.userList)
+
+        hsizer.AddSpacer(5)
+        hsizer.Add(self.userList, 1, wx.EXPAND)
+        hsizer.AddSpacer(5)
+
+        sizer.Add(hsizer, 1, wx.EXPAND)
+        sizer.AddStretchSpacer()
+        panel.SetSizerAndFit(sizer)
+
+        self.refreshDB()
+
+    def GetListCtrl(self):
+        return self.userList
+
+    def refreshDB(self):
+        self.userList.DeleteAllItems()
+        sql = f"SELECT userId, username, firstName, lastName, department, isAdmin, accessLevel FROM User"
+        query = Query()
+        users = query.genericQuery(sql, False)
+        for user in users:
+            self.userList.Append(user[:])
+
+    def listCol_OnClick(self, evt):
+        Sorter.sort(self, evt.GetColumn())
 
 class DatabaseMenu(wx.MiniFrame):
     # Default Constructor for Database Menu
