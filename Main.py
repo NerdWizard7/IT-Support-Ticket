@@ -53,11 +53,6 @@ class MainApp(wx.Frame):
             clientMenu1.Append(106, '&Completed Jobs')
             clientMenuBar.Append(clientMenu1, '&View')
 
-            clientMenu2 = wx.Menu()
-            clientMenu2.Append(110, '&Database')
-            clientMenuBar.Append(clientMenu2, '&Settings')
-
-            self.Bind(wx.EVT_MENU, self.shownPanel.dataBaseSettings_OnClick, id=110)
             self.Bind(wx.EVT_MENU, self.shownPanel.refreshButton_OnClick, id=116)
             self.Bind(wx.EVT_MENU, self.shownPanel.viewFullQueue_OnClick, id=105)
             self.Bind(wx.EVT_MENU, self.shownPanel.viewCompleted_OnClick, id=106)
@@ -146,8 +141,10 @@ class MainApp(wx.Frame):
                 msg = wx.MessageBox(valid, 'Login Notice')
 
     def userAdmin_OnClick(self, evt):
-        panel = Panels.UserManagement
-        self.pushWinStack(panel)
+        win = UserManagement(self, 'User Administration', style=wx.DEFAULT_FRAME_STYLE)
+        win.SetSize((700, 500))
+        win.Show(True)
+        win.SetFocus()
 
     def mainMenu_OnClick(self, evt):
         while len(self.winStack) != 1:
