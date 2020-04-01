@@ -25,7 +25,7 @@ class UserManagement(wx.MiniFrame):
 
         sizer = wx.BoxSizer(wx.VERTICAL)
 
-        hsizer = wx.BoxSizer(wx.HORIZONTAL)
+        listsizer = wx.BoxSizer(wx.HORIZONTAL)
         self.userList = wx.ListCtrl(panel, -1, style=wx.LC_REPORT | wx.SUNKEN_BORDER)
         width = wx.LIST_AUTOSIZE
         self.userList.InsertColumn(0, 'User ID', width=width)
@@ -36,13 +36,43 @@ class UserManagement(wx.MiniFrame):
         self.userList.InsertColumn(5, 'Role', width=width)
         self.userList.InsertColumn(6, 'Access Level', width=wx.EXPAND)
 
+        self.Bind(wx.EVT_LIST_ITEM_SELECTED, self.listItem_OnClick, self.userList)
         self.Bind(wx.EVT_LIST_COL_CLICK, self.listCol_OnClick, self.userList)
 
-        hsizer.AddSpacer(5)
-        hsizer.Add(self.userList, 1, wx.EXPAND)
-        hsizer.AddSpacer(5)
+        listsizer.AddSpacer(5)
+        listsizer.Add(self.userList, 1, wx.EXPAND)
+        listsizer.AddSpacer(5)
+        sizer.Add(listsizer, 1, wx.EXPAND)
+        sizer.AddSpacer(10)
 
-        sizer.Add(hsizer, 1, wx.EXPAND)
+        textsizer1 = wx.BoxSizer(wx.HORIZONTAL)
+
+        usernameLabel = wx.StaticText(panel, -1, 'Username: ')
+        self.usernameTxtCtrl = wx.TextCtrl(panel, -1)
+        textsizer1.Add(usernameLabel)
+        textsizer1.AddSpacer(3)
+        textsizer1.Add(self.usernameTxtCtrl)
+
+        sizer.Add(textsizer1)
+        sizer.AddSpacer(15)
+        textsizer2 = wx.BoxSizer(wx.HORIZONTAL)
+
+        firstNameLabel = wx.StaticText(panel, -1, 'First Name:')
+        self.firstNameTxtCtrl = wx.TextCtrl(panel, -1)
+        textsizer2.Add(firstNameLabel)
+        textsizer2.AddSpacer(3)
+        textsizer2.Add(self.firstNameTxtCtrl)
+        textsizer2.AddSpacer(10)
+
+        lastNameLabel = wx.StaticText(panel, -1, 'Last Name:')
+        self.lastNameTxtCtrl = wx.TextCtrl(panel, -1)
+        textsizer2.Add(lastNameLabel)
+        textsizer2.AddSpacer(3)
+        textsizer2.Add(self.lastNameTxtCtrl)
+        textsizer2.AddSpacer(10)
+
+        sizer.Add(textsizer2)
+
         sizer.AddStretchSpacer()
         panel.SetSizerAndFit(sizer)
 
@@ -57,10 +87,20 @@ class UserManagement(wx.MiniFrame):
         query = Query()
         users = query.genericQuery(sql, False)
         for user in users:
-            self.userList.Append(user[:])
+            if user[:][5] == b'\x01':
+                tup = user[:5] + ('Administrator',) + user[6:]
+            else:
+                tup = user[:5] + ('Standard User',) + user[6:]
+            self.userList.Append(tup)
 
     def listCol_OnClick(self, evt):
         Sorter.sort(self, evt.GetColumn())
+
+    def listItem_OnClick(self, evt):
+        rowid = self.GetListCtrl().GetFirstSelected()
+        id = self.GetListCtrl().GetItemText(rowid, 0)
+
+        self.usernameTxtCtrl.SetValue(self.userList.GetItemText(rowid, 1))
 
 class DatabaseMenu(wx.MiniFrame):
     # Default Constructor for Database Menu
