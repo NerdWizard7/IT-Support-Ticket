@@ -24,6 +24,7 @@ class UserManagement(wx.MiniFrame):
         self.SetIcon(wx.Icon(resource_path('StickyHamsters32x32.ico')))
 
         sizer = wx.BoxSizer(wx.VERTICAL)
+        sizer.AddSpacer(10)
 
         listsizer = wx.BoxSizer(wx.HORIZONTAL)
         self.userList = wx.ListCtrl(panel, -1, style=wx.LC_REPORT | wx.SUNKEN_BORDER)
@@ -49,6 +50,7 @@ class UserManagement(wx.MiniFrame):
 
         usernameLabel = wx.StaticText(panel, -1, 'Username: ')
         self.usernameTxtCtrl = wx.TextCtrl(panel, -1)
+        textsizer1.AddSpacer(5)
         textsizer1.Add(usernameLabel)
         textsizer1.AddSpacer(3)
         textsizer1.Add(self.usernameTxtCtrl)
@@ -59,6 +61,7 @@ class UserManagement(wx.MiniFrame):
 
         firstNameLabel = wx.StaticText(panel, -1, 'First Name:')
         self.firstNameTxtCtrl = wx.TextCtrl(panel, -1)
+        textsizer2.AddSpacer(5)
         textsizer2.Add(firstNameLabel)
         textsizer2.AddSpacer(3)
         textsizer2.Add(self.firstNameTxtCtrl)
@@ -72,8 +75,39 @@ class UserManagement(wx.MiniFrame):
         textsizer2.AddSpacer(10)
 
         sizer.Add(textsizer2)
+        sizer.AddSpacer(10)
+        textsizer3 = wx.BoxSizer(wx.HORIZONTAL)
 
-        sizer.AddStretchSpacer()
+        departmentLabel = wx.StaticText(panel, -1, 'Department:')
+        self.departmentTxtCtrl = wx.TextCtrl(panel, -1)
+        textsizer3.AddSpacer(5)
+        textsizer3.Add(departmentLabel)
+        textsizer3.AddSpacer(3)
+        textsizer3.Add(self.departmentTxtCtrl)
+        textsizer3.AddSpacer(10)
+        
+        roleLabel = wx.StaticText(panel, -1, 'Role:')
+        self.roleTxtCtrl = wx.TextCtrl(panel, -1)
+        textsizer3.Add(roleLabel)
+        textsizer3.AddSpacer(3)
+        textsizer3.Add(self.roleTxtCtrl)
+        textsizer3.AddSpacer(10)
+        
+
+        sizer.Add(textsizer3)
+        sizer.AddSpacer(10)
+        textsizer4 = wx.BoxSizer(wx.HORIZONTAL)
+
+        accessLevelLabel = wx.StaticText(panel, -1, 'Access Level:')
+        self.accessLevelTxtCtrl = wx.TextCtrl(panel, -1)
+        textsizer4.AddSpacer(5)
+        textsizer4.Add(accessLevelLabel)
+        textsizer4.AddSpacer(3)
+        textsizer4.Add(self.accessLevelTxtCtrl)
+        textsizer4.AddSpacer(10)
+
+        sizer.Add(textsizer4)
+        sizer.AddSpacer(20)
         panel.SetSizerAndFit(sizer)
 
         self.refreshDB()
@@ -101,6 +135,11 @@ class UserManagement(wx.MiniFrame):
         id = self.GetListCtrl().GetItemText(rowid, 0)
 
         self.usernameTxtCtrl.SetValue(self.userList.GetItemText(rowid, 1))
+        self.firstNameTxtCtrl.SetValue(self.userList.GetItemText(rowid, 2))
+        self.lastNameTxtCtrl.SetValue(self.userList.GetItemText(rowid, 3))
+        self.departmentTxtCtrl.SetValue(self.userList.GetItemText(rowid, 4))
+        self.roleTxtCtrl.SetValue(self.userList.GetItemText(rowid, 5))
+        self.accessLevelTxtCtrl.SetValue(self.userList.GetItemText(rowid, 6))
 
 class DatabaseMenu(wx.MiniFrame):
     # Default Constructor for Database Menu
