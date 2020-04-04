@@ -330,7 +330,7 @@ class ClientPanel(wx.Panel):
               f"FROM {schema}.Support_Ticket " \
               "INNER JOIN User ON Support_Ticket.submitterId=User.userId " \
               "WHERE isHidden = 0 " \
-              "AND isComplete = 1 " \
+              "AND jobStatus = 'Completed' " \
               f"AND username = '{self.username}'"
 
         print(sql)  # Print SQL code to console (for debugging)
@@ -498,7 +498,7 @@ class AdminPanel(wx.Panel):
         sql = "SELECT ticketId, User.username, submitDate, category, priority, jobStatus, isHidden " \
               f"FROM {schema}.Support_Ticket " \
               "INNER JOIN User ON Support_Ticket.submitterId=User.userId " \
-              "WHERE isComplete = 0"
+              "WHERE jobStatus != 'Completed' "
         result = query.genericQuery(sql, False)  # Make the query and store the result
         ListFormat.listwriter(self, result)
 
@@ -514,7 +514,7 @@ class AdminPanel(wx.Panel):
         sql = "SELECT ticketId, User.username, completedBy, submitDate, category, priority, jobStatus, isHidden " \
               f"FROM {schema}.Support_Ticket " \
               "INNER JOIN User ON Support_Ticket.submitterId=User.userId " \
-              "WHERE isComplete = 1"
+              "WHERE jobStatus = 'Completed"
         print(sql)  # Print SQL code to console (for debugging)
         # Create a QueueViewer object, and pass it SQL code
         win = QueueViewer(self, 'Completed Jobs', sql,
@@ -561,7 +561,7 @@ class AdminPanel(wx.Panel):
         if status != 'Completed':
             set = f"priority = '{priority}', jobStatus = '{status}'"
         else:
-            set = f"priority = '{priority}', jobStatus = '{status}', isComplete = 1, completedBy = {Credentials.getUserId(self.username)[0][0]}"
+            set = f"priority = '{priority}', jobStatus = '{status}', completedBy = {Credentials.getUserId(self.username)[0][0]}"
         cond = f"ticketId = {id}"
 
         if query.updateTable(dbname, set, cond) == 0:  # Make the query and perform logic on return value
