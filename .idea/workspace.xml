@@ -19,7 +19,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="UserManagement" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -323,11 +323,11 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="690" y="273" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1050/1920.0.1440.870@0.0.1920.1050" timestamp="1583787088547" />
-    <state x="614" y="119" key="CommitChangelistDialog2" timestamp="1586018277174">
+    <state x="614" y="119" key="CommitChangelistDialog2" timestamp="1586018394707">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="614" y="119" key="CommitChangelistDialog2/0.0.1920.1050/1920.0.1440.870@0.0.1920.1050" timestamp="1585582345458" />
-    <state x="614" y="119" key="CommitChangelistDialog2/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1586018277174" />
+    <state x="614" y="119" key="CommitChangelistDialog2/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1586018394707" />
     <state x="2534" y="122" key="CommitChangelistDialog2/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1586016430405" />
     <state x="740" y="279" key="FileChooserDialogImpl" timestamp="1585323290342">
       <screen x="0" y="0" width="1920" height="1050" />
@@ -391,10 +391,11 @@
     <state x="461" y="167" key="SettingsEditor/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1586017454739" />
     <state x="2381" y="172" key="SettingsEditor/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1586016252901" />
     <state x="283" y="78" key="SettingsEditor/38.23.1242.777@38.23.1242.777" timestamp="1583465910139" />
-    <state x="552" y="259" key="Vcs.Push.Dialog.v2" timestamp="1585582350790">
+    <state x="552" y="259" key="Vcs.Push.Dialog.v2" timestamp="1586018398046">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="552" y="259" key="Vcs.Push.Dialog.v2/0.0.1920.1050/1920.0.1440.870@0.0.1920.1050" timestamp="1585582350790" />
+    <state x="552" y="259" key="Vcs.Push.Dialog.v2/1920.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1586018398046" />
     <state x="395" y="215" key="Vcs.Push.Dialog.v2/38.23.1242.777@38.23.1242.777" timestamp="1583463679208" />
     <state x="2575" y="359" key="com.intellij.ide.util.TipDialog" timestamp="1586016244187">
       <screen x="1920" y="0" width="1920" height="1080" />

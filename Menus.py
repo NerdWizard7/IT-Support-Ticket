@@ -17,6 +17,7 @@ def resource_path(relative_path):
         return os.path.join(sys._MEIPASS, relative_path)
     return os.path.join(os.path.abspath("."), relative_path)
 
+
 class UserManagement(wx.MiniFrame):
     def __init__(self, parent, title, pos=wx.DefaultPosition, size=wx.DefaultSize, style=wx.DEFAULT_FRAME_STYLE):
         wx.MiniFrame.__init__(self, parent, -1, title, pos, size, style)
