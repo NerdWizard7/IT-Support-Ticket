@@ -23,6 +23,24 @@ class ReportGenerator(wx.MiniFrame):
         panel = wx.Panel(self, -1)
         self.SetIcon(wx.Icon(resource_path('StickyHamsters32x32.ico')))
 
+        sizer = wx.BoxSizer(wx.VERTICAL)
+        '''label1 = wx.StaticText(panel, -1, 'TextBox 1')
+        self.textBox0 = wx.TextCtrl(panel, -1)
+        sizer.AddStretchSpacer()
+        sizer.Add(label1)
+        sizer.Add(self.textBox0)
+        self.textBox1 = wx.TextCtrl(panel, -1)
+        sizer.AddSpacer(5)
+        sizer.Add(self.textBox1)
+        sizer.AddStretchSpacer()
+        self.button = wx.Button(panel, -1, 'Press Me')
+        self.Bind(wx.EVT_BUTTON, self.pressMe_OnClick, self.button)
+        '''
+        panel.SetSizerAndFit(sizer)
+
+    def pressMe_OnClick(self, evt):
+        dlg = wx.MessageBox('You pressed me')
+
 class UserManagement(wx.MiniFrame):
     def __init__(self, parent, title, pos=wx.DefaultPosition, size=wx.DefaultSize, style=wx.DEFAULT_FRAME_STYLE):
         wx.MiniFrame.__init__(self, parent, -1, title, pos, size, style)
