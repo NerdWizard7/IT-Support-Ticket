@@ -74,6 +74,7 @@ class MainApp(wx.Frame):
 
             adminMenu4 = wx.Menu()
             adminMenu3.Append(126, "&Repor&ts", adminMenu4)
+            adminMenu4.Append(127, "Report Generator")
 
             adminMenu3.AppendSeparator()
             adminMenu3.Append(130, '&Refresh')
@@ -100,6 +101,7 @@ class MainApp(wx.Frame):
             self.Bind(wx.EVT_MENU, self.shownPanel.viewCompleted_OnClick, id=160)
             self.Bind(wx.EVT_MENU, self.userAdmin_OnClick, id=180)
             self.Bind(wx.EVT_MENU, self.logout_OnClick, id=140)
+            self.Bind(wx.EVT_MENU, self.ReportGenerator_OnClick, id=127)
         else:
             pass
 
@@ -115,6 +117,12 @@ class MainApp(wx.Frame):
             panel = Panels.ClientLogin(self)
             self.pushWinStack(panel)
             self.Layout()
+
+    def ReportGenerator_OnClick(self, evt):
+        win = ReportGenerator(self, 'Report Generator', style=wx.DEFAULT_FRAME_STYLE)
+        win.SetSize((700, 500))
+        win.Show(True)
+        win.SetFocus()
 
     def login_OnClick(self, evt, u, p):
         id = evt.GetEventObject().GetId()
