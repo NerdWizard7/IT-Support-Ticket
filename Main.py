@@ -103,7 +103,6 @@ class MainApp(wx.Frame):
         else:
             pass
 
-
     # Button Event Logic
     def button_OnClick(self, evt):
         btn = evt.GetEventObject().GetLabel()  # Get the name of the button and store in btn variable
@@ -173,8 +172,6 @@ class MainApp(wx.Frame):
         self.loadMenuBar(self.shownName)
         self.SetTitle(self.shownPanel.title)
 
-
-
     def pushWinStack(self, newPanel):
         self.winStack.append(newPanel)
         self.refreshWinStack()
@@ -184,8 +181,6 @@ class MainApp(wx.Frame):
         self.SetMenuBar(None)
         self.winStack.pop()
         self.refreshWinStack()
-
-
 
 # Main Program Loop
 if __name__ == '__main__':

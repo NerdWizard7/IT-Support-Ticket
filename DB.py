@@ -80,7 +80,7 @@ class Query:
                 mycursor = mydb.cursor()  # Create a db cursor
                 mycursor.execute(f'USE {schema}')
                 mycursor.execute(f"INSERT INTO {schema}.Support_Ticket (ticketId, submitterId, submitDate,"
-                                 f" category, jobStatus, isHidden, isComplete, completedBy, priority, description)"
+                                 f" category, jobStatus, isHidden, completedBy, priority, description)"
                                  f" VALUES (NULL, '{submitterId}', CURRENT_TIMESTAMP, '{category}', 'Submitted',"
                                  f" {1 if hidden else 0}, 0, NULL,"
                                  f" '{priority}', '{description}')")  # Execute the query on ticket
