@@ -82,7 +82,7 @@ class Query:
                 mycursor.execute(f"INSERT INTO {schema}.Support_Ticket (ticketId, submitterId, submitDate,"
                                  f" category, jobStatus, isHidden, completedBy, priority, description)"
                                  f" VALUES (NULL, '{submitterId}', CURRENT_TIMESTAMP, '{category}', 'Submitted',"
-                                 f" {1 if hidden else 0}, 0, NULL,"
+                                 f" {1 if hidden else 0}, NULL,"
                                  f" '{priority}', '{description}')")  # Execute the query on ticket
                 mydb.commit()  # Commit the statement
                 # Close the connection
