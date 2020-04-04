@@ -5,7 +5,8 @@ class ListFormat:
         context.GetListCtrl().DeleteAllItems()
         for item in list:
             if item[:][6] == b'\x01':  # If Hidden is marked True...
-                context.GetListCtrl().Append(item[:])  # Append the item...
+                tup = item[6:] + ('True',) + item[:7]
+                context.GetListCtrl().Append(tup)  # Append the item...
                 context.GetListCtrl().SetItemTextColour(context.GetListCtrl().GetItemCount() - 1, 'Light Grey')  # Grey it out
             elif item[:][5] != 'Submitted':
                 status = item[:][5]
@@ -17,7 +18,8 @@ class ListFormat:
                 elif status == 'Halted':
                     context.GetListCtrl().SetItemBackgroundColour(context.GetListCtrl().GetItemCount() - 1, 'Red')
             else:
-                context.GetListCtrl().Append(item[:])  # Append the Item with normal background
+                tup = item[6:] + ('False',) + item[:7]
+                context.GetListCtrl().Append(tup)  # Append the Item with normal background
 
 class Sorter:
     @staticmethod
