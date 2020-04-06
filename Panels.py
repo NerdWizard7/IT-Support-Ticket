@@ -514,7 +514,7 @@ class AdminPanel(wx.Panel):
         sql = "SELECT ticketId, User.username, completedBy, submitDate, category, priority, jobStatus, isHidden " \
               f"FROM {schema}.Support_Ticket " \
               "INNER JOIN User ON Support_Ticket.submitterId=User.userId " \
-              "WHERE jobStatus = 'Completed"
+              "WHERE jobStatus = 'Completed'"
         print(sql)  # Print SQL code to console (for debugging)
         # Create a QueueViewer object, and pass it SQL code
         win = QueueViewer(self, 'Completed Jobs', sql,

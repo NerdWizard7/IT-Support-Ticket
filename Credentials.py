@@ -19,6 +19,15 @@ class Credentials:
             return "Username is incorrect"
 
     @staticmethod
+    def passwordHash(passwd):
+        shaObj = hashlib.sha256()
+        shaObj.update(passwd.encode())
+        if passwd != '':
+            return shaObj.hexdigest()
+        else:
+            return 'NULL'
+
+    @staticmethod
     def getUserId(username):
         query = Query()
         sql = f"SELECT userId FROM User WHERE username = '{username}'"
