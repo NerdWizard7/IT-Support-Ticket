@@ -162,12 +162,14 @@ class Query:
     # Static method to update an existing database record
     @staticmethod
     def updateTable(db, set, cond):
+        schema = db.load()[3]
         try:
             mydb = pymysql.connect(host=HOSTNAME, user=USER, passwd=PASSWD)
             with mydb:
                 mycursor = mydb.cursor()
                 sql = f"UPDATE {db} SET {set} WHERE {cond};"
                 print(sql)
+                mycursor.execute(f'USE {schema};')
                 mycursor.execute(sql)
                 mydb.commit()
                 mycursor.close()
