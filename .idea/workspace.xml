@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f242de5d-a7ca-47d2-b87d-9abc89c05299" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="f242de5d-a7ca-47d2-b87d-9abc89c05299" name="Default Changelist" comment="Added more user administration text boxes">
+      <change beforePath="$PROJECT_DIR$/Credentials.py" beforeDir="false" afterPath="$PROJECT_DIR$/Credentials.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DB.py" beforeDir="false" afterPath="$PROJECT_DIR$/DB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Panels.py" beforeDir="false" afterPath="$PROJECT_DIR$/Panels.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Menus.py" beforeDir="false" afterPath="$PROJECT_DIR$/Menus.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -183,9 +183,13 @@ class UserManagement(wx.MiniFrame):
 
     def addUser_OnClick(self, evt):
         query = Query()
-        rowid = self.GetListCtrl().GetFirstSelected()
 
-        sql = f"INSERT INTO User VALUES (NULL, '{self.usernameTxtCtrl.GetValue()}', '{self.firstNameTxtCtrl.GetValue()}', '{self.lastNameTxtCtrl.GetValue()}', '{Credentials.passwordHash(self.passwdTxtCtrl.GetValue())}', '{self.departmentTxtCtrl.GetValue()}', {1 if int(self.accessLevelTxtCtrl.GetValue()) > 1 else 0}, {int(self.accessLevelTxtCtrl.GetValue())});"
+        sql = f"INSERT INTO User VALUES (NULL, '{self.usernameTxtCtrl.GetValue()}', " \
+              f"'{self.firstNameTxtCtrl.GetValue()}', '{self.lastNameTxtCtrl.GetValue()}', " \
+              f"'{Credentials.passwordHash(self.passwdTxtCtrl.GetValue())}', " \
+              f"'{self.departmentTxtCtrl.GetValue()}', " \
+              f"{1 if int(self.accessLevelTxtCtrl.GetValue()) > 1 else 0}, " \
+              f"{int(self.accessLevelTxtCtrl.GetValue())});"
         if query.genericQuery(sql, False) == 1:
             msg = wx.MessageBox('There was an issue with your query. Make sure all boxes are filled.',
                                     'Add User Error')
