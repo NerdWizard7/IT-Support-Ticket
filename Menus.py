@@ -23,6 +23,12 @@ class ReportGenerator(wx.MiniFrame):
         panel = wx.Panel(self, -1)
         self.SetIcon(wx.Icon(resource_path('StickyHamsters32x32.ico')))
 
+        # Set Up Printing Data
+        self.pdata = wx.PrintData()
+        self.pdata.SetPaperId(wx.PAPER_LETTER)
+        self.pdata.SetOrientation(wx.PORTRAIT)
+        self.margins = (wx.Point(15, 15), wx.Point(15, 15))
+
         sizer = wx.BoxSizer(wx.VERTICAL)
 
         label0 = wx.StaticText(panel, -1, 'Date Range')
@@ -53,6 +59,7 @@ class ReportGenerator(wx.MiniFrame):
         hsizer1 = wx.BoxSizer(wx.HORIZONTAL)
         self.RadioButton0 = wx.RadioButton(panel, -1, 'Numerical Report')
         hsizer1.Add(self.RadioButton0)
+        self.RadioButton0.SetValue(True)
         hsizer1.AddSpacer(20)
 
         self.RadioButton1 = wx.RadioButton(panel, -1, 'Full Report')
@@ -83,7 +90,53 @@ class ReportGenerator(wx.MiniFrame):
         panel.SetSizerAndFit(sizer)
 
     def pressMe_OnClick(self, evt):
-        dlg = wx.MessageBox('You pressed me')
+        try:
+            startdate = datetime.datetime.strptime(self.textBox0.GetValue(), '%Y-%m-%d')
+            enddate = datetime.datetime.strptime(self.textBox1.GetValue(), '%Y-%m-%d')
+            self.generateLayout(startdate, enddate)
+        except Exception as err:
+            msg = wx.MessageBox('Please enter in YYYY-MM-DD format.', 'Invalid Date Format')
+            print(err)
+
+    def generateLayout(self, start, end):
+        printHead = f"For date range {start} - {end}:\n\n"
+        totalJobs = 0
+        completed = 0
+        submitted = 0
+        halted = 0
+        inProgress = 0
+        query = Query()
+        sql = f"SELECT * FROM Support_Ticket WHERE submitDate BETWEEN '{start}' AND '{end}'"
+        result = query.genericQuery(sql, False)
+        if result != 1:
+            if self.RadioButton0.GetValue() == True:  # Numerical Report
+                for item in result:
+                    totalJobs += 1
+                    if item[:][4] == 'Completed':
+                        completed += 1
+                    elif item[:][4] == 'In Progress':
+                        inProgress += 1
+                    elif item[:][4] == 'Halted':
+                        halted += 1
+                    else:
+                        submitted += 1
+                printHead += f"Total Submitted Jobs: {totalJobs}\n\n" \
+                             f"Job Status\n" \
+                             f"----------------------------------------\n" \
+                             f"Submitted: {submitted}\n" \
+                             f"In Progress: {inProgress}\n" \
+                             f"Halted: {halted}\n" \
+                             f"Completed: {completed}\n\n" \
+
+                PrintMe.printPreview(self, printHead)
+            elif self.RadioButton1.GetValue() == False:
+                mse = wx.MessageBox('This feature is not yet implemented.', 'Under Construction')
+        else:
+            msg = wx.MessageBox('There was an error generating the report. Try altering the date range and try again.',
+                                'Report Error')
+
+
+
 
 class UserManagement(wx.MiniFrame):
     def __init__(self, parent, title, pos=wx.DefaultPosition, size=wx.DefaultSize, style=wx.DEFAULT_FRAME_STYLE):

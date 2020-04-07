@@ -24,3 +24,10 @@ class Credentials:
         sql = f"SELECT userId FROM User WHERE username = '{username}'"
         userId = query.genericQuery(sql, False)
         return userId
+
+    @staticmethod
+    def getUsername(userId):
+        query = Query()
+        sql = f"SELECT username FROM User WHERE userId = {userId}"
+        username = query.genericQuery(sql, False)
+        return username[0][0]
