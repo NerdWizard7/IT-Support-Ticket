@@ -135,9 +135,6 @@ class ReportGenerator(wx.MiniFrame):
             msg = wx.MessageBox('There was an error generating the report. Try altering the date range and try again.',
                                 'Report Error')
 
-
-
-
 class UserManagement(wx.MiniFrame):
     def __init__(self, parent, title, pos=wx.DefaultPosition, size=wx.DefaultSize, style=wx.DEFAULT_FRAME_STYLE):
         wx.MiniFrame.__init__(self, parent, -1, title, pos, size, style)
