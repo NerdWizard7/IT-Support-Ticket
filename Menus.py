@@ -17,6 +17,124 @@ def resource_path(relative_path):
         return os.path.join(sys._MEIPASS, relative_path)
     return os.path.join(os.path.abspath("."), relative_path)
 
+class ReportGenerator(wx.MiniFrame):
+    def __init__(self, parent, title, pos=wx.DefaultPosition, size=wx.DefaultSize, style=wx.DEFAULT_FRAME_STYLE):
+        wx.MiniFrame.__init__(self, parent, -1, title, pos, size, style)
+        panel = wx.Panel(self, -1)
+        self.SetIcon(wx.Icon(resource_path('StickyHamsters32x32.ico')))
+
+        # Set Up Printing Data
+        self.pdata = wx.PrintData()
+        self.pdata.SetPaperId(wx.PAPER_LETTER)
+        self.pdata.SetOrientation(wx.PORTRAIT)
+        self.margins = (wx.Point(15, 15), wx.Point(15, 15))
+
+        sizer = wx.BoxSizer(wx.VERTICAL)
+
+        label0 = wx.StaticText(panel, -1, 'Date Range')
+        sizer.AddSpacer(10)
+        sizer.Add(label0, 1, wx.CENTER)
+
+        hsizer0 = wx.BoxSizer(wx.HORIZONTAL)
+        hsizervsizer0 = wx.BoxSizer(wx.VERTICAL)
+        label0 = wx.StaticText(panel, -1, 'Start')
+        self.textBox0 = wx.TextCtrl(panel, -1)
+        hsizervsizer0.Add(label0)
+        hsizervsizer0.Add(self.textBox0)
+        hsizer0.Add(hsizervsizer0)
+        hsizer0.AddSpacer(20)
+
+        hsizervsizer1 = wx.BoxSizer(wx.VERTICAL)
+        label1 = wx.StaticText(panel, -1, 'End')
+        self.textBox1 = wx.TextCtrl(panel, -1)
+        hsizervsizer1.Add(label1)
+        hsizervsizer1.Add(self.textBox1)
+        hsizer0.Add(hsizervsizer1)
+        sizer.Add(hsizer0, 1, wx.CENTER)
+        sizer.AddSpacer(30)
+
+        self.button = wx.Button(panel, -1, 'Generate Report')
+        self.Bind(wx.EVT_BUTTON, self.pressMe_OnClick, self.button)
+
+        hsizer1 = wx.BoxSizer(wx.HORIZONTAL)
+        self.RadioButton0 = wx.RadioButton(panel, -1, 'Numerical Report')
+        hsizer1.Add(self.RadioButton0)
+        self.RadioButton0.SetValue(True)
+        hsizer1.AddSpacer(20)
+
+        self.RadioButton1 = wx.RadioButton(panel, -1, 'Full Report')
+        hsizer1.Add(self.RadioButton1)
+        sizer.Add(hsizer1, 1, wx.CENTER)
+
+        vsizer0 = wx.BoxSizer(wx.VERTICAL)
+        self.CheckBox0 = wx.CheckBox(panel, -1, 'Completed Tickets')
+        vsizer0.Add(self.CheckBox0)
+        vsizer0.AddSpacer(15)
+
+        self.CheckBox1 = wx.CheckBox(panel, -1, 'Submitted Tickets')
+        vsizer0.Add(self.CheckBox1)
+        vsizer0.AddSpacer(15)
+
+        self.CheckBox2 = wx.CheckBox(panel, -1, 'Ticket Length')
+        vsizer0.Add(self.CheckBox2)
+        vsizer0.AddSpacer(15)
+
+        self.CheckBox3 = wx.CheckBox(panel, -1, 'Graph')
+        vsizer0.Add(self.CheckBox3)
+        sizer.Add(vsizer0, 1, wx.CENTER)
+
+        sizer.AddStretchSpacer()
+        sizer.Add(self.button, 1, wx.CENTER)
+        sizer.AddSpacer(5)
+
+        panel.SetSizerAndFit(sizer)
+
+    def pressMe_OnClick(self, evt):
+        try:
+            startdate = datetime.datetime.strptime(self.textBox0.GetValue(), '%Y-%m-%d')
+            enddate = datetime.datetime.strptime(self.textBox1.GetValue(), '%Y-%m-%d')
+            self.generateLayout(startdate, enddate)
+        except Exception as err:
+            msg = wx.MessageBox('Please enter in YYYY-MM-DD format.', 'Invalid Date Format')
+            print(err)
+
+    def generateLayout(self, start, end):
+        printHead = f"For date range {start} - {end}:\n\n"
+        totalJobs = 0
+        completed = 0
+        submitted = 0
+        halted = 0
+        inProgress = 0
+        query = Query()
+        sql = f"SELECT * FROM Support_Ticket WHERE submitDate BETWEEN '{start}' AND '{end}'"
+        result = query.genericQuery(sql, False)
+        if result != 1:
+            if self.RadioButton0.GetValue() == True:  # Numerical Report
+                for item in result:
+                    totalJobs += 1
+                    if item[:][4] == 'Completed':
+                        completed += 1
+                    elif item[:][4] == 'In Progress':
+                        inProgress += 1
+                    elif item[:][4] == 'Halted':
+                        halted += 1
+                    else:
+                        submitted += 1
+                printHead += f"Total Submitted Jobs: {totalJobs}\n\n" \
+                             f"Job Status\n" \
+                             f"----------------------------------------\n" \
+                             f"Submitted: {submitted}\n" \
+                             f"In Progress: {inProgress}\n" \
+                             f"Halted: {halted}\n" \
+                             f"Completed: {completed}\n\n" \
+
+                PrintMe.printPreview(self, printHead)
+            elif self.RadioButton1.GetValue() == False:
+                mse = wx.MessageBox('This feature is not yet implemented.', 'Under Construction')
+        else:
+            msg = wx.MessageBox('There was an error generating the report. Try altering the date range and try again.',
+                                'Report Error')
+
 class UserManagement(wx.MiniFrame):
     def __init__(self, parent, title, pos=wx.DefaultPosition, size=wx.DefaultSize, style=wx.DEFAULT_FRAME_STYLE):
         wx.MiniFrame.__init__(self, parent, -1, title, pos, size, style)
@@ -46,93 +164,75 @@ class UserManagement(wx.MiniFrame):
         sizer.Add(listsizer, 1, wx.EXPAND)
         sizer.AddSpacer(10)
 
-#-----------------First Horizontal Sizer with Username and Password--------------------------
-
         textsizer1 = wx.BoxSizer(wx.HORIZONTAL)
-        textsizer1v1 = wx.BoxSizer(wx.VERTICAL)
+
         usernameLabel = wx.StaticText(panel, -1, 'Username: ')
         self.usernameTxtCtrl = wx.TextCtrl(panel, -1)
-        textsizer1v1.Add(usernameLabel)
-        textsizer1v1.Add(self.usernameTxtCtrl)
-        textsizer1.Add(textsizer1v1)
+        textsizer1.AddSpacer(5)
+        textsizer1.Add(usernameLabel)
+        textsizer1.AddSpacer(13)
+        textsizer1.Add(self.usernameTxtCtrl)
         textsizer1.AddSpacer(10)
 
-        textsizer1v2 = wx.BoxSizer(wx.VERTICAL)
-        passwdLabel = wx.StaticText(panel, -1, 'Password: ')
-        self.passwdTxtCtrl = wx.TextCtrl(panel, -1, style=wx.TE_PASSWORD)
-        textsizer1v2.Add(passwdLabel)
-        textsizer1v2.Add(self.passwdTxtCtrl)
-        textsizer1.Add(textsizer1v2)
+        passwdLabel = wx.StaticText(panel, -1, 'Password:')
+        self.passwdTxtCtrl = wx.TextCtrl(panel, -1)
+        textsizer1.Add(passwdLabel)
+        textsizer1.AddSpacer(3)
+        textsizer1.Add(self.passwdTxtCtrl)
 
-        sizer.Add(textsizer1, 1, wx.CENTER)
-        sizer.AddSpacer(10)
-
-#------------------Second Sizer with First and Last Name-------------------------------------
-
+        sizer.Add(textsizer1)
+        sizer.AddSpacer(15)
         textsizer2 = wx.BoxSizer(wx.HORIZONTAL)
-        textsizer2v1 = wx.BoxSizer(wx.VERTICAL)
+
         firstNameLabel = wx.StaticText(panel, -1, 'First Name:')
         self.firstNameTxtCtrl = wx.TextCtrl(panel, -1)
         textsizer2.AddSpacer(5)
-        textsizer2v1.Add(firstNameLabel)
-        textsizer2v1.Add(self.firstNameTxtCtrl)
-        textsizer2.Add(textsizer2v1)
+        textsizer2.Add(firstNameLabel)
+        textsizer2.AddSpacer(12)
+        textsizer2.Add(self.firstNameTxtCtrl)
         textsizer2.AddSpacer(10)
 
-        textsizer2v2 = wx.BoxSizer(wx.VERTICAL)
         lastNameLabel = wx.StaticText(panel, -1, 'Last Name:')
         self.lastNameTxtCtrl = wx.TextCtrl(panel, -1)
-        textsizer2v2.Add(lastNameLabel)
-        textsizer2v2.Add(self.lastNameTxtCtrl)
-        textsizer2.Add(textsizer2v2)
+        textsizer2.Add(lastNameLabel)
+        textsizer2.AddSpacer(10)
+        textsizer2.Add(self.lastNameTxtCtrl)
         textsizer2.AddSpacer(10)
 
-        sizer.Add(textsizer2, 1, wx.CENTER)
+        sizer.Add(textsizer2)
         sizer.AddSpacer(10)
-
-#----------------Third Sizer with Department and Access Level---------------------------------------
-
         textsizer3 = wx.BoxSizer(wx.HORIZONTAL)
-        textsizer3v1 = wx.BoxSizer(wx.VERTICAL)
+
         departmentLabel = wx.StaticText(panel, -1, 'Department:')
         self.departmentTxtCtrl = wx.TextCtrl(panel, -1)
         textsizer3.AddSpacer(5)
-        textsizer3v1.Add(departmentLabel)
-        textsizer3v1.Add(self.departmentTxtCtrl)
-        textsizer3.Add(textsizer3v1)
+        textsizer3.Add(departmentLabel)
+        textsizer3.AddSpacer(6)
+        textsizer3.Add(self.departmentTxtCtrl)
         textsizer3.AddSpacer(10)
+        
+        roleLabel = wx.StaticText(panel, -1, 'Role:')
+        self.roleTxtCtrl = wx.TextCtrl(panel, -1)
+        textsizer3.Add(roleLabel)
+        textsizer3.AddSpacer(3)
+        textsizer3.Add(self.roleTxtCtrl)
+        textsizer3.AddSpacer(10)
+        
 
-        textsizer3v2 = wx.BoxSizer(wx.VERTICAL)
+        sizer.Add(textsizer3)
+        sizer.AddSpacer(10)
+        textsizer4 = wx.BoxSizer(wx.HORIZONTAL)
+
         accessLevelLabel = wx.StaticText(panel, -1, 'Access Level:')
         self.accessLevelTxtCtrl = wx.TextCtrl(panel, -1)
-        textsizer3v2.Add(accessLevelLabel)
-        textsizer3v2.Add(self.accessLevelTxtCtrl)
-        textsizer3.Add(textsizer3v2)
-        textsizer3.AddSpacer(10)
+        textsizer4.AddSpacer(5)
+        textsizer4.Add(accessLevelLabel)
+        textsizer4.AddSpacer(3)
+        textsizer4.Add(self.accessLevelTxtCtrl)
+        textsizer4.AddSpacer(10)
 
-        sizer.Add(textsizer3, 1, wx.CENTER)
+        sizer.Add(textsizer4)
         sizer.AddSpacer(20)
-
-#----------------------Buttons------------------------------------------------------------
-
-        buttonsizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.updateUserButton = wx.Button(panel, -1, 'Update User')
-        buttonsizer.Add(self.updateUserButton)
-        buttonsizer.AddSpacer(10)
-        self.Bind(wx.EVT_BUTTON, self.updateButton_OnClick, self.updateUserButton)
-
-        self.addUserButton = wx.Button(panel, -1, 'Add User', size=wx.DefaultSize)
-        buttonsizer.Add(self.addUserButton)
-        buttonsizer.AddSpacer(10)
-        self.Bind(wx.EVT_BUTTON, self.addUser_OnClick, self.addUserButton)
-
-        self.removeUserButton = wx.Button(panel, -1, 'Disable User', size=wx.DefaultSize)
-        buttonsizer.Add(self.removeUserButton)
-        self.Bind(wx.EVT_BUTTON, self.disableUser_OnClick, self.removeUserButton)
-
-        sizer.Add(buttonsizer, 1, wx.CENTER)
-
-
         panel.SetSizerAndFit(sizer)
 
         self.refreshDB()
@@ -152,67 +252,6 @@ class UserManagement(wx.MiniFrame):
                 tup = user[:5] + ('Standard User',) + user[6:]
             self.userList.Append(tup)
 
-    def updateButton_OnClick(self, evt):
-        if self.GetListCtrl().GetFirstSelected() == -1:
-            pass
-        else:
-            query = Query()
-            rowid = self.GetListCtrl().GetFirstSelected()
-            userId = self.GetListCtrl().GetItemText(rowid, 0)
-            accessLevel = int(self.GetListCtrl().GetItemText(rowid, 6))
-
-            if self.passwdTxtCtrl.GetValue() != '':  # User changed a password (field is not blank)
-                sql = f"UPDATE User SET username = '{self.usernameTxtCtrl.GetValue()}', " \
-                      f"firstName = '{self.firstNameTxtCtrl.GetValue()}', "\
-                      f"lastName = '{self.lastNameTxtCtrl.GetValue()}', " \
-                      f"passwordHash = '{Credentials.passwordHash(self.passwdTxtCtrl.GetValue())}', " \
-                      f"department = '{self.departmentTxtCtrl.GetValue()}', isAdmin = {1 if accessLevel > 1 else 0}, " \
-                      f"accessLevel = {self.accessLevelTxtCtrl.GetValue()} WHERE userId = {userId}"
-            else:  # User didn't enter any password; Don't change it.
-                sql = f"UPDATE User SET username = '{self.usernameTxtCtrl.GetValue()}', " \
-                      f"firstName = '{self.firstNameTxtCtrl.GetValue()}', " \
-                      f"lastName = '{self.lastNameTxtCtrl.GetValue()}', " \
-                      f"department = '{self.departmentTxtCtrl.GetValue()}', isAdmin = {1 if accessLevel > 1 else 0}, " \
-                      f"accessLevel = {self.accessLevelTxtCtrl.GetValue()} WHERE userId = {userId}"
-            if query.genericQuery(sql, False) == 1:
-                msg = wx.MessageBox('There was an issue with your query. Make sure all boxes are filled.',
-                                    'User Update Error')
-            else:
-                msg = wx.MessageBox('User Successfully Updated!', 'User Update Success')
-                self.refreshDB()
-
-    def addUser_OnClick(self, evt):
-        query = Query()
-
-        sql = f"INSERT INTO User VALUES (NULL, '{self.usernameTxtCtrl.GetValue()}', " \
-              f"'{self.firstNameTxtCtrl.GetValue()}', '{self.lastNameTxtCtrl.GetValue()}', " \
-              f"'{Credentials.passwordHash(self.passwdTxtCtrl.GetValue())}', " \
-              f"'{self.departmentTxtCtrl.GetValue()}', " \
-              f"{1 if int(self.accessLevelTxtCtrl.GetValue()) > 1 else 0}, " \
-              f"{int(self.accessLevelTxtCtrl.GetValue())});"
-        if query.genericQuery(sql, False) == 1:
-            msg = wx.MessageBox('There was an issue with your query. Make sure all boxes are filled.',
-                                    'Add User Error')
-        else:
-            msg = wx.MessageBox('User Successfully Added!', 'Add User Success')
-            self.refreshDB()
-
-    def disableUser_OnClick(self, evt):
-        if self.GetListCtrl().GetFirstSelected() == -1:
-            pass
-        else:
-            query = Query()
-            rowid = self.GetListCtrl().GetFirstSelected()
-            userId = self.GetListCtrl().GetItemText(rowid, 0)
-
-            sql = f'UPDATE User SET accessLevel = 0 WHERE userId = {userId}'
-            if query.genericQuery(sql, False) == 1:
-                msg = wx.MessageBox('There was an issue with your query. Make sure all boxes are filled.',
-                                    'Disable Account Error')
-            else:
-                msg = wx.MessageBox('User Successfully Disabled!', 'Disable User Success')
-                self.refreshDB()
-
     def listCol_OnClick(self, evt):
         Sorter.sort(self, evt.GetColumn())
 
@@ -224,8 +263,8 @@ class UserManagement(wx.MiniFrame):
         self.firstNameTxtCtrl.SetValue(self.userList.GetItemText(rowid, 2))
         self.lastNameTxtCtrl.SetValue(self.userList.GetItemText(rowid, 3))
         self.departmentTxtCtrl.SetValue(self.userList.GetItemText(rowid, 4))
+        self.roleTxtCtrl.SetValue(self.userList.GetItemText(rowid, 5))
         self.accessLevelTxtCtrl.SetValue(self.userList.GetItemText(rowid, 6))
-        self.passwdTxtCtrl.SetValue('')
 
 class DatabaseMenu(wx.MiniFrame):
     # Default Constructor for Database Menu

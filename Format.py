@@ -4,14 +4,13 @@ class ListFormat:
         # Control Highlighting based on row values
         context.GetListCtrl().DeleteAllItems()
         for item in list:
-            tup = item[:6] + ('Yes',) if item[:][6] == b'\x01' else item[:6] + ('No',)
-            print(tup)
-            if tup[6] == 'Yes':  # If Hidden is marked True...
-                context.GetListCtrl().Append(tup)  # Append the item...
+            if item[:][6] == b'\x01':  # If Hidden is marked True...
+                #tup = item[6:] + ('True')
+                context.GetListCtrl().Append(item[:])  # Append the item...
                 context.GetListCtrl().SetItemTextColour(context.GetListCtrl().GetItemCount() - 1, 'Light Grey')  # Grey it out
-            elif tup[5] != 'Submitted':
-                status = tup[5]
-                context.GetListCtrl().Append(tup)
+            elif item[:][5] != 'Submitted':
+                status = item[:][5]
+                context.GetListCtrl().Append(item[:])
                 if status == 'Completed':
                     context.GetListCtrl().SetItemBackgroundColour(context.GetListCtrl().GetItemCount() - 1, 'Lime Green')
                 elif status == 'In Progress':
@@ -19,7 +18,8 @@ class ListFormat:
                 elif status == 'Halted':
                     context.GetListCtrl().SetItemBackgroundColour(context.GetListCtrl().GetItemCount() - 1, 'Red')
             else:
-                context.GetListCtrl().Append(tup)  # Append the Item with normal background
+                #tup = item[6:] + ('False')
+                context.GetListCtrl().Append(item[:])  # Append the Item with normal background
 
 class Sorter:
     @staticmethod
