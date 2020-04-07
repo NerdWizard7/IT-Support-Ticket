@@ -417,6 +417,7 @@ class NotesEditor(wx.MiniFrame):
             self.overwrite = True
             self.ed.SetText(result)
 
+
     # Methods
 
     # Called to grab notes for a specific request
