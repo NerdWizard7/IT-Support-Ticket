@@ -187,15 +187,17 @@ class Query:
             mydb = pymysql.connect(host=HOSTNAME, user=USER, passwd=PASSWD)
             with mydb:
                 mycursor = mydb.cursor()
-                mycursor.execute(f"SELECT passwordHash, isAdmin FROM {schema}.User WHERE username = '{username}'")
+                mycursor.execute(f"SELECT passwordHash, accessLevel FROM {schema}.User WHERE username = '{username}'")
                 result = mycursor.fetchall()
                 print(result)
                 print(result[0])
                 if passwd == result[0][0]:  # Passwords match
-                    if result[0][1] == b'\x01':
+                    if result[0][1] > 2:
                         return 0  # User is an administrator
-                    else:
+                    elif result[0][1] > 0:
                         return 1  # User is in system, but isn't admin
+                    else:
+                        return 4 # Account is disabled
                 else:
                     return 2  # Password didn't match
         except Exception as err:

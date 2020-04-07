@@ -126,7 +126,6 @@ class MainApp(wx.Frame):
                 self.pushWinStack(panel)
             else:
                 msg = wx.MessageBox(valid, 'Login Notice')
-
         elif id == 20:
             print('Admin')
             valid = Credentials.passwordHasher(u, p)

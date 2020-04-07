@@ -126,9 +126,9 @@ class UserManagement(wx.MiniFrame):
         buttonsizer.AddSpacer(10)
         self.Bind(wx.EVT_BUTTON, self.addUser_OnClick, self.addUserButton)
 
-        self.removeUserButton = wx.Button(panel, -1, 'Remove User', size=wx.DefaultSize)
+        self.removeUserButton = wx.Button(panel, -1, 'Disable User', size=wx.DefaultSize)
         buttonsizer.Add(self.removeUserButton)
-        self.Bind(wx.EVT_BUTTON, self.removeUser_OnClick, self.removeUserButton)
+        self.Bind(wx.EVT_BUTTON, self.disableUser_OnClick, self.removeUserButton)
 
         sizer.Add(buttonsizer, 1, wx.CENTER)
 
@@ -197,7 +197,7 @@ class UserManagement(wx.MiniFrame):
             msg = wx.MessageBox('User Successfully Added!', 'Add User Success')
             self.refreshDB()
 
-    def removeUser_OnClick(self, evt):
+    def disableUser_OnClick(self, evt):
         if self.GetListCtrl().GetFirstSelected() == -1:
             pass
         else:
@@ -205,12 +205,12 @@ class UserManagement(wx.MiniFrame):
             rowid = self.GetListCtrl().GetFirstSelected()
             userId = self.GetListCtrl().GetItemText(rowid, 0)
 
-            sql = f'DELETE FROM User WHERE userId = {userId}'
+            sql = f'UPDATE User SET accessLevel = 0 WHERE userId = {userId}'
             if query.genericQuery(sql, False) == 1:
                 msg = wx.MessageBox('There was an issue with your query. Make sure all boxes are filled.',
-                                    'Remove Error')
+                                    'Disable Account Error')
             else:
-                msg = wx.MessageBox('User Successfully Removed!', 'Remove User Success')
+                msg = wx.MessageBox('User Successfully Disabled!', 'Disable User Success')
                 self.refreshDB()
 
     def listCol_OnClick(self, evt):

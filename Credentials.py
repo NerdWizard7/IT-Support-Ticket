@@ -15,8 +15,10 @@ class Credentials:
             return 1
         elif result == 2:
             return "Password is incorrect"
-        else:
+        elif result == 3:
             return "Username is incorrect"
+        else:
+            return "That user account is disabled. Contact IT if this is an error."
 
     @staticmethod
     def passwordHash(passwd):
