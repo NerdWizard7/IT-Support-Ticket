@@ -4,19 +4,20 @@ class ListFormat:
         # Control Highlighting based on row values
         context.GetListCtrl().DeleteAllItems()
         for item in list:
-            tup = item[:6] + ('Yes',) if item[:][6] == b'\x01' else item[:6] + ('No',)
+            # Really janky way to change b'\x01' to 'Yes', and 'No' respectively...
+            tup = item[:6] + ('Yes',) if item[:][6] == b'\x01' or item[:][6] == 'Yes' else item[:6] + ('No',)
             print(tup)
             if tup[6] == 'Yes':  # If Hidden is marked True...
                 context.GetListCtrl().Append(tup)  # Append the item...
                 context.GetListCtrl().SetItemTextColour(context.GetListCtrl().GetItemCount() - 1, 'Light Grey')  # Grey it out
-            elif tup[5] != 'Submitted':
+            elif tup[5] != 'Submitted':  # fifth index (job status) is 'Submitted'
                 status = tup[5]
                 context.GetListCtrl().Append(tup)
-                if status == 'Completed':
+                if status == 'Completed':  # job Status is 'Completed'
                     context.GetListCtrl().SetItemBackgroundColour(context.GetListCtrl().GetItemCount() - 1, 'Lime Green')
-                elif status == 'In Progress':
+                elif status == 'In Progress':  # job Status is 'In Progress'
                     context.GetListCtrl().SetItemBackgroundColour(context.GetListCtrl().GetItemCount() - 1, 'Yellow')
-                elif status == 'Halted':
+                elif status == 'Halted':# job Status is 'Halted'
                     context.GetListCtrl().SetItemBackgroundColour(context.GetListCtrl().GetItemCount() - 1, 'Red')
             else:
                 context.GetListCtrl().Append(tup)  # Append the Item with normal background
