@@ -159,27 +159,6 @@ class Query:
             print(err)
             return 1
 
-    # Static method to update an existing database record
-    @staticmethod
-    def updateTable(db, set, cond):
-        schema = db.load()[3]
-        try:
-            mydb = pymysql.connect(host=HOSTNAME, user=USER, passwd=PASSWD)
-            with mydb:
-                mycursor = mydb.cursor()
-                sql = f"UPDATE {db} SET {set} WHERE {cond};"
-                print(sql)
-                mycursor.execute(f'USE {schema};')
-                mycursor.execute(sql)
-                mydb.commit()
-                mycursor.close()
-            mydb.close()
-            return 0
-        except Exception as err:
-            print(traceback.format_exc())
-            print(err)
-            return 1
-
     @staticmethod
     def userValidate(username, passwd):
         schema = db.load()[3]

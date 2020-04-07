@@ -547,29 +547,30 @@ class AdminPanel(wx.Panel):
 
     # Called when the Update button is clicked
     def updateReqButton_OnClick(self, evt):
-        db = DBManager
-        schema = db.load()[3]  # Grab the schema name from the DBManager's static load method
-        # Get row info
-        rowid = self.queueListCtrl.GetFirstSelected()
-        id = self.queueListCtrl.GetItemText(rowid, 0)
-        priority = self.changePriorityChoice.GetStringSelection()
-        status = self.changeStatusChoice.GetStringSelection()
-
-        # Set up values for the update method in Query class
-        query = Query()
-        dbname = f'{schema}.Support_Ticket'
-        if status != 'Completed':
-            set = f"priority = '{priority}', jobStatus = '{status}'"
+        if self.queueListCtrl.GetFirstSelected() == -1:
+            pass
         else:
-            set = f"priority = '{priority}', jobStatus = '{status}', completedBy = {Credentials.getUserId(self.username)[0][0]}"
-        cond = f"ticketId = {id}"
+            db = DBManager()
+            schema = db.load()[3]  # Grab the schema name from the DBManager's static load method
+            # Get row info
+            rowid = self.queueListCtrl.GetFirstSelected()
+            id = self.queueListCtrl.GetItemText(rowid, 0)
+            priority = self.changePriorityChoice.GetStringSelection()
+            status = self.changeStatusChoice.GetStringSelection()
 
-        if query.updateTable(dbname, set, cond) == 0:  # Make the query and perform logic on return value
-            msg = wx.MessageBox('Support request record was updated successfully.', 'Success')
-            self.refreshDB()
-        else:
-            msg = wx.MessageBox('Something went wrong. Make sure a list item was selected',
-                                'Error')
+            # Set up values for the update method in Query class
+            query = Query()
+            if status != 'Completed':
+                sql = f"UPDATE Support_Ticket SET priority = '{priority}', jobStatus = '{status}' WHERE ticketId = {id}"
+            else:
+                sql = f"UPDATE Support_Ticket SET priority = '{priority}', jobStatus = '{status}', completedBy = {Credentials.getUserId(self.username)[0][0]} WHERE ticketId = {id}"
+
+            if query.genericQuery(sql, False) != 1:  # Make the query and perform logic on return value
+                msg = wx.MessageBox('Support request record was updated successfully.', 'Success')
+                self.refreshDB()
+            else:
+                msg = wx.MessageBox('Something went wrong. Make sure a list item was selected',
+                                    'Error')
 
     # Actual event handler for refresh buttons
     def refresh_OnClick(self, evt):

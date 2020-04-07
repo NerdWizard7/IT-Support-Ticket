@@ -540,16 +540,14 @@ class NotesEditor(wx.MiniFrame):
                 msg = wx.MessageBox('Something went wrong. Contact a system administrator immediately.',
                                     'Error')
         else:  # Not a new note
-            # Set up conditions for the update method in Query class
-            condition = f"ticketId = {self.id}"
-            set = f"text = '{json.dumps(text)}'"
-            dbname = f'{schema}.Note'
-            if query.updateTable(dbname, set, condition) == 0:  # Make the query
+            sql = f"UPDATE Note SET text = '{json.dumps(text)}' WHERE ticketId = {self.id}"
+            if query.genericQuery(sql, False) != 1:  # Make the query
                 msg = wx.MessageBox('Notes Updated Successcully!', 'Success!')
             else:
                 msg = wx.MessageBox('Something went wrong. Contact a system administrator immediately.',
                                     'Error')
         self.Close()
+
 
     # Cancel button
     def cancelButton_OnClick(self, evt):
