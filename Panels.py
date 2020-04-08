@@ -133,6 +133,7 @@ class ClientPanel(wx.Panel):
         typeLabel = wx.StaticText(self, -1, pos=(150, 10))
         typeLabel.SetLabel('Request Category:')
         self.typeCombo = wx.ComboBox(self, -1, pos=(150, 30), size=(100, 20))
+        self.typeCombo.SetMaxLength(15)
         for item in typeList:
             self.typeCombo.Append(item)  # Load typeCombo with items in typeList list
         typeBox.Add(typeLabel)

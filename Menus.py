@@ -7,6 +7,7 @@ import datetime
 from Format import ListFormat, Sorter
 from Credentials import Credentials
 import os, sys
+import traceback
 
 HIDDEN = False
 
@@ -71,16 +72,12 @@ class ReportGenerator(wx.MiniFrame):
         vsizer0.Add(self.CheckBox0)
         vsizer0.AddSpacer(15)
 
-        self.CheckBox1 = wx.CheckBox(panel, -1, 'Submitted Tickets')
+        self.CheckBox1 = wx.CheckBox(panel, -1, 'Incomplete Tickets')
         vsizer0.Add(self.CheckBox1)
         vsizer0.AddSpacer(15)
 
-        self.CheckBox2 = wx.CheckBox(panel, -1, 'Ticket Length')
+        self.CheckBox2 = wx.CheckBox(panel, -1, 'Graph')
         vsizer0.Add(self.CheckBox2)
-        vsizer0.AddSpacer(15)
-
-        self.CheckBox3 = wx.CheckBox(panel, -1, 'Graph')
-        vsizer0.Add(self.CheckBox3)
         sizer.Add(vsizer0, 1, wx.CENTER)
 
         sizer.AddStretchSpacer()
@@ -96,7 +93,7 @@ class ReportGenerator(wx.MiniFrame):
             self.generateLayout(startdate, enddate)
         except Exception as err:
             msg = wx.MessageBox('Please enter in YYYY-MM-DD format.', 'Invalid Date Format')
-            print(err)
+            traceback.print_exc()
 
     def generateLayout(self, start, end):
         printHead = f"For date range {start} - {end}:\n\n"
@@ -109,28 +106,53 @@ class ReportGenerator(wx.MiniFrame):
         sql = f"SELECT * FROM Support_Ticket WHERE submitDate BETWEEN '{start}' AND '{end}'"
         result = query.genericQuery(sql, False)
         if result != 1:
+            for item in result:
+                totalJobs += 1
+                if item[:][4] == 'Completed':
+                    completed += 1
+                elif item[:][4] == 'In Progress':
+                    inProgress += 1
+                elif item[:][4] == 'Halted':
+                    halted += 1
+                else:
+                    submitted += 1
+            printHead += f"Total Submitted Jobs: {totalJobs}\n\n" \
+                         f"Job Status\n" \
+                         f"----------------------------------------\n" \
+                         f"Submitted: {submitted}\n" \
+                         f"In Progress: {inProgress}\n" \
+                         f"Halted: {halted}\n" \
+                         f"Completed: {completed}\n\n"
             if self.RadioButton0.GetValue() == True:  # Numerical Report
-                for item in result:
-                    totalJobs += 1
-                    if item[:][4] == 'Completed':
-                        completed += 1
-                    elif item[:][4] == 'In Progress':
-                        inProgress += 1
-                    elif item[:][4] == 'Halted':
-                        halted += 1
-                    else:
-                        submitted += 1
-                printHead += f"Total Submitted Jobs: {totalJobs}\n\n" \
-                             f"Job Status\n" \
-                             f"----------------------------------------\n" \
-                             f"Submitted: {submitted}\n" \
-                             f"In Progress: {inProgress}\n" \
-                             f"Halted: {halted}\n" \
-                             f"Completed: {completed}\n\n" \
-
                 PrintMe.printPreview(self, printHead)
-            elif self.RadioButton1.GetValue() == False:
-                mse = wx.MessageBox('This feature is not yet implemented.', 'Under Construction')
+
+            elif self.RadioButton1.GetValue() == True:
+                if self.CheckBox0.IsChecked():
+                    printHead += f"\nCompleted Tickets: {completed}\n" \
+                                 "ID    NAME         DATE/TIME           CATEGORY        COMPLETED BY\n" \
+                                 "----- ------------ ------------------- --------------- ----------------\n"
+                    for item in result:
+                        if item[:][4] == 'Completed':
+                            printHead += f"{str(item[:][0]):5} {Credentials.getUsername(item[:][1]):12} " \
+                                         f"{str(item[:][2]):19} {item[:][3]:15} " \
+                                         f"{Credentials.getUsername(item[:][6]):16}\n"
+
+                if self.CheckBox1.IsChecked():
+                    printHead += f"\nIncomplete Tickets: {submitted + halted + inProgress}\n" \
+                                 "ID    NAME         DATE/TIME           CATEGORY\n" \
+                                 "----- ------------ ------------------- ---------------\n"
+                    for item in result:
+                        if item[:][4] != 'Completed':
+                            printHead += f"{str(item[:][0]):5} {Credentials.getUsername(item[:][1]):12} " \
+                                         f"{str(item[:][2]):19} {item[:][3]:15}\n"
+
+                if self.CheckBox2.IsChecked():
+                    printHead += f"\n Graphing is not implemented yet"
+
+                print(printHead)
+                win = DescViewer(self, f"Generated Report", printHead, size=self.Size)
+                win.Show()
+                win.SetFocus()
         else:
             msg = wx.MessageBox('There was an error generating the report. Try altering the date range and try again.',
                                 'Report Error')
@@ -410,6 +432,7 @@ class DescViewer(wx.MiniFrame):
         self.pdata.SetPaperId(wx.PAPER_LETTER)
         self.pdata.SetOrientation(wx.PORTRAIT)
         self.margins = (wx.Point(15, 15), wx.Point(15, 15))
+        font = wx.Font(10, wx.TELETYPE, wx.NORMAL, wx.NORMAL)
 
         # Visual Elements
         box = wx.BoxSizer(wx.VERTICAL)
@@ -419,6 +442,7 @@ class DescViewer(wx.MiniFrame):
                                        style=wx.TE_MULTILINE | wx.TE_WORDWRAP)
         self.descTxtCtrl.WriteText(desc)  # Write the description to the textbox
         self.descTxtCtrl.SetEditable(False)  # Make un-editable
+        self.descTxtCtrl.SetFont(font)
         box.Add(self.descTxtCtrl, 1, wx.EXPAND, 1)
 
         # Print Preview Button
@@ -547,7 +571,6 @@ class NotesEditor(wx.MiniFrame):
                 msg = wx.MessageBox('Something went wrong. Contact a system administrator immediately.',
                                     'Error')
         self.Close()
-
 
     # Cancel button
     def cancelButton_OnClick(self, evt):
