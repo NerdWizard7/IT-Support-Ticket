@@ -81,7 +81,7 @@ class ReportGenerator(wx.MiniFrame):
         sizer.Add(vsizer0, 1, wx.CENTER)
 
         sizer.AddStretchSpacer()
-        sizer.Add(self.button, 1, wx.CENTER)
+        sizer.Add(self.button, 0, wx.CENTER)
         sizer.AddSpacer(5)
 
         panel.SetSizerAndFit(sizer)

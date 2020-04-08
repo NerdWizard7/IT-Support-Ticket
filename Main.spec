@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['Main.py'],
-             pathex=['U:\\Python Projects\\IT-Support-Ticket'],
+             pathex=['C:\\Users\\Caleb Smith\\PycharmProjects\\IT-Support-Ticket'],
              binaries=[],
              datas=[('StickyHamsters32x32.ico', '.')],
              hiddenimports=[],
