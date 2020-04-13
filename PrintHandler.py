@@ -72,51 +72,51 @@ class PrintMe:
 
     # Page Setup Menu Item Event Handler
     @staticmethod
-    def pageSetup(ref):
+    def pageSetup(context):
         data = wx.PageSetupDialogData()  # Initialize data as a PageSetupDialogData object
-        data.SetPrintData(ref.pdata)  # Set the print data to self.pdata (declared at beginning)
+        data.SetPrintData(context.pdata)  # Set the print data to self.pdata (declared at beginning)
         data.SetDefaultMinMargins(True)  # Set default minimum margins to True
-        data.SetMarginTopLeft(ref.margins[0])  # Setup margins
-        data.SetMarginBottomRight(ref.margins[1])
-        dlg = wx.PageSetupDialog(ref, data)  # Open Page Setup Dialog
+        data.SetMarginTopLeft(context.margins[0])  # Setup margins
+        data.SetMarginBottomRight(context.margins[1])
+        dlg = wx.PageSetupDialog(context, data)  # Open Page Setup Dialog
         if dlg.ShowModal() == wx.ID_OK:  # If the user clicks OK...
             data = dlg.GetPageSetupData()  # Save settings in data
-            ref.pdata = wx.PrintData(data.GetPrintData())  # set self.pdata to the data entered in the dlg
-            ref.pdata.SetPaperId(data.GetPaperId())  # Set paper type from the dlg
-            ref.margins = (data.GetMarginTopLeft(),
+            context.pdata = wx.PrintData(data.GetPrintData())  # set self.pdata to the data entered in the dlg
+            context.pdata.SetPaperId(data.GetPaperId())  # Set paper type from the dlg
+            context.margins = (data.GetMarginTopLeft(),
                             data.GetMarginBottomRight())  # Margins from the dlg
         dlg.Destroy()
 
     # Print Preview Event Handler
     @staticmethod
-    def printPreview(ref, text):
-        data = wx.PrintDialogData(ref.pdata)  # Initialize data as a PrintDialogData object
-        printout1 = Print(text, "title", ref.margins)  # Set printout 1 and 2 to display the text
-        printout2 = print(text, "title", ref.margins)
+    def printPreview(context, text):
+        data = wx.PrintDialogData(context.pdata)  # Initialize data as a PrintDialogData object
+        printout1 = Print(text, "title", context.margins)  # Set printout 1 and 2 to display the text
+        printout2 = print(text, "title", context.margins)
         preview = wx.PrintPreview(printout1, printout2, data)  # Set Preview Data
         if not preview.IsOk():  # If not preview.Ok (something went wrong)
             wx.MessageBox("Unable to create Print Preview!", "Error")  # Display an error window
         else:  # Everything worked
-            frame = wx.PreviewFrame(preview, ref, "Print Preview",
-                                    pos=ref.GetPosition(), size=(800, 500))  # Render the preview
+            frame = wx.PreviewFrame(preview, context, "Print Preview",
+                                    pos=context.GetPosition(), size=(800, 500))  # Render the preview
             frame.Initialize()  # Initialize the frame
             frame.Show()  # Show the window
 
     # Print Event Handler
     @staticmethod
-    def print(ref, text):
-        data = wx.PrintDialogData(ref.pdata)  # Initialize data as a PrintDialogData object
+    def print(context, text):
+        data = wx.PrintDialogData(context.pdata)  # Initialize data as a PrintDialogData object
         printer = wx.Printer(data)  # Deglare printer as a Printer object
-        printout = Print(text, "Title", ref.margins)  # Call Print class to handle the print job
+        printout = Print(text, "Title", context.margins)  # Call Print class to handle the print job
         useSetupDialog = True  # Tell the window to use the seutp dialog
         # If there is a print error...
-        if not printer.Print(ref, printout, useSetupDialog) and printer.GetLastError() == wx.PRINTER_ERROR:
+        if not printer.Print(context, printout, useSetupDialog) and printer.GetLastError() == wx.PRINTER_ERROR:
             wx.MessageBox("There was a problem printing.\n"
                           "Make sure your printer is set up correctly and try again.",
                           "Printing Error", wx.OK)  # Print error window
         else:  # No Error
             data = printer.GetPrintDialogData()  # Store PrintDialogData from window in data
-            ref.pdata = wx.PrintData(data.GetPrintData())  # Write settings to self.pdata
+            context.pdata = wx.PrintData(data.GetPrintData())  # Write settings to self.pdata
         printout.Destroy()
 # End PrintMe Class
 
