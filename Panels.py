@@ -628,12 +628,15 @@ class AdminPanel(wx.Panel):
 
     # Called when you click on Notes Button
     def addNotes_OnClick(self, evt):
-        select = self.queueListCtrl.GetFirstSelected()  # Get the row
-        # If you acually selected an item...
-        if not select == -1:
-            id = self.queueListCtrl.GetItemText(select)  # Get item id
-            # Create a NotesEditor object called win, and pass it the id
-            win = NotesEditor(self, 'Notes Editor', id, pos=wx.DefaultPosition, size=(500, 500),
-                              style=wx.DEFAULT_FRAME_STYLE)
-            win.Show(True)  # Show the editor
-            self.refreshDB()  # Refresh the database after closed
+        if self.queueListCtrl.GetFirstSelected() == -1:
+            pass
+        else:
+            select = self.queueListCtrl.GetFirstSelected()  # Get the row
+            # If you acually selected an item...
+            if not select == -1:
+                id = self.queueListCtrl.GetItemText(select)  # Get item id
+                # Create a NotesEditor object called win, and pass it the id
+                win = NotesEditor(self, 'Notes Editor', id, pos=wx.DefaultPosition, size=(500, 500),
+                                  style=wx.DEFAULT_FRAME_STYLE)
+                win.Show(True)  # Show the editor
+                self.refreshDB()  # Refresh the database after closed
