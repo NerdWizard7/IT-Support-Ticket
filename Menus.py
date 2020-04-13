@@ -192,6 +192,7 @@ class UserManagement(wx.MiniFrame):
         textsizer1v1 = wx.BoxSizer(wx.VERTICAL)
         usernameLabel = wx.StaticText(panel, -1, 'Username: ')
         self.usernameTxtCtrl = wx.TextCtrl(panel, -1)
+        self.usernameTxtCtrl.SetMaxLength(12)
         textsizer1v1.Add(usernameLabel)
         textsizer1v1.Add(self.usernameTxtCtrl)
         textsizer1.Add(textsizer1v1)
@@ -244,9 +245,10 @@ class UserManagement(wx.MiniFrame):
 
         textsizer3v2 = wx.BoxSizer(wx.VERTICAL)
         accessLevelLabel = wx.StaticText(panel, -1, 'Access Level:')
-        self.accessLevelTxtCtrl = wx.TextCtrl(panel, -1)
+        accessLevels = ['Standard User', 'Technician', 'Administrator']
+        self.accessLevelChoice = wx.Choice(panel, -1, choices=accessLevels)
         textsizer3v2.Add(accessLevelLabel)
-        textsizer3v2.Add(self.accessLevelTxtCtrl)
+        textsizer3v2.Add(self.accessLevelChoice)
         textsizer3.Add(textsizer3v2)
         textsizer3.AddSpacer(10)
 
@@ -292,6 +294,24 @@ class UserManagement(wx.MiniFrame):
                 tup = user[:5] + ('Standard User',) + user[6:]
             self.userList.Append(tup)
 
+    @staticmethod
+    def GetAccessChoice(choicestring):
+        if choicestring == 'Standard User':
+            return 1
+        elif choicestring == 'Technician':
+            return 2
+        else:
+            return 3
+
+    @staticmethod
+    def GetAccessChoiceString(choiceint):
+        if choiceint == 1:
+            return 'Standard User'
+        elif choiceint == 2:
+            return 'Technician'
+        else:
+            return 'Administrator'
+
     def updateButton_OnClick(self, evt):
         if self.GetListCtrl().GetFirstSelected() == -1:
             pass
@@ -306,14 +326,14 @@ class UserManagement(wx.MiniFrame):
                       f"firstName = '{self.firstNameTxtCtrl.GetValue()}', "\
                       f"lastName = '{self.lastNameTxtCtrl.GetValue()}', " \
                       f"passwordHash = '{Credentials.passwordHash(self.passwdTxtCtrl.GetValue())}', " \
-                      f"department = '{self.departmentTxtCtrl.GetValue()}', isAdmin = {1 if int(self.accessLevelTxtCtrl.GetValue()) > 1 else 0}, " \
-                      f"accessLevel = {self.accessLevelTxtCtrl.GetValue()} WHERE userId = {userId}"
+                      f"department = '{self.departmentTxtCtrl.GetValue()}', isAdmin = {1 if self.GetAccessChoice(self.accessLevelChoice.GetStringSelection()) != 0 else 0}, " \
+                      f"accessLevel = {self.GetAccessChoice(self.accessLevelChoice.GetStringSelection())} WHERE userId = {userId}"
             else:  # User didn't enter any password; Don't change it.
                 sql = f"UPDATE User SET username = '{self.usernameTxtCtrl.GetValue()}', " \
                       f"firstName = '{self.firstNameTxtCtrl.GetValue()}', " \
                       f"lastName = '{self.lastNameTxtCtrl.GetValue()}', " \
-                      f"department = '{self.departmentTxtCtrl.GetValue()}', isAdmin = {1 if int(self.accessLevelTxtCtrl.GetValue()) > 1 else 0}, " \
-                      f"accessLevel = {self.accessLevelTxtCtrl.GetValue()} WHERE userId = {userId}"
+                      f"department = '{self.departmentTxtCtrl.GetValue()}', isAdmin = {1 if self.GetAccessChoice(self.accessLevelChoice.GetStringSelection()) != 0 else 0}, " \
+                      f"accessLevel = {self.GetAccessChoice(self.accessLevelChoice.GetStringSelection())} WHERE userId = {userId}"
             if query.genericQuery(sql, False) == 1:
                 msg = wx.MessageBox('There was an issue with your query. Make sure all boxes are filled.',
                                     'User Update Error')
@@ -328,8 +348,8 @@ class UserManagement(wx.MiniFrame):
               f"'{self.firstNameTxtCtrl.GetValue()}', '{self.lastNameTxtCtrl.GetValue()}', " \
               f"'{Credentials.passwordHash(self.passwdTxtCtrl.GetValue())}', " \
               f"'{self.departmentTxtCtrl.GetValue()}', " \
-              f"{1 if int(self.accessLevelTxtCtrl.GetValue()) > 1 else 0}, " \
-              f"{int(self.accessLevelTxtCtrl.GetValue())});"
+              f"{1 if self.GetAccessChoice(self.accessLevelChoice.GetStringSelection()) != 0 else 0}, " \
+              f"{self.GetAccessChoice(self.accessLevelChoice.GetStringSelection())});"
         if query.genericQuery(sql, False) == 1:
             msg = wx.MessageBox('There was an issue with your query. Make sure all boxes are filled.',
                                     'Add User Error')
@@ -364,7 +384,7 @@ class UserManagement(wx.MiniFrame):
         self.firstNameTxtCtrl.SetValue(self.userList.GetItemText(rowid, 2))
         self.lastNameTxtCtrl.SetValue(self.userList.GetItemText(rowid, 3))
         self.departmentTxtCtrl.SetValue(self.userList.GetItemText(rowid, 4))
-        self.accessLevelTxtCtrl.SetValue(self.userList.GetItemText(rowid, 6))
+        self.accessLevelChoice.SetStringSelection(self.GetAccessChoiceString(int(self.userList.GetItemText(rowid, 6))))
         self.passwdTxtCtrl.SetValue('')
 
 class DatabaseMenu(wx.MiniFrame):

@@ -123,7 +123,7 @@ class PrintMe:
 class PrintFormat:
 
     __printHeader = 'ID    NAME         DATE/TIME           CATEGORY        PRIORTY    STATUS      HIDE\n' \
-                           '----- ------------ ------------------- --------------- ---------- ----------- ----\n'
+                    '----- ------------ ------------------- --------------- ---------- ----------- ----\n'
 
     @staticmethod
     def getPrintHeader():
