@@ -4,6 +4,7 @@ from pathlib import Path
 import os
 import sys
 
+
 platform = sys.platform  # Set platform to the string value returned by sys.platform (win32, darwin, linux, cigwin)
 
 # OS detection logic
@@ -14,7 +15,9 @@ else:  # Computer is a unix or macOS machine
     dir = rf'{Path.home()}/ITSupportClient'  # Store config files in user's home directory
     filePath = rf'{dir}/dbconfig.cfg'  # Set the filepath with a / for macOS / Unix
 
-class DBManager():
+
+class DBManager:
+
     # Gets all of the db settings from the dbconfig.cfg file. This is called when the program loads
     @staticmethod
     def load():

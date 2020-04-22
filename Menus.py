@@ -8,6 +8,7 @@ from Format import ListFormat, Sorter
 from Credentials import Credentials
 import os, sys
 import traceback
+import threading
 
 HIDDEN = False
 
@@ -81,6 +82,12 @@ class ReportGenerator(wx.MiniFrame):
         sizer.Add(vsizer0, 1, wx.CENTER)
 
         sizer.AddStretchSpacer()
+
+        self.gauge = wx.Gauge(panel, -1, 200)
+        sizer.Add(self.gauge, 0, wx.CENTER)
+        sizer.AddSpacer(5)
+
+        sizer.AddStretchSpacer()
         sizer.Add(self.button, 0, wx.CENTER)
         sizer.AddSpacer(5)
 
@@ -96,6 +103,8 @@ class ReportGenerator(wx.MiniFrame):
             traceback.print_exc()
 
     def generateLayout(self, start, end):
+        thread1 = threading.Thread(target=self.gauge.Pulse())
+        thread1.start()
         printHead = f"For date range {start} - {end}:\n\n"
         totalJobs = 0
         completed = 0
@@ -150,6 +159,7 @@ class ReportGenerator(wx.MiniFrame):
                     printHead += f"\n Graphing is not implemented yet"
 
                 print(printHead)
+                thread1.join()
                 win = DescViewer(self, f"Generated Report", printHead, size=self.Size)
                 win.Show()
                 win.SetFocus()
