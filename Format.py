@@ -6,7 +6,7 @@ class ListFormat:
         # Control Highlighting based on row values
         context.GetListCtrl().DeleteAllItems()
         for item in list:
-            # Really janky way to change b'\x01' to 'Yes', and 'No' respectively...
+            # Really dumb way to change b'\x01' to 'Yes', and 'No' respectively...
 
             if len(item[:]) == 7:
                 tup = item[:6] + ('Yes',) if item[:][6] == b'\x01' or item[:][6] == 'Yes' else item[:6] + ('No',)
@@ -25,7 +25,8 @@ class ListFormat:
                     context.GetListCtrl().Append(tup)  # Append the Item with normal background
             elif len(item[:]) == 8:  # Has CompletedBy field
                 tup = item[:7] + ('Yes',) if item[:][7] == b'\x01' or item[:][7] == 'Yes' else item[:7] + ('No',)
-                tup = tup[:2] + (Credentials.getUsername(tup[2]),) + tup[3:]
+                username = Credentials.getUsername(tup[2]) if tup[2] != None else 'None'
+                tup = tup[:2] + (username,) + tup[3:]
                 print(tup)
                 if tup[7] == 'Yes':  # If Hidden is marked True...
                     context.GetListCtrl().Append(tup)  # Append the item...
