@@ -653,7 +653,7 @@ class QueueViewer(wx.MiniFrame):
         # Set Up Printing Data
         self.pdata = wx.PrintData()
         self.pdata.SetPaperId(wx.PAPER_LETTER)
-        self.pdata.SetOrientation(wx.PORTRAIT)
+        self.pdata.SetOrientation(wx.LANDSCAPE)
         self.margins = (wx.Point(15, 15), wx.Point(15, 15))
 
     def GetListCtrl(self):
@@ -684,9 +684,29 @@ class QueueViewer(wx.MiniFrame):
         #   self.queueListCtrl.Append(item[:])
         ListFormat.listwriter(self, result)
 
+    @staticmethod
+    def getSpacing(col):  # Special version of this method from PrintHandler. This deals with the extra column.
+        if col == 0:
+            return '5'
+        elif col == 1:
+            return '12'
+        elif col == 2:
+            return '12'
+        elif col == 3:
+            return '19'
+        elif col == 4:
+            return '15'
+        elif col == 5:
+            return '10'
+        elif col == 6:
+            return '11'
+        else:
+            return '4'
+
     # Print Preview Event Handler
     def printPreview_OnClick(self, event):
-        text = PrintFormat.getPrintHeader()
+        text = 'ID    NAME         COMPLETED BY DATE/TIME           CATEGORY        PRIORTY    STATUS      HIDE\n' \
+               '----- ------------ ------------ ------------------- --------------- ---------- ----------- ----\n'
         # Get row and column count
         rowcount = self.queueListCtrl.GetItemCount()
         colcount = self.queueListCtrl.GetColumnCount()
@@ -696,11 +716,12 @@ class QueueViewer(wx.MiniFrame):
                 if col == colcount - 1:
                     text += self.queueListCtrl.GetItemText(row, col) + '\n'
                 else:  # Get contents of the queue
-                    text += f'{self.queueListCtrl.GetItemText(row, col):{PrintFormat.getSpacing(col)}} '
+                    text += f'{self.queueListCtrl.GetItemText(row, col):{self.getSpacing(col)}} '
         PrintMe.printPreview(self, text)  # Send text to be rendered in the preview
     # Print Event Handler
     def print_OnClick(self, event):
-        text = PrintFormat.getPrintHeader()
+        text = 'ID    NAME         COMPLETED BY DATE/TIME           CATEGORY        PRIORTY    STATUS      HIDE\n' \
+               '----- ------------ ------------ ------------------- --------------- ---------- ----------- ----\n'
         # Get row and column count
         rowcount = self.queueListCtrl.GetItemCount()
         colcount = self.queueListCtrl.GetColumnCount()
@@ -710,5 +731,5 @@ class QueueViewer(wx.MiniFrame):
                 if col == colcount - 1:
                     text += self.queueListCtrl.GetItemText(row, col) + '\n'
                 else:  # Get contents of the queue
-                    text += f'{self.queueListCtrl.GetItemText(row, col):{PrintFormat.getSpacing(col)}}'
+                    text += f'{self.queueListCtrl.GetItemText(row, col):{str(int(self.getSpacing(col)) + 1)}}'
         PrintMe.print(self, text)  # Send text to printer

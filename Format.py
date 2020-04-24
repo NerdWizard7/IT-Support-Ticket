@@ -25,7 +25,7 @@ class ListFormat:
                     context.GetListCtrl().Append(tup)  # Append the Item with normal background
             elif len(item[:]) == 8:  # Has CompletedBy field
                 tup = item[:7] + ('Yes',) if item[:][7] == b'\x01' or item[:][7] == 'Yes' else item[:7] + ('No',)
-                username = Credentials.getUsername(tup[2]) if tup[2] != None else 'None'
+                username = Credentials.getUsername(tup[2]) if tup[2] != None else '----'
                 tup = tup[:2] + (username,) + tup[3:]
                 print(tup)
                 if tup[7] == 'Yes':  # If Hidden is marked True...
