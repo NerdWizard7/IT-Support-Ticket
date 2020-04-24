@@ -1,3 +1,5 @@
+from Credentials import Credentials
+
 class ListFormat:
     @staticmethod
     def listwriter(context, list):
@@ -5,22 +7,38 @@ class ListFormat:
         context.GetListCtrl().DeleteAllItems()
         for item in list:
             # Really janky way to change b'\x01' to 'Yes', and 'No' respectively...
-            tup = item[:6] + ('Yes',) if item[:][6] == b'\x01' or item[:][6] == 'Yes' else item[:6] + ('No',)
-            print(tup)
-            if tup[6] == 'Yes':  # If Hidden is marked True...
-                context.GetListCtrl().Append(tup)  # Append the item...
-                context.GetListCtrl().SetItemTextColour(context.GetListCtrl().GetItemCount() - 1, 'Light Grey')  # Grey it out
-            elif tup[5] != 'Submitted':  # fifth index (job status) is 'Submitted'
-                status = tup[5]
-                context.GetListCtrl().Append(tup)
-                if status == 'Completed':  # job Status is 'Completed'
-                    context.GetListCtrl().SetItemBackgroundColour(context.GetListCtrl().GetItemCount() - 1, 'Lime Green')
-                elif status == 'In Progress':  # job Status is 'In Progress'
-                    context.GetListCtrl().SetItemBackgroundColour(context.GetListCtrl().GetItemCount() - 1, 'Yellow')
-                elif status == 'Halted':# job Status is 'Halted'
-                    context.GetListCtrl().SetItemBackgroundColour(context.GetListCtrl().GetItemCount() - 1, 'Red')
-            else:
-                context.GetListCtrl().Append(tup)  # Append the Item with normal background
+
+            if len(item[:]) == 7:
+                tup = item[:6] + ('Yes',) if item[:][6] == b'\x01' or item[:][6] == 'Yes' else item[:6] + ('No',)
+                print(tup)
+                if tup[6] == 'Yes':  # If Hidden is marked True...
+                    context.GetListCtrl().Append(tup)  # Append the item...
+                    context.GetListCtrl().SetItemTextColour(context.GetListCtrl().GetItemCount() - 1, 'Light Grey')  # Grey it out
+                elif tup[5] != 'Submitted':  # fifth index (job status) is 'Submitted'
+                    status = tup[5]
+                    context.GetListCtrl().Append(tup)
+                    if status == 'In Progress':  # job Status is 'In Progress'
+                        context.GetListCtrl().SetItemBackgroundColour(context.GetListCtrl().GetItemCount() - 1, 'Yellow')
+                    elif status == 'Halted':# job Status is 'Halted'
+                        context.GetListCtrl().SetItemBackgroundColour(context.GetListCtrl().GetItemCount() - 1, 'Red')
+                else:
+                    context.GetListCtrl().Append(tup)  # Append the Item with normal background
+            elif len(item[:]) == 8:  # Has CompletedBy field
+                tup = item[:7] + ('Yes',) if item[:][7] == b'\x01' or item[:][7] == 'Yes' else item[:7] + ('No',)
+                tup = tup[:2] + (Credentials.getUsername(tup[2]),) + tup[3:]
+                print(tup)
+                if tup[7] == 'Yes':  # If Hidden is marked True...
+                    context.GetListCtrl().Append(tup)  # Append the item...
+                    context.GetListCtrl().SetItemTextColour(context.GetListCtrl().GetItemCount() - 1, 'Light Grey')  # Grey it out
+                elif tup[6] != 'Submitted':  # fifth index (job status) is 'Submitted'
+                    status = tup[6]
+                    context.GetListCtrl().Append(tup)
+                    if status == 'In Progress':  # job Status is 'In Progress'
+                        context.GetListCtrl().SetItemBackgroundColour(context.GetListCtrl().GetItemCount() - 1, 'Yellow')
+                    elif status == 'Halted':# job Status is 'Halted'
+                        context.GetListCtrl().SetItemBackgroundColour(context.GetListCtrl().GetItemCount() - 1, 'Red')
+                else:
+                    context.GetListCtrl().Append(tup)  # Append the Item with normal background
 
 class Sorter:
     @staticmethod
