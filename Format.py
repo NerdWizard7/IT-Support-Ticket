@@ -39,9 +39,9 @@ class ListFormat:
                     status = tup[6]
                     context.GetListCtrl().Append(tup)
                     if status == 'In Progress':  # job Status is 'In Progress'
-                        context.GetListCtrl().SetItemBackgroundColour(context.GetListCtrl().GetItemCount() - 1, 'Yellow')
+                        context.GetListCtrl().SetItemBackgroundColour(context.GetListCtrl().GetItemCount() - 1, 'Lime Green')
                     elif status == 'Halted':# job Status is 'Halted'
-                        context.GetListCtrl().SetItemBackgroundColour(context.GetListCtrl().GetItemCount() - 1, 'Red')
+                        context.GetListCtrl().SetItemBackgroundColour(context.GetListCtrl().GetItemCount() - 1, 'Yellow')
                 else:
                     context.GetListCtrl().Append(tup)  # Append the Item with normal background
 
