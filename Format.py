@@ -14,13 +14,17 @@ class ListFormat:
                 if tup[6] == 'Yes':  # If Hidden is marked True...
                     context.GetListCtrl().Append(tup)  # Append the item...
                     context.GetListCtrl().SetItemTextColour(context.GetListCtrl().GetItemCount() - 1, 'Light Grey')  # Grey it out
+                elif tup[5] == 'Submitted':  # fifth index (job status) is 'Submitted'
+                    status = tup[5]
+                    context.GetListCtrl().Append(tup)
+                    context.GetListCtrl().SetItemBackgroundColour(context.GetListCtrl().GetItemCount() - 1, 'Light Blue')
                 elif tup[5] != 'Submitted':  # fifth index (job status) is 'Submitted'
                     status = tup[5]
                     context.GetListCtrl().Append(tup)
                     if status == 'In Progress':  # job Status is 'In Progress'
-                        context.GetListCtrl().SetItemBackgroundColour(context.GetListCtrl().GetItemCount() - 1, 'Yellow')
+                        context.GetListCtrl().SetItemBackgroundColour(context.GetListCtrl().GetItemCount() - 1, 'Lime Green')
                     elif status == 'Halted':# job Status is 'Halted'
-                        context.GetListCtrl().SetItemBackgroundColour(context.GetListCtrl().GetItemCount() - 1, 'Red')
+                        context.GetListCtrl().SetItemBackgroundColour(context.GetListCtrl().GetItemCount() - 1, 'Yellow')
                 else:
                     context.GetListCtrl().Append(tup)  # Append the Item with normal background
             elif len(item[:]) == 8:  # Has CompletedBy field
