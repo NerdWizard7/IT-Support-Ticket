@@ -171,6 +171,7 @@ class MainApp(wx.Frame):
         for i in range(len(self.winStack)):
             self.winStack[i].Hide()
         self.winStack[len(self.winStack) - 1].Show()
+        self.winStack[len(self.winStack) - 1].SetFocus()
 
         self.shownPanel = self.winStack[len(self.winStack) - 1]  # Get the current shown panel object
         self.shownName = self.shownPanel.GetName()
