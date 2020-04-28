@@ -43,7 +43,8 @@ class ListFormat:
                     elif status == 'Halted':# job Status is 'Halted'
                         context.GetListCtrl().SetItemBackgroundColour(context.GetListCtrl().GetItemCount() - 1, 'Yellow')
                 else:
-                    context.GetListCtrl().Append(tup)  # Append the Item with normal background
+                    context.GetListCtrl().Append(tup)
+                    context.GetListCtrl().SetItemBackgroundColour(context.GetListCtrl().GetItemCount() - 1,'Light Blue')
 
 class Sorter:
     @staticmethod
