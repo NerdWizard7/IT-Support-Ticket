@@ -41,6 +41,8 @@ class AdminLogin(wx.Panel):
         wx.Panel.__init__(self, size=parent.Size, parent=parent)
         self.title = 'Administrator Login'
 
+        self.parent = parent
+
         sizer = wx.BoxSizer(wx.VERTICAL)
 
         userNameLabel = wx.StaticText(self, -1, 'Username')
@@ -49,8 +51,8 @@ class AdminLogin(wx.Panel):
         self.passwdTxtCtrl = wx.TextCtrl(self, -1, size=(300, 20), style=wx.TE_PASSWORD)
 
         self.loginButton = wx.Button(self, 20, 'Login')
-        self.Bind(wx.EVT_BUTTON, lambda event: parent.login_OnClick(event, self.userNameTextCtrl.GetValue(),
-                                                      self.passwdTxtCtrl.GetValue()), self.loginButton)
+
+        self.Bind(wx.EVT_BUTTON, self.login_OnClick, self.loginButton)
         self.mainMenuButton = wx.Button(self, -1, 'Main Menu')
         self.Bind(wx.EVT_BUTTON, parent.mainMenu_OnClick, self.mainMenuButton)
 
@@ -68,10 +70,19 @@ class AdminLogin(wx.Panel):
 
         parent.SetSizer(sizer)
 
+    def login_OnClick(self, evt):
+        u = self.userNameTextCtrl.GetValue()
+        p = self.passwdTxtCtrl.GetValue()
+        self.userNameTextCtrl.Clear()
+        self.passwdTxtCtrl.Clear()
+        self.parent.login_OnClick(20, u, p)
+
 class ClientLogin(wx.Panel):
     def __init__(self, parent):
         wx.Panel.__init__(self, size=parent.Size, parent=parent)
         self.title = 'Client Login'
+
+        self.parent = parent
 
         sizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -81,8 +92,8 @@ class ClientLogin(wx.Panel):
         self.passwdTxtCtrl = wx.TextCtrl(self, -1, size=(300, 20), style=wx.TE_PASSWORD)
 
         self.loginButton = wx.Button(self, 10, 'Login')
-        self.Bind(wx.EVT_BUTTON, lambda event: parent.login_OnClick(event, self.userNameTextCtrl.GetValue(),
-                                                      self.passwdTxtCtrl.GetValue()), self.loginButton)
+
+        self.Bind(wx.EVT_BUTTON, self.login_OnClick, self.loginButton)
         self.mainMenuButton = wx.Button(self, -1, 'Main Menu')
         self.Bind(wx.EVT_BUTTON, parent.mainMenu_OnClick, self.mainMenuButton)
 
@@ -99,6 +110,13 @@ class ClientLogin(wx.Panel):
         sizer.AddStretchSpacer()
 
         parent.SetSizer(sizer)
+
+    def login_OnClick(self, evt):
+        u = self.userNameTextCtrl.GetValue()
+        p = self.passwdTxtCtrl.GetValue()
+        self.userNameTextCtrl.Clear()
+        self.passwdTxtCtrl.Clear()
+        self.parent.login_OnClick(10, u, p)
 
 class ClientPanel(wx.Panel):
     # Default Constructor

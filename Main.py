@@ -124,8 +124,7 @@ class MainApp(wx.Frame):
         win.Show(True)
         win.SetFocus()
 
-    def login_OnClick(self, evt, u, p):
-        id = evt.GetEventObject().GetId()
+    def login_OnClick(self, id, u, p):
         if id == 10:
             print('Client')
             valid = Credentials.passwordHasher(u, p)
