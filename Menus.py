@@ -2,13 +2,12 @@ import wx.lib.editor as editor
 import json
 import wx
 from DB import Query, DBManager
-from PrintHandler import PrintMe, PrintFormat
+from PrintHandler import PrintMe
 import datetime
 from Format import ListFormat, Sorter
 from Credentials import Credentials
 import os, sys
 import traceback
-import threading
 
 HIDDEN = False
 
@@ -24,6 +23,8 @@ class ReportGenerator(wx.MiniFrame):
         wx.MiniFrame.__init__(self, parent, -1, title, pos, size, style)
         panel = wx.Panel(self, -1)
         self.SetIcon(wx.Icon(resource_path('StickyHamsters32x32.ico')))
+
+        self.count = 0
 
         # Set Up Printing Data
         self.pdata = wx.PrintData()
@@ -83,7 +84,7 @@ class ReportGenerator(wx.MiniFrame):
 
         sizer.AddStretchSpacer()
 
-        self.gauge = wx.Gauge(panel, -1, 200)
+        self.gauge = wx.Gauge(panel, -1)
         sizer.Add(self.gauge, 0, wx.CENTER)
         sizer.AddSpacer(5)
 
@@ -102,9 +103,13 @@ class ReportGenerator(wx.MiniFrame):
             msg = wx.MessageBox('Please enter in YYYY-MM-DD format.', 'Invalid Date Format')
             traceback.print_exc()
 
+    def updateProgress(self, size):
+        self.count += 1
+        if self.count >= size:
+            self.count = 0
+        self.gauge.SetValue(self.count)
+
     def generateLayout(self, start, end):
-        thread1 = threading.Thread(target=self.gauge.Pulse())
-        thread1.start()
         printHead = f"For date range {start} - {end}:\n\n"
         totalJobs = 0
         completed = 0
@@ -114,6 +119,8 @@ class ReportGenerator(wx.MiniFrame):
         query = Query()
         sql = f"SELECT * FROM Support_Ticket WHERE submitDate BETWEEN '{start}' AND '{end}'"
         result = query.genericQuery(sql, False)
+        resultSize = len(result)
+        self.gauge.SetRange(resultSize)
         if result != 1:
             for item in result:
                 totalJobs += 1
@@ -145,6 +152,7 @@ class ReportGenerator(wx.MiniFrame):
                             printHead += f"{str(item[:][0]):5} {Credentials.getUsername(item[:][1]):12} " \
                                          f"{str(item[:][2]):19} {item[:][3]:15} " \
                                          f"{Credentials.getUsername(item[:][6]):16}\n"
+                        self.updateProgress(resultSize)
 
                 if self.CheckBox1.IsChecked():
                     printHead += f"\nIncomplete Tickets: {submitted + halted + inProgress}\n" \
@@ -154,12 +162,12 @@ class ReportGenerator(wx.MiniFrame):
                         if item[:][4] != 'Completed':
                             printHead += f"{str(item[:][0]):5} {Credentials.getUsername(item[:][1]):12} " \
                                          f"{str(item[:][2]):19} {item[:][3]:15}\n"
+                        self.updateProgress(resultSize)
 
                 if self.CheckBox2.IsChecked():
                     printHead += f"\n Graphing is not implemented yet"
 
                 print(printHead)
-                thread1.join()
                 win = DescViewer(self, f"Generated Report", printHead, size=self.Size)
                 win.Show()
                 win.SetFocus()
