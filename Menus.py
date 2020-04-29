@@ -2,7 +2,7 @@ import wx.lib.editor as editor
 import json
 import wx
 from DB import Query, DBManager
-from PrintHandler import PrintMe
+from PrintHandler import PrintMe, PrintFormat
 import datetime
 from Format import ListFormat, Sorter
 from Credentials import Credentials
@@ -98,6 +98,7 @@ class ReportGenerator(wx.MiniFrame):
         try:
             startdate = datetime.datetime.strptime(self.textBox0.GetValue(), '%Y-%m-%d')
             enddate = datetime.datetime.strptime(self.textBox1.GetValue(), '%Y-%m-%d')
+            self.count = 0
             self.generateLayout(startdate, enddate)
         except Exception as err:
             msg = wx.MessageBox('Please enter in YYYY-MM-DD format.', 'Invalid Date Format')
@@ -165,7 +166,16 @@ class ReportGenerator(wx.MiniFrame):
                         self.updateProgress(resultSize)
 
                 if self.CheckBox2.IsChecked():
-                    printHead += f"\n Graphing is not implemented yet"
+                    graphBarChar = u'\u2587'
+                    maxValue = max([submitted, inProgress, halted, completed])
+                    scaleFactor = 30 / maxValue
+                    printHead += f"\nGraphs\n" \
+                         f"-------------\n" \
+                         f"Submitted:  |{graphBarChar * int(submitted * scaleFactor)}\n\n" \
+                         f"In Progress:|{graphBarChar * int(inProgress * scaleFactor)}\n\n" \
+                         f"Halted:     |{graphBarChar * int(halted * scaleFactor)}\n\n" \
+                         f"Completed:  |{graphBarChar * int(completed * scaleFactor)}\n" \
+                         f"-------------"
 
                 print(printHead)
                 win = DescViewer(self, f"Generated Report", printHead, size=self.Size)
