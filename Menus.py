@@ -772,5 +772,19 @@ class HelpMenu(wx.MiniFrame):
         sizer.Add(HelpDetail2, 0, wx.CENTER)
         HelpDetail3 = wx.StaticText(panel, -1, 'Office: Caleb Smith, Plaster Hall 208')
         sizer.Add(HelpDetail3, 0, wx.CENTER)
+        sizer.AddStretchSpacer()
+        self.EmptyText = wx.StaticText(panel, -1)
+        sizer.Add(self.EmptyText, 0, wx.CENTER)
         panel.SetSizerAndFit(sizer)
+        self.QueryDBStatus()
+    def QueryDBStatus(self):
+        query = Query()
+        sql = "SELECT * FROM User WHERE userId=1"
+        result = query.genericQuery(sql, False)
+        if result != 1:
+            self.EmptyText.SetLabel('Database is up.')
+        else:
+            self.EmptyText.SetLabel('Database is down. Contact IT.')
+
+
 
