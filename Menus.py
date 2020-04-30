@@ -777,6 +777,7 @@ class HelpMenu(wx.MiniFrame):
         sizer.Add(self.EmptyText, 0, wx.CENTER)
         panel.SetSizerAndFit(sizer)
         self.QueryDBStatus()
+
     def QueryDBStatus(self):
         query = Query()
         sql = "SELECT * FROM User WHERE userId=1"
