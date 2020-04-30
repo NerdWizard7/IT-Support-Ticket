@@ -751,3 +751,26 @@ class QueueViewer(wx.MiniFrame):
                 else:  # Get contents of the queue
                     text += f'{self.queueListCtrl.GetItemText(row, col):{str(int(self.getSpacing(col)) + 1)}}'
         PrintMe.print(self, text)  # Send text to printer
+
+class HelpMenu(wx.MiniFrame):
+    def __init__(self, parent, title, pos=wx.DefaultPosition, size=wx.DefaultSize,
+                 style=wx.DEFAULT_FRAME_STYLE):
+        wx.MiniFrame.__init__(self, parent, -1, title, pos, size, style)
+        panel = wx.Panel(self, -1)
+        sizer = wx.BoxSizer(wx.VERTICAL)
+
+        font = wx.Font(21, wx.FONTFAMILY_ROMAN, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD)
+        HelpLabel = wx.StaticText(panel, -1, 'Help')
+        HelpLabel.SetFont(font)
+        sizer.Add(HelpLabel, 0, wx.CENTER)
+        HelpText = wx.StaticText(panel, -1, 'Direct any issues/questions to one of the following:')
+        sizer.Add(HelpText, 0, wx.CENTER)
+        sizer.AddSpacer(20)
+        HelpDetail1 = wx.StaticText(panel, -1, 'Email: support@stickyhamster.com')
+        sizer.Add(HelpDetail1, 0, wx.CENTER)
+        HelpDetail2 = wx.StaticText(panel, -1, 'Call: 417-123-4567')
+        sizer.Add(HelpDetail2, 0, wx.CENTER)
+        HelpDetail3 = wx.StaticText(panel, -1, 'Office: Caleb Smith, Plaster Hall 208')
+        sizer.Add(HelpDetail3, 0, wx.CENTER)
+        panel.SetSizerAndFit(sizer)
+

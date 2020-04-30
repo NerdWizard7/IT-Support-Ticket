@@ -23,18 +23,29 @@ class MainMenu(wx.Panel):
         self.connectToDatabaseButton = wx.Button(self, -1, 'Connect to DB', size=(100, 30))
         self.Bind(wx.EVT_BUTTON, parent.connectToDb_OnClick, self.connectToDatabaseButton)
 
+        self.helpButton = wx.Button(self, -1, 'Help', size=(100,30))
+        self.Bind(wx.EVT_BUTTON, self.helpButton_OnClick, self.helpButton)
+
         # Add buttons to sizer
         sizer.AddStretchSpacer()
         sizer.Add(mainLabel, 0, wx.CENTER)
         sizer.AddStretchSpacer()
         sizer.Add(self.adminButton, 0, wx.CENTER)
+        sizer.AddSpacer(10)
         sizer.Add(self.clientButton, 0, wx.CENTER)
         sizer.AddStretchSpacer()
+        sizer.Add(self.helpButton, 0, wx.CENTER)
+        sizer.AddSpacer(10)
         sizer.Add(self.connectToDatabaseButton, 0, wx.CENTER)
         sizer.AddStretchSpacer()
 
+
         # Add sizer to panel
         self.SetSizer(sizer)
+    def helpButton_OnClick(self, evt):
+        win = HelpMenu(self, 'Help')
+        win.Show(True)
+        win.SetFocus()
 
 class AdminLogin(wx.Panel):
     def __init__(self, parent):
