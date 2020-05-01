@@ -168,7 +168,7 @@ class ReportGenerator(wx.MiniFrame):
                 if self.CheckBox2.IsChecked():
                     graphBarChar = u'\u2587'
                     maxValue = max([submitted, inProgress, halted, completed])
-                    scaleFactor = 30 / maxValue
+                    scaleFactor = 30 / maxValue if maxValue > 0 else 1
                     printHead += f"\nGraphs\n" \
                          f"-------------\n" \
                          f"Submitted:  |{graphBarChar * int(submitted * scaleFactor)}\n\n" \
@@ -301,7 +301,6 @@ class UserManagement(wx.MiniFrame):
         self.Bind(wx.EVT_BUTTON, self.removeUser_OnClick, self.removeUserButton)
 
         sizer.Add(buttonsizer, 1, wx.CENTER)
-
 
         panel.SetSizerAndFit(sizer)
 
@@ -568,7 +567,6 @@ class NotesEditor(wx.MiniFrame):
             self.overwrite = True
             self.ed.SetText(result)
 
-
     # Methods
 
     # Called to grab notes for a specific request
@@ -699,7 +697,7 @@ class QueueViewer(wx.MiniFrame):
         query = Query()
         result = query.genericQuery(self.sql, False)  # Make query with SQL code passed to default constructor
         #for item in result:
-        #   self.queueListCtrl.Append(item[:])
+        #self.queueListCtrl.Append(item[:])
         ListFormat.listwriter(self, result)
 
     @staticmethod
@@ -775,17 +773,17 @@ class HelpMenu(wx.MiniFrame):
         sizer.AddStretchSpacer()
         self.EmptyText = wx.StaticText(panel, -1)
         sizer.Add(self.EmptyText, 0, wx.CENTER)
+        sizer.AddStretchSpacer()
+
         panel.SetSizerAndFit(sizer)
+
         self.QueryDBStatus()
 
     def QueryDBStatus(self):
         query = Query()
-        sql = "SELECT * FROM User WHERE userId=1"
+        sql = "SELECT * FROM User LIMIT 1"
         result = query.genericQuery(sql, False)
         if result != 1:
             self.EmptyText.SetLabel('Database is up.')
         else:
             self.EmptyText.SetLabel('Database is down. Contact IT.')
-
-
-

@@ -12,7 +12,6 @@ class MainMenu(wx.Panel):
         mainLabel = wx.StaticText(self, -1, 'IT Support Ticket System')
         mainLabel.SetFont(font)
 
-
         # Buttons
         self.adminButton = wx.Button(self, -1, 'Admin', size=(300,30))
         self.Bind(wx.EVT_BUTTON, parent.button_OnClick, self.adminButton)
@@ -38,7 +37,6 @@ class MainMenu(wx.Panel):
         sizer.AddSpacer(10)
         sizer.Add(self.connectToDatabaseButton, 0, wx.CENTER)
         sizer.AddStretchSpacer()
-
 
         # Add sizer to panel
         self.SetSizer(sizer)
@@ -230,7 +228,6 @@ class ClientPanel(wx.Panel):
 
         self.Bind(wx.EVT_LIST_ITEM_ACTIVATED, self.listItem_OnClick, self.queueList)
         self.Bind(wx.EVT_LIST_COL_CLICK, self.listCol_OnClick, self.queueList)
-
 
         listBox.Add(self.queueList, 1, wx.EXPAND)
         listBox.AddSpacer(5)
